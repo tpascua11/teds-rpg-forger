@@ -1,26 +1,26 @@
 <template>
   <div class="areaList card" style="width: 10rem;">
     <div class="card-body">
-    <table>
-      <thead>
-        <tr>
-          <th>{{name}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in areaList" :key="item.name">
-          <div v-bind:style="[ item == selectedArea ? styleObject : {}]">
-            <td
-              v-on:click="selectNewArea(item)"
-              v-bind:class="classObject"
-             >
-              {{item.name}}
-            </td>
-          </div>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <table>
+        <thead>
+          <tr>
+            <th>{{name}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in areaList" :key="item.name">
+            <div v-bind:style="[ item == selectedArea ? styleObject : {}]">
+              <td
+                v-on:click="selectNewArea(item)"
+                v-bind:class="classObject"
+               >
+                {{item.name}}
+              </td>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
