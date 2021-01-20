@@ -1,14 +1,14 @@
 <template>
   <div class="row">
    <div class="col-6 col">
-      <table>
+      <table class="table">
         <thead>
           <tr>
-            <th style="width: 90%;"> Event </th>
-            <th style="width: 10%;"> Edit </th>
+            <th scope="col" style="width: 90%;"> Event </th>
+            <th scope="col" style="width: 10%;"> Edit </th>
           </tr>
         </thead>
-        <tbody>
+        <draggable v-model="templateActionList" tag="tbody">
           <tr v-for="(item, index) in templateActionList" :key="index">
             <td>{{item}}</td>
             <td>
@@ -17,11 +17,10 @@
               </button>
             </td>
           </tr>
-          <tr class="creator">
-            <td colspan=2> Test </td>
-          </tr>
-        </tbody>
+        </draggable>
+
       </table>
+
   </div>
   <div class="col-6 col">
     <div>
@@ -34,6 +33,8 @@
 
 <script>
 import ActionBuilder from '@/components/ActionBuilder.vue'
+import draggable from 'vuedraggable'
+
 
 export default {
   name: 'InteractionBuilder',
@@ -53,11 +54,18 @@ export default {
         lastName: 'Andersen',
         age: 27
       },
-      templateActionList: []
+      templateActionList: [],
+            list: [
+        { id: 1, name: "Abby", sport: "basket" },
+        { id: 2, name: "Brooke", sport: "foot" },
+        { id: 3, name: "Courtenay", sport: "volley" },
+        { id: 4, name: "David", sport: "rugby" }
+      ],
     }
   },
   components: {
     ActionBuilder,
+    draggable,
   },
   props: {
     name: String,
