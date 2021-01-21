@@ -19,8 +19,9 @@
             <tr v-for="(item, index) in currentInteraction.scriptList" :key="index">
               <td>{{item}}</td>
               <td>
-                <button v-on:click="removeAction(item)" class="btn-danger btn-small">
-                  X
+                <button v-on:click="removeAction(item)" class="btn-danger
+                  btn-small smallX">
+                  x
                 </button>
               </td>
             </tr>
@@ -81,6 +82,9 @@ export default {
       console.log(action);
     },
     insertNewAction(action){
+      if(!this.currentInteraction) return;
+      if(!this.currentInteraction.scriptList) return;
+
       this.currentInteraction.scriptList.push(action);
     },
     insertNewInteraction(interaction){
@@ -113,6 +117,10 @@ export default {
   border: 0;
   background-color: #E8E8E8;
 }
+.smallX{
+  font-size: 25px;
+}
+
 table {
   /* border: 1px solid black; */
   /*  border: none; */

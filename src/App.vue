@@ -7,7 +7,8 @@
       <div class="nav-brand">
         <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
-        <router-link to="/"      class="routerFont" > World Item     </router-link> |
+				<router-link to="/"      class="routerFont" > World Items     </router-link> |
+        <router-link to="/"      class="routerFont" > Save   </router-link> |
       </div>
     </nav>
     <div id="nav">
