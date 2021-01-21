@@ -55,12 +55,6 @@ export default {
         age: 27
       },
       templateActionList: [],
-            list: [
-        { id: 1, name: "Abby", sport: "basket" },
-        { id: 2, name: "Brooke", sport: "foot" },
-        { id: 3, name: "Courtenay", sport: "volley" },
-        { id: 4, name: "David", sport: "rugby" }
-      ],
     }
   },
   components: {
@@ -69,26 +63,19 @@ export default {
   },
   props: {
     name: String,
-    areaList: Array,
-    selectedArea: Object
+    currentInteraction: Object,
   },
   mounted(){
-			console.log("SEE THE AreaList", this.areaList);
   },
   methods:{
-    selectNewArea(newArea){
-      console.log(newArea);
-      //this.selectedArea.name = newArea.name;
-      this.$parent.selectNewArea(newArea);
-    },
-    isSelectedWorld(area){
-      return this.selectedArea == area;
-    },
     selectNewAction(action){
       console.log(action);
     },
     insertNewAction(action){
       this.templateActionList.push(action);
+    },
+    insertNewInteraction(interaction){
+      this.$parent.addInteraction(interaction);
     },
     removeAction(index){
       console.log(index);

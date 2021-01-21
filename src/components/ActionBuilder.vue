@@ -3,7 +3,7 @@
     <div class="col-4 col">
       <section v-for="item in actions" :key="item.name">
         <button v-on:click="selectNewAction(item)" class="btn-default btn-small btn-block">
-          {{item.name}}
+          {{item.eventName}}
         </button>
       </section>
     </div>
@@ -20,19 +20,28 @@
       <tbody>
         <tr v-for="(item, propertyName, index) in selectedAction"
           :key="propertyName">
-          <td> {{index}}</td>
-          <td style="width: 40%;"> {{propertyName}}</td>
+          <td v-if="propertyName != 'description'">
+            {{index}}
+          </td>
+          <td v-if="propertyName != 'description'" style="width: 40%;">
+            {{propertyName}}
+          </td>
 
-          <td v-if="item.type == 'string' && propertyName != 'eventName'" style="width: 60%;"> 
-            <input type="string" v-model="item.value" placeholder="...">
+          <td colspan=3 class="description" v-if="propertyName == 'description'">
+              <textarea class="descriptionTextArea" rows="4" type="string" v-model="item.value" placeholder="...">
+              </textarea>
           </td>
-          <td v-if="item.type == 'number'" style="width: 60%;">
-            <input type="number" v-model="item.value" placeholder="...">
+          <td v-else-if="item.type == 'string' && propertyName != 'eventName'" style="width: 60%;"> 
+            <input class="smallInput" type="string" v-model="item.value" placeholder="...">
           </td>
-          <td v-if="item.type == 'boolean'" style="width: 60%;">
+
+          <td v-else-if="item.type == 'number'" style="width: 60%;">
+            <input class="smallInput" type="number" v-model="item.value" placeholder="...">
+          </td>
+          <td v-else-if="item.type == 'boolean'" style="width: 60%;">
             BOOLEAN {{item.value}}
           </td>
-          <td v-if="propertyName === 'eventName'">
+          <td v-else-if="propertyName === 'eventName'">
             {{item.value}}
           </td>
         </tr>
@@ -67,14 +76,14 @@ export default {
       },
       action: {},
       selectedActionName: '',
-      selectedAction: {},
+      selectedAction: {description: ""},
     }
   },
   props: {
     name: String,
     selectedArea: Object
   },
-  mounted(){
+  mouned(){
 			console.log("SEE THE AreaList", this.areaList);
   },
   methods:{
@@ -87,13 +96,15 @@ export default {
       return this.selectedArea == area;
     },*/
     selectNewAction(action){
+      console.log("see action", action);
       this.selectedAction = {};
       //this.selectedAction = action;
       //temporary solution TODO: Redo if a chance
-      this.selectedActionName = action.name;
-      for (let property in action.template) {
+      this.selectedActionName = action.eventName;
+
+      for (let property in action) {
         this.selectedAction[property] =
-          {type: typeof action.template[property], value: action.template[property]}
+          {type: typeof action[property], value: action.[property]}
       }
       console.log('test action', this.selectedAction);
     },
@@ -121,6 +132,18 @@ export default {
 .creator{
   border: 1px solid black;
   background-color: #E8E8E8;
+}
+.smallInput{
+  height: 8px;
+  font-size: 14px;
+  border: 0;
+  background-color: #E8E8E8;
+}
+.description{
+  height:250px;
+}
+.descriptionTextArea{
+  font-size: 14px;
 }
 table {
   /* border: 1px solid black; */
@@ -155,6 +178,13 @@ a {
 p {
   font-size: 15px;
 }
+
+textarea {
+  box-sizing:border-box;
+  height: 100%;
+  width: 100%;
+}
+
 
 
 </style>

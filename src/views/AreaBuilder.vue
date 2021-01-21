@@ -22,7 +22,10 @@
 				<div class="row">
 					<div class="col-12 col bigbox"> <Description v-bind:area="selectedArea" /> </div>
 				</div>
-						<InteractionBuilder />
+				<InteractionList
+					v-bind:interactionList="selectedArea.interactionList"
+				/>
+				<InteractionBuilder v-bind:currentInteraction="selectedInteraction"/>
 			</div>
 			<!--
 			<div class="col-2 col"> </div>
@@ -38,6 +41,7 @@ import AreaList from '@/components/AreaList.vue'
 import Description from '@/components/Description.vue'
 import WorldLoadAndSave from '@/components/WorldLoadAndSave.vue'
 import InteractionBuilder from '@/components/InteractionBuilder.vue'
+import InteractionList from '@/components/InteractionList.vue'
 
 
 export default {
@@ -45,6 +49,9 @@ export default {
   data: function() {
     return {
 			selectedArea: {},
+			selectedInteraction: {},
+			testArray: [],
+			buddy: {testArray: []}
     };
   },
   components: {
@@ -52,6 +59,7 @@ export default {
 		Description,
 		WorldLoadAndSave,
 		InteractionBuilder,
+		InteractionList,
   },
   props: {
     world: Object
@@ -68,7 +76,13 @@ export default {
     selectNewArea(newArea){
 			this.selectedArea = newArea;
 			console.log("see selected", this.selectedArea);
-    }
+		},
+		addInteraction(interaction){
+			this.selectedArea.interactionList.push(interaction);
+		},
+		selectInteraction(interaction){
+			this.selectedInteraction = interaction;
+		}
   },
   mounted(){
       this.selectedArea;
