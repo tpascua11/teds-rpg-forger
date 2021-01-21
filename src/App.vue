@@ -2,12 +2,12 @@
   <div id="app">
     <nav class="border fixed split-nav">
       <div class="nav-brand">
-        <h3> Drago Book Maker</h3>
+        <h5> Drago Book Maker</h5>
       </div>
       <div class="nav-brand">
-        <router-link to="/area"> Area Builder </router-link> |
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
+        <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
+        <router-link to="/"      class="routerFont" > Status Effects </router-link> |
+        <router-link to="/"      class="routerFont" > World Item     </router-link> |
       </div>
     </nav>
     <div id="nav">
@@ -44,7 +44,7 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  padding: 20px;
 }
 
 #nav a {
@@ -54,5 +54,10 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.routerFont {
+  font-size: 15px;
+  border: none;
 }
 </style>

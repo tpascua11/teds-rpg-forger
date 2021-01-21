@@ -20,17 +20,17 @@
 
 			<div class="col-10 col">
 				<div class="row">
-					<div class="col-12 col bigbox"> <Description v-bind:area="selectedArea" /> </div>
+					<div class="col-12 col bigbox">
+						<Description v-bind:area="selectedArea" />
+					</div>
 				</div>
+
 				<InteractionList
 					v-bind:interactionList="selectedArea.interactionList"
 				/>
+
 				<InteractionBuilder v-bind:currentInteraction="selectedInteraction"/>
 			</div>
-			<!--
-			<div class="col-2 col"> </div>
-			<div class="col-4 col"> </div>
-			-->
     </div>
   </div>
 

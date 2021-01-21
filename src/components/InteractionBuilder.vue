@@ -1,25 +1,34 @@
 <template>
   <div class="row">
-   <div class="col-6 col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" style="width: 90%;"> Event </th>
-            <th scope="col" style="width: 10%;"> Edit </th>
-          </tr>
-        </thead>
-        <draggable v-model="templateActionList" tag="tbody">
-          <tr v-for="(item, index) in templateActionList" :key="index">
-            <td>{{item}}</td>
-            <td>
-              <button v-on:click="removeAction(item)" class="btn-danger btn-small">
-                X
-              </button>
-            </td>
-          </tr>
-        </draggable>
+    <div class="col-6 col">
+      <div class="row">
+        <div class="col-12 col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th colspan=2>
+                  <input class="smallInput" type="string" v-model="currentInteraction.name" placeholder="...">
+              </th>
+            </tr>
+            <tr>
+              <th scope="col" style="width: 90%;"> Script List</th>
+              <th scope="col" style="width: 10%;"> Edit </th>
+            </tr>
+          </thead>
+          <draggable v-model="currentInteraction.scriptList" tag="tbody">
+            <tr v-for="(item, index) in currentInteraction.scriptList" :key="index">
+              <td>{{item}}</td>
+              <td>
+                <button v-on:click="removeAction(item)" class="btn-danger btn-small">
+                  X
+                </button>
+              </td>
+            </tr>
+          </draggable>
 
-      </table>
+        </table>
+        </div>
+    </div>
 
   </div>
   <div class="col-6 col">
@@ -72,14 +81,14 @@ export default {
       console.log(action);
     },
     insertNewAction(action){
-      this.templateActionList.push(action);
+      this.currentInteraction.scriptList.push(action);
     },
     insertNewInteraction(interaction){
       this.$parent.addInteraction(interaction);
     },
     removeAction(index){
       console.log(index);
-      this.templateActionList.splice(index, 1);
+      this.currentInteraction.scriptList.splice(index, 1);
     }
   },
   computed: {
@@ -96,6 +105,12 @@ export default {
 <style scoped>
 .creator{
   border: 1px solid black;
+  background-color: #E8E8E8;
+}
+.smallInput{
+  height: 14px;
+  font-size: 18px;
+  border: 0;
   background-color: #E8E8E8;
 }
 table {
