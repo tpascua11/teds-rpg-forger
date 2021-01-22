@@ -150,6 +150,9 @@ export default {
   height: 25px;
   padding:0.1em
 }
+.leftside{
+  top:20px
+}
 table {
   /* border: 1px solid black; */
   /*  border: none; */

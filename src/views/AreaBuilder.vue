@@ -1,21 +1,29 @@
 <template>
 	<div class="areabuilder">
-		<div class="row">
-			<select v-model="selectedArea">
+		<div class="row areabuilderNav">
+			<button class="btn-default  smalldir titleNav">
+				Area Builder
+			</button>
+			<button class="btn-default space"/>
+			<select v-model="selectedArea" class="smalldir areaName">
 				<option v-for="(option, index) in world.areaList" v-bind:value="option" :key="index">
 					{{option.name}}
 				</option>
 			</select>
-
-			<button v-on:click="selectTab('area')" class="btn-default btn-small">
+			<button v-on:click="show()" class="btn-success smalldir smallNo">
+				Add
+			</button>
+			<button class="btn-default space"/>
+			<button v-on:click="selectTab('area')" class="btn-default smalldir">
 				Area
 			</button>
-			<button v-on:click="selectTab('interactions')" class="btn-default btn-small">
+			<button v-on:click="selectTab('interactions')" class="btn-default smalldir">
 				Interactions
 			</button>
-			<button v-on:click="selectTab('npcs')" class="btn-default btn-small">
+			<button v-on:click="selectTab('npcs')" class="btn-default smalldir">
 				NPCs
 			</button>
+
 		</div>
 
 		<div v-if="tab === 'area'" class="row">
@@ -40,17 +48,31 @@
 		</div>
 
 		<div v-if="tab === 'interactions'" class="row">
-				<div class="col-12 col">
-				<div class="row">
-				</div>
+			<div class="col-12 col">
 
 				<InteractionList
 					v-bind:interactionList="selectedArea.interactionList"
 				/>
 
-				<InteractionBuilder v-bind:currentInteraction="selectedInteraction"/>
+				<InteractionBuilder
+					v-bind:currentInteraction="selectedInteraction"
+				/>
 			</div>
-    </div>
+		</div>
+
+		<modal name="my-first-modal"
+			:width="300"
+			:height="300"
+		>
+				<center>
+					<h3> New Area </h3>
+					<input class="" type="string" v-model="newArea.name" placeholder="name">
+					<br>
+					<button v-on:click="createNewArea()" class="btn-default btn-small">
+						Create New Area
+					</button>
+				</center>
+    </modal>
   </div>
 
 </template>
@@ -72,6 +94,8 @@ export default {
 			testArray: [],
 			buddy: {testArray: []},
 			tab: 'interactions',
+			newArea: {name: ""},
+			newAreaname: "",
 		};
   },
   components: {
@@ -92,12 +116,13 @@ export default {
   methods:{
     test(){
       console.log("Parent CAlling");
-    },
+		},
+		selectTab(tab){
+			this.tab = tab;
+		},
     selectNewArea(newArea){
 			this.selectedArea = newArea;
 			console.log("see selected", this.selectedArea);
-		},
-		createNewArea(){
 		},
 		addInteraction(interaction){
 			this.selectedArea.interactionList.push(interaction);
@@ -105,10 +130,26 @@ export default {
 		selectInteraction(interaction){
 			this.selectedInteraction = interaction;
 		},
-		selectTab(tab){
-			this.tab = tab;
+
+		createNewArea(){
+			this.selectedArea = this.newArea;
+			this.world.areaList.push(this.newArea);
+			this.$modal.hide('my-first-modal');
+		},
+		show () {
+			this.newArea = {
+				name: "",
+				description: "",
+				connectedAreaList: [],
+				interactionList: [],
+			}
+
+			this.$modal.show('my-first-modal');
+		},
+		hide () {
+			this.$modal.hide('my-first-modal');
 		}
-  },
+	},
   mounted(){
       this.selectedArea = this.world.areaList[0];
 			console.log("SEE THE WORLD", this.world);
@@ -131,6 +172,46 @@ textarea {
 .fixedo {
 	position: absolute;
 	top:1;
+}
+
+.round{
+  border-radius: 25px;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+.smalldir{
+	pointer-events: auto;
+	font-color: red;
+	height: 30px;
+	font-size: 14px;
+	width: 100px;
+  padding:0.2em
+}
+.smallNo{
+	width: 40px;
+}
+.titleNav{
+	border: none;
+	font-size: 20px;
+}
+.areaName{
+	width: 150px;
+}
+.space{
+	width: 30px;
+	border: none;
+}
+li{
+  display: inline;
+}
+.areabuilderNav{
+	top: 5px;
+	left: 200px;
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+	pointer-events: none;
 }
 
 

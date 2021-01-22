@@ -1,44 +1,54 @@
 <template>
-  <div class="row">
-    <div class="col-6 col">
-      <div class="row">
-        <div class="col-12 col">
-        <table class="table">
-          <thead>
-            <tr>
-              <th colspan=2>
+  <section>
+    <div class="row">
+      <div class="col-12 col">
+          <input class="smallInput" type="string" v-model="currentInteraction.name" placeholder="...">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 col rightside">
+        <div class="row">
+          <table class="table">
+            <thead>
+              <!--
+              <tr>
+                <th>
                   <input class="smallInput" type="string" v-model="currentInteraction.name" placeholder="...">
-              </th>
-            </tr>
-            <tr>
-              <th scope="col" style="width: 90%;"> Script List</th>
-              <th scope="col" style="width: 10%;"> Edit </th>
-            </tr>
-          </thead>
-          <draggable v-model="currentInteraction.scriptList" tag="tbody">
-            <tr v-for="(item, index) in currentInteraction.scriptList" :key="index">
-              <td>{{item}}</td>
-              <td>
-                <button v-on:click="removeAction(item)" class="btn-danger
-                  btn-small smallX">
-                  x
-                </button>
-              </td>
-            </tr>
-          </draggable>
+                </th>
+                <th>
+                  <button v-on:click="removeAction(item)" class="btn-danger
+                    btn-small smalltext">
+                    Remove
+                  </button>
+                </th>
+              </tr>
+              -->
+              <tr>
+                <th scope="col" style="width: 90%;"> Script List</th>
+                <th scope="col" style="width: 10%;"> Edit </th>
+              </tr>
+            </thead>
+            <draggable v-model="currentInteraction.scriptList" tag="tbody">
+              <tr v-for="(item, index) in currentInteraction.scriptList" :key="index">
+                <td>{{item}}</td>
+                <td>
+                  <button v-on:click="removeAction(item)" class="btn-danger
+                    btn-small smalltext">
+                    x
+                  </button>
+                </td>
+              </tr>
+            </draggable>
 
-        </table>
+          </table>
         </div>
-    </div>
+      </div>
+      <div class="col-6 col leftside">
+        <ActionBuilder />
+      </div>
 
-  </div>
-  <div class="col-6 col">
-    <div>
-      <ActionBuilder />
     </div>
-  </div>
-
-  </div>
+  </section>
 </template>
 
 <script>
@@ -120,6 +130,19 @@ export default {
 .smallX{
   font-size: 25px;
 }
+.smalltext{
+  font-size: 15px;
+  height: 25px;
+  padding:0.1em
+}
+
+.rightside{
+  /*background-color: lightgrey;*/
+}
+.leftside{
+  margin-top: -20px; 
+  /*background-color: grey;*/
+}
 
 table {
   /* border: 1px solid black; */
@@ -154,6 +177,7 @@ a {
 p {
   font-size: 15px;
 }
+
 
 
 </style>
