@@ -32,7 +32,7 @@
               <tr v-for="(item, index) in currentInteraction.scriptList" :key="index">
                 <td>{{item}}</td>
                 <td>
-                  <button v-on:click="removeAction(item)" class="btn-danger
+                  <button v-on:click="removeAction(index)" class="btn-danger
                     btn-small smalltext">
                     x
                   </button>

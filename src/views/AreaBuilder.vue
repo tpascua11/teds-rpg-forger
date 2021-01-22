@@ -23,7 +23,6 @@
 			<button v-on:click="selectTab('npcs')" class="btn-default smalldir">
 				NPCs
 			</button>
-
 		</div>
 
 		<div v-if="tab === 'area'" class="row">
@@ -50,12 +49,14 @@
 		<div v-if="tab === 'interactions'" class="row">
 			<div class="col-12 col">
 
-				<InteractionList
-					v-bind:interactionList="selectedArea.interactionList"
-				/>
 
 				<InteractionBuilder
 					v-bind:currentInteraction="selectedInteraction"
+				/>
+
+
+				<InteractionList
+					v-bind:interactionList="selectedArea.interactionList"
 				/>
 			</div>
 		</div>
