@@ -49,15 +49,16 @@
 		<div v-if="tab === 'interactions'" class="row">
 			<div class="col-12 col">
 
+				<InteractionList
+					v-bind:interactionList="selectedArea.interactionList"
+					v-bind:selectedInteraction="selectedInteraction"
+				/>
 
 				<InteractionBuilder
 					v-bind:currentInteraction="selectedInteraction"
 				/>
 
 
-				<InteractionList
-					v-bind:interactionList="selectedArea.interactionList"
-				/>
 			</div>
 		</div>
 

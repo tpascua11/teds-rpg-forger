@@ -1,10 +1,5 @@
 <template>
-  <section>
-    <div class="row">
-      <div class="col-12 col">
-          <input class="smallInput" type="string" v-model="currentInteraction.name" placeholder="...">
-      </div>
-    </div>
+  <section class="basedHeight">
     <div class="row">
       <div class="col-6 col rightside">
         <div class="row">
@@ -127,6 +122,8 @@ export default {
   border: 0;
   background-color: #E8E8E8;
 }
+
+
 .smallX{
   font-size: 25px;
 }
@@ -140,8 +137,12 @@ export default {
   /*background-color: lightgrey;*/
 }
 .leftside{
-  margin-top: -20px; 
+  margin-top: -20px;
   /*background-color: grey;*/
+}
+
+.basedHeight{
+  height:77vh;
 }
 
 table {
