@@ -8,6 +8,7 @@ export class World {
 		];
     this.worldItemList = [];
     this.startingItemList = [];
-    this.statusEffectList = [];
+		this.statusEffectList = [];
+		this.tags = ['unique', 'normal'];
   }
 }

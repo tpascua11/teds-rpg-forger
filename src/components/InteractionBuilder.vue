@@ -5,20 +5,7 @@
         <div class="row">
           <table class="table">
             <thead>
-              <!--
-              <tr>
-                <th>
-                  <input class="smallInput" type="string" v-model="currentInteraction.name" placeholder="...">
-                </th>
-                <th>
-                  <button v-on:click="removeAction(item)" class="btn-danger
-                    btn-small smalltext">
-                    Remove
-                  </button>
-                </th>
-              </tr>
-              -->
-              <tr>
+             <tr>
                 <th scope="col" style="width: 90%;"> Script List</th>
                 <th scope="col" style="width: 10%;"> Edit </th>
               </tr>
@@ -122,8 +109,6 @@ export default {
   border: 0;
   background-color: #E8E8E8;
 }
-
-
 .smallX{
   font-size: 25px;
 }
@@ -143,6 +128,16 @@ export default {
 
 .basedHeight{
   height:77vh;
+}
+
+.bitright{
+  margin-left: 20px;
+}
+.bigInput{
+  height: 40px;
+  font-size: 22px;
+  border: 0;
+  background-color: #E8E8E8;
 }
 
 table {

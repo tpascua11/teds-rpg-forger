@@ -25,6 +25,7 @@
 			</button>
 		</div>
 
+
 		<div v-if="tab === 'area'" class="row">
 			<div class="col-2 col">
 				<WorldLoadAndSave v-bind="world"/>
@@ -44,21 +45,33 @@
 			<div class="col-10 col">
 				<Description v-bind:area="selectedArea" />
 			</div>
+
 		</div>
 
-		<div v-if="tab === 'interactions'" class="row">
-			<div class="col-12 col">
+		<div v-if="tab === 'interactions'">
+			<div class="row">
+			<!-- The True Template-->
+				<div class="col-1 col main-upleft">
+					<InteractionList
+						v-bind:interactionList="selectedArea.interactionList"
+						v-bind:selectedInteraction="selectedInteraction"
+						v-bind:name="'Interactions'"
+					/>
+				</div>
+				<div class="col-3 col">
+					<AreaInteraction
+						v-bind:currentInteraction="selectedInteraction"
+						v-bind:tags="world.tags"
+					/>
+				</div>
 
-				<InteractionList
-					v-bind:interactionList="selectedArea.interactionList"
-					v-bind:selectedInteraction="selectedInteraction"
-				/>
-
-				<InteractionBuilder
-					v-bind:currentInteraction="selectedInteraction"
-				/>
+				<div class="col-8 col">
+					<InteractionBuilder
+						v-bind:currentInteraction="selectedInteraction"
+					/>
 
 
+				</div>
 			</div>
 		</div>
 
@@ -86,6 +99,8 @@ import WorldLoadAndSave from '@/components/WorldLoadAndSave.vue'
 import InteractionBuilder from '@/components/InteractionBuilder.vue'
 import InteractionList from '@/components/InteractionList.vue'
 
+import AreaInteraction from '@/components/AreaInteraction.vue'
+
 
 export default {
   name: 'areabuilder',
@@ -106,6 +121,7 @@ export default {
 		WorldLoadAndSave,
 		InteractionBuilder,
 		InteractionList,
+		AreaInteraction,
   },
   props: {
     world: Object
@@ -214,6 +230,23 @@ li{
 	width: 100%;
 	z-index: 100;
 	pointer-events: none;
+}
+
+.main-upleft{
+  margin-top: 35px;
+}
+
+.rowA{
+  margin-top: -15px;
+}
+
+.nice-border{
+	border: 1px solid black;
+	font-size: 25px;
+}
+
+.simple-border{
+	border: 1px solid black;
 }
 
 
