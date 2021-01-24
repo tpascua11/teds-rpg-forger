@@ -9,6 +9,6 @@ export class World {
     this.worldItemList = [];
     this.startingItemList = [];
 		this.statusEffectList = [];
-		this.tags = ['unique', 'normal'];
+		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];
   }
 }

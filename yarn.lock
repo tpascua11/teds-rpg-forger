@@ -749,6 +749,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@desislavsd/vue-select@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@desislavsd/vue-select/-/vue-select-0.5.0.tgz#72bcfb3995d24aa76c1764684e73bbbdc27b61ef"
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

@@ -61,4 +61,8 @@ export default {
   font-size: 15px;
   border: none;
 }
+.label {
+	color: white;
+}
+
 </style>

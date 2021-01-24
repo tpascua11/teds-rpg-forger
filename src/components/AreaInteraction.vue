@@ -1,45 +1,70 @@
 <template>
   <section class="basedHeight bitright">
-      <div class="row">
-        <input class="bigInput" type="string" v-model="currentInteraction.name" placeholder="Name">
-        <ol> test </ol>
+    <!-- Interaction Name -->
+    <div class="row">
+      <input class="bigInput" type="string" v-model="currentInteraction.name" placeholder="Name">
+    </div>
+    <!-- Description -->
+    <div class="row description-row">
+      <textarea class="area-nice" v-model="currentInteraction.description"
+        placeholder="interaction description"></textarea>
+    </div>
 
-        <ol> test </ol>
-        <ol> test </ol>
-        <ol> test </ol>
-
-        <!--<v-select :options="tags" label="tags" index="code"  /> -->
-
+    <!-- Tags -->
+    <div class="row tag-row">
+      <div class="col-2">
+        <h5> Tags </h5>
       </div>
+      <div class="col-10">
+        <v-select v-model="currentInteraction.tags" :from="tags"
+          class="hidden-border">
+          <template v-slot:option="{option}">
+            <div class="tag-in-nice">
+              {{option.label}}
+            </div>
+          </template>
 
-      <div class="row simple-border tag-nice">
+          <template v-slot:selected="{option}">
+            <div class="tag-in-nice">
+              <p>{{option.label}} </p>
+            </div>
+          </template>
 
-        <div class="col-10 col">
-          Tags
-        </div>
-        <div class="col-2 col">
-          +
-        </div>
+        </v-select>
       </div>
+      <!--<v-select :options="tags" label="tags" index="code"  /> -->
+    </div>
 
-      <div class="row">
-        <table>
-          <thead>
-            <tr>
-              <th> Condition </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- Conditions -->
+    <div class="row condition-row">
+      <table>
+        <thead class="hidden-border">
+          <tr>
+            <th> <h5> Condition </h5> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> Is 'Clean' and 'Cool' </td>
+          </tr>
 
-      <div class="row">
-        <textarea class="area-nice" v-model="currentInteraction.description"
-          placeholder="interaction description"></textarea>
-      </div>
+          <tr>
+            <td> Is 'Dirty' and 'has 100 gold' </td>
+          </tr>
+
+          <tr>
+            <td> Is 'Dirty' and 'has 100 gold' </td>
+          </tr>
+          <tr>
+            <td> Is 'Dirty' and 'has 100 gold' </td>
+          </tr>
+          <tr v-for="(item, index) in currentInteraction.conditionList" :key="index">
+            {{item}}
+          </tr>
+        </tbody>
+     </table>
+    </div>
+
   </section>
 </template>
 
@@ -100,10 +125,6 @@ export default {
 </script>
 
 <style scoped>
-.creator{
-  border: 1px solid black;
-  background-color: #E8E8E8;
-}
 .smallInput{
   height: 14px;
   font-size: 18px;
@@ -143,6 +164,8 @@ export default {
 .area-nice{
   min-width: 400px;
   min-height: 200px;
+  font-size: 17px;
+
 }
 
 .tag-nice{
@@ -151,18 +174,36 @@ export default {
   text-align: left;
 }
 
+.tag-in-nice{
+  background: none !important;
+  font-weight: 25px;
+  font-family: Neucha;
+}
+.white-tag{
+  background-color: white;
+}
+
+.tag-row{
+  height: 5vh;
+}
+.condition-row{
+  height: 50vh;
+}
+.description-row{
+  height: 20vh;
+}
+
 table {
   /* border: 1px solid black; */
   /*  border: none; */
-  border: 1px solid black;
+  /* border: 1px solid black; */
+	border-style: none;
 }
 tr {
-  padding: 50px;
-}
-tr {
+  padding: 15px;
 }
 td{
-  font-size:12px;
+  font-size:13px;
 }
 th {
   font-size: 14px;
@@ -184,6 +225,7 @@ a {
 p {
   font-size: 15px;
 }
+
 
 
 

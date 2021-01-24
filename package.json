@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@desislavsd/vue-select": "^0.5.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-blob-json-csv": "^0.1.7",

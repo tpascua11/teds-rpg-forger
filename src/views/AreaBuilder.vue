@@ -107,7 +107,7 @@ export default {
   data: function() {
     return {
 			selectedArea: {},
-			selectedInteraction: {},
+			selectedInteraction: {conditionList: []},
 			testArray: [],
 			buddy: {testArray: []},
 			tab: 'interactions',
@@ -247,6 +247,10 @@ li{
 
 .simple-border{
 	border: 1px solid black;
+}
+
+.hidden-border{
+	border-style: none;
 }
 
 

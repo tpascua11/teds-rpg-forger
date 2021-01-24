@@ -34,6 +34,7 @@ export default {
   props: {
     selectedInteraction: Object,
     interactionList: Array,
+    tags: Array,
     name: String,
   },
   mounted(){
@@ -47,7 +48,9 @@ export default {
 
       this.interactionList.push({
         name: 'New Interaaction',
-        scriptList: []
+        scriptList: [],
+        tags: [],
+        conditions: [],
       });
     },
     selectInteraction(interaction){
