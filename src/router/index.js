@@ -19,6 +19,15 @@ const routes = [
     }
   },
   {
+    path: '/testing',
+    name: 'TestingZone',
+    component: () => import ('../views/TestingZone.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

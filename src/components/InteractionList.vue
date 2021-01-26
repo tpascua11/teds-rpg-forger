@@ -63,7 +63,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .fixedButton{
   width: 137px;
   padding:0.2em;

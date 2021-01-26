@@ -10,28 +10,47 @@
         placeholder="interaction description"></textarea>
     </div>
 
-    <!-- Tags -->
     <div class="row tag-row">
       <div class="col-2">
         <h5> Tags </h5>
       </div>
       <div class="col-10">
-        <v-select v-model="currentInteraction.tags" :from="tags"
-          class="hidden-border">
-          <template v-slot:option="{option}">
-            <div class="tag-in-nice">
-              {{option.label}}
-            </div>
-          </template>
+        <div class="row">
+          <div v-for="(item, index) in currentInteraction.tags" :key="index">
+            <button v-on:click="removeAction(index)" class="btn-default
+              btn-small smalltext">
 
-          <template v-slot:selected="{option}">
-            <div class="tag-in-nice">
-              <p>{{option.label}} </p>
-            </div>
-          </template>
-
-        </v-select>
+              {{item}}
+            </button>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+
+    <!-- Tags -->
+    <div class="row tag-row">
+        <div class="col-2">
+          <h5> Tags </h5>
+        </div>
+        <div class="col-10">
+          <v-select v-model="currentInteraction.tags" :from="tags"
+            class="hidden-border" placeholder="Add Tag">
+            <template v-slot:option="{option}">
+              <div class="tag-in-nice">
+                {{option.label}}
+              </div>
+            </template>
+
+            <template v-slot:selected="{option}">
+              <div class="tag-in-nice">
+                <p>{{option.label}} </p>
+              </div>
+            </template>
+
+          </v-select>
+        </div>
       <!--<v-select :options="tags" label="tags" index="code"  /> -->
     </div>
 
@@ -44,33 +63,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td> Is 'Clean' and 'Cool' </td>
-          </tr>
-
-          <tr>
-            <td> Is 'Dirty' and 'has 100 gold' </td>
-          </tr>
-
-          <tr>
-            <td> Is 'Dirty' and 'has 100 gold' </td>
-          </tr>
-          <tr>
-            <td> Is 'Dirty' and 'has 100 gold' </td>
-          </tr>
           <tr v-for="(item, index) in currentInteraction.conditionList" :key="index">
             {{item}}
           </tr>
+          <tr>
+          </tr>
         </tbody>
-     </table>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <Condition />
+      </div>
     </div>
 
   </section>
 </template>
 
 <script>
+import Condition from '@/components/Condition.vue'
 
 export default {
+
   name: 'AreaInteraction',
   data: function(){
     return {
@@ -87,6 +101,7 @@ export default {
     }
   },
   components: {
+    Condition
   },
   props: {
     name: String,
@@ -120,6 +135,9 @@ export default {
         'text-danger': this.error && this.error.type === 'fatal'
       }
     },
+    referenceWorld: function() {
+      return this.$parent.referenceWorld;
+    }
   }
 }
 </script>
@@ -176,7 +194,6 @@ export default {
 
 .tag-in-nice{
   background: none !important;
-  font-weight: 25px;
   font-family: Neucha;
 }
 .white-tag{
@@ -187,7 +204,7 @@ export default {
   height: 5vh;
 }
 .condition-row{
-  height: 50vh;
+  height: 13vh;
 }
 .description-row{
   height: 20vh;
@@ -201,9 +218,6 @@ table {
 }
 tr {
   padding: 15px;
-}
-td{
-  font-size:13px;
 }
 th {
   font-size: 14px;

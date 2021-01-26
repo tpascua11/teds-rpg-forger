@@ -4,7 +4,8 @@
       <div class="nav-brand">
         <h5> Drago Book Maker</h5>
       </div>
-      <div class="nav-brand">
+			<div class="nav-brand">
+        <router-link to="/testing"  class="routerFont" > Testing Zone </router-link> |
         <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
 				<router-link to="/"      class="routerFont" > World Items     </router-link> |
@@ -40,7 +41,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+	/* text-align: center; */
   color: #2c3e50;
 }
 

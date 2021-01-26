@@ -78,6 +78,7 @@
 		<modal name="my-first-modal"
 			:width="300"
 			:height="300"
+			:shiftY="0.1"
 		>
 				<center>
 					<h3> New Area </h3>
@@ -126,10 +127,10 @@ export default {
   props: {
     world: Object
   },
-  computed: {
-    worldLook(){
-      return "lame";
-    }
+	computed: {
+		referenceWorld: function(){
+			return this.world;
+		}
   },
   methods:{
     test(){
@@ -220,9 +221,6 @@ textarea {
 	width: 30px;
 	border: none;
 }
-li{
-  display: inline;
-}
 .areabuilderNav{
 	top: 5px;
 	left: 200px;
@@ -252,6 +250,5 @@ li{
 .hidden-border{
 	border-style: none;
 }
-
 
 </style>

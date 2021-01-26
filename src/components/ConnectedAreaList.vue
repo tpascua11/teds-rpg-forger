@@ -37,7 +37,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
   textarea {
     box-sizing:border-box;
     height: 100%;

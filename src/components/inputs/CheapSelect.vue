@@ -1,28 +1,26 @@
 <template>
-  <div class="areaList card" style="width: 10rem;">
-    <div class="card-body">
-      <button class="btn-success btn-small btn-block">
-        <vue-blob-json-csv
-          file-type="json"
-          file-name="todos"
-          :data=[world]
-        >
-          Download JSON
-        </vue-blob-json-csv>
-      </button>
-    </div>
+  <div>
+    <h5> Hello </h5>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LoadAndSave',
+  name: 'AreaList',
   data: function(){
-    return {}
+    return {
+      isActive: true,
+      error: null,
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      }
+    }
   },
   props: {
-   name: String,
-    world: Object,
+    name: String,
+    referenceList: Array,
+    selectedChoice: Object,
   },
   mounted(){
     console.log("SEE THE AreaList", this.areaList);
@@ -42,4 +40,9 @@ export default {
 </script>
 
 <style scoped>
+  textarea {
+    box-sizing:border-box;
+    height: 100%;
+    width: 100%;
+  }
 </style>
