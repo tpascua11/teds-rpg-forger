@@ -1,5 +1,29 @@
+<!--
+//----------------
+  Item Input
+//----------------
+Takes 2 Props
+  v-model: itemSet,
+  referenceList: []
+]
+itemSet = {
+  name: "",
+  operator: ""
+  value: number
+}
+reference a list of strings names. This is used for the the Worlds item list.
+
+  Has 3 Inputs
+  First Input is the name of the item
+  Second Input is the operator selection "<" ">" "=" "<=" ">="
+  Third Input is value
+
+Using these can determine if the user have the required item amounts for
+the condition to be true.
+-->
+
 <template>
-  <div class="total-height">
+  <div>
     <div class="row ">
       <div class="col-2">
         <button
@@ -29,7 +53,7 @@
 
       <div class="col-2">
         <button v-on:click="addItemConditionToPacket()"
-          class="btn-warning nice-mid-fit adaptable-width"> Add
+          class="btn-secondary nice-mid-fit adaptable-width"> Add
         </button>
 
       </div>
@@ -103,12 +127,7 @@ export default {
     console.log("SEE THE AreaList", this.areaList);
   },
   methods:{
-    addFlagToTemplate(flag){
-      if(!flag) return;
-      console.log('falg update', this.conditionTemplate);
-      this.flagList.push(flag);
-    },
-    addItemConditionToPacket(){
+   addItemConditionToPacket(){
       console.log("see item input", this.inputItem);
       let newItemSet = [...this.itemSet, this.inputItem];
 
@@ -149,8 +168,5 @@ textarea {
 }
 .f-size{
   font-size: 15px;
-}
-.total-height{
-  min-height:100px;
 }
 </style>

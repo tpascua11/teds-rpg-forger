@@ -1,5 +1,29 @@
+<!--
+//----------------
+  Stat Input 
+//----------------
+Takes 2 Props
+  v-model: statSet,
+  referenceList: []
+]
+statSet= {
+  name: "",
+  operator: ""
+  value: number
+}
+reference a list of strings names. This is used for the the Worlds based stat list.
+
+  Has 3 Inputs
+  First Input is the name of the stat 
+  Second Input is the operator selection "<" ">" "=" "<=" ">="
+  Third Input is value
+
+Using these can determine if the user have the required stat amounts for
+the condition to be true.
+-->
+
 <template>
-  <div class="total-height">
+  <div>
     <div class="row ">
       <div class="col-2">
         <button
@@ -28,7 +52,7 @@
 
       <div class="col-2">
         <button v-on:click="addStatConditionToPacket()"
-          class="btn-warning nice-mid-fit adaptable-width"> Add
+          class="btn-secondary nice-mid-fit adaptable-width"> Add
         </button>
 
       </div>
@@ -138,8 +162,5 @@ textarea {
 }
 .f-size{
   font-size: 15px;
-}
-.total-height{
-  min-height:100px;
 }
 </style>

@@ -6,12 +6,16 @@
     v-model: flagSet,
     referenceList: []
 
-flagSet should be
+flagSet Object should have at least these 2 list
+ConditionTemplate that will be reference will have these 2 variables
+
   flagset = {
+    ...
     isList: [],  // used to check if flags in list are true in the world.flagList
     notList: [], // used check if flags is NOT true or NOT exist in the world.flagList
   }
   referenceList must be an array of strings.
+
 
   Has 2 Inputs Sections and A Confirm Button
   The Second Input lets you select multiple option of flags from a reference list
@@ -21,11 +25,12 @@ flagSet should be
   The Confirm Button will add to the update the flagSet list with the newest
   option of flags added.
 
+  set true if the isList and notList meets the condition based on the world flags
 -->
 
 
 <template>
-  <div class="total-height">
+  <div>
     <div class="row f-height">
       <div class="col-2">
         <button
@@ -56,7 +61,7 @@ flagSet should be
       </div>
       <div class="col-2">
         <button v-on:click="updateFlagSet()"
-          class="btn-warning nice-mid-fit adaptable-width"> Add
+          class="btn-secondary nice-mid-fit adaptable-width"> Add
         </button>
       </div>
     </div>
@@ -202,9 +207,6 @@ textarea {
 }
 .f-height{
   height:50px;
-}
-.total-height{
-  min-height:100px;
 }
 .f-check-size{
   height:45px;
