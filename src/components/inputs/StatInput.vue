@@ -1,13 +1,16 @@
 <template>
   <div class="total-height">
-    <div class="row f-height">
+    <div class="row ">
       <div class="col-2">
-        <p> Has Stat</p>
+        <button
+          class="btn-default nice-mid-fit f-size adaptable-width">
+          Has Stat
+        </button>
       </div>
 
       <div class="col-5">
         <input class="nice-small-fit adaptable-width" type="string"
-          v-model="inputStat.name" placeholder="Stat Name...">
+          v-model="inputStat.name" placeholder="Stat...">
 
         <v-select v-model="inputStat.operator" :from="operatorList"
           class="f-size adaptable-width" placeholder="operator...">
@@ -16,75 +19,100 @@
       </div>
 
       <div class="col-2">
-
         <input class="nice-small-fit adaptable-width" type="number"
           v-model="inputStat.value" placeholder="Value">
-
       </div>
 
       <div class="col-1">
       </div>
 
       <div class="col-2">
-        <button v-on:click="addItemConditionToPacket()"
-          class="btn-success nice-mid-fit adaptable-width"> Confirm
+        <button v-on:click="addStatConditionToPacket()"
+          class="btn-warning nice-mid-fit adaptable-width"> Add
         </button>
 
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+
+    <div class="row f-height">
+      <div class="col-2"><p>Item Condition </p></div>
+      <div class="col-10 simple-border">
+          <draggable class="list-group" :list="statSet" group="people">
+            <span
+              class="list-group-item"
+              v-for="(element, index) in statSet"
+              :key="index"
+            >
+              <button class="btn-default  nice-small-fit">
+                "{{element.name}}" {{element.operator}} {{element.value}}
+              </button>
+            </span>
+          </draggable>
       </div>
     </div>
+
+    <div class="row f-height">
+      <div class="col-2"><p>Clear </p></div>
+      <div class="col-10 simple-border">
+          <draggable class="list-group" :list="clearList" group="people">
+            <span
+              class="list-group-item"
+              v-for="(element, index) in clearList"
+              :key="index"
+            >
+              <button class="btn-default  nice-small-fit">
+                "{{element.name}}" {{element.operator}} {{element.value}}
+              </button>
+            </span>
+          </draggable>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
   name: 'StatInput',
+  components: {
+    draggable,
+  },
   data: function(){
     return {
       operatorList: [">", ">=", "==", "<=", "<"],
       inputString: "",
       inputStat: {
         name: "",
-        operator: "",
+        operator: ">=",
         value: 0
       },
       flagList: [],
+      clearList: [],
     }
   },
-  props: {
-    name: String,
-    area: Object,
-    conditionPacket: Object,
-  },
+  props: ['value', 'referenceList'],
   mounted(){
     console.log("SEE THE AreaList", this.areaList);
   },
   methods:{
-    addFlagToTemplate(flag){
-      if(!flag) return;
-      console.log('falg update', this.conditionTemplate);
-      this.flagList.push(flag);
-    },
-    addItemConditionToPacket(){
-      console.log("see item input", this.inputStat);
+   addStatConditionToPacket(){
+      console.log("see stat input", this.inputStat);
+      let newStatSet = [...this.statSet, this.inputStat];
+
+      this.$emit('input', newStatSet);
+
+      this.inputStat = {
+        name: "",
+        operator: ">=",
+        value: 0
+      }
     }
   },
   computed: {
-    referenceWorld: function(){
-      return this.$parent.referenceWorld;
-    },
-    referenceWorldFlag: function(){
-      let filtered = this.referenceWorld.flagList.filter(
-        function(e) {
-          return this.indexOf(e) < 0;
-        },
-        this.flagList
-      );
-      console.log("filtered", filtered);
-      return filtered;
+    statSet: function(){
+      return this.value;
     }
 
   }
@@ -112,6 +140,6 @@ textarea {
   font-size: 15px;
 }
 .total-height{
-  height:60px;
+  min-height:100px;
 }
 </style>

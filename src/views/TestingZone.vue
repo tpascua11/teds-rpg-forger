@@ -1,53 +1,18 @@
 <template>
   <div class="TestingZone">
-    <div class="row"></div>
-    <div class="row simple-border">
-      <div class="col-2 col"> </div>
-      <div class="col-2 col"> </div>
-      <div class="col-2 col"> Testing Zone </div>
-      <div class="col-2 col"> </div>
-      <div class="col-2 col"> </div>
-    </div>
     <div class="row">
       <div class="col-2 col"> --- </div>
       <div class="col-2 col"> --- </div>
-      <div class="col-6 col nice-border">
-        {{conditionTemplate.flagList}}
+      <div class="col-6 col">
+        <ConditionSet />
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-2 col"> --- </div>
-      <div class="col-2 col"> --- </div>
-      <div class="col-6 col nice-border">
-        <FlagInput v-model="conditionTemplate.flagList"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-2 col"> --- </div>
-      <div class="col-2 col"> --- </div>
-      <div class="col-6 col nice-border">
-        <ItemInput />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-2 col"> --- </div>
-      <div class="col-2 col"> --- </div>
-      <div class="col-6 col nice-border">
-        <StatInput />
-      </div>
-    </div>
-
-
-
   </div>
 </template>
 
 <script>
 
-import FlagInput from '@/components/inputs/FlagInput.vue'
-import ItemInput from '@/components/inputs/ItemInput.vue'
-import StatInput from '@/components/inputs/StatInput.vue'
+import ConditionSet from '@/components/inputs/ConditionSet.vue'
 
 export default {
   name: 'areabuilder',
@@ -68,9 +33,7 @@ export default {
 		};
   },
   components: {
-    FlagInput,
-    ItemInput,
-    StatInput,
+    ConditionSet,
   },
   props: {
     world: Object
@@ -149,6 +112,10 @@ export default {
   font-size: 21px;
   height: 30px;
   padding:0.2em
+}
+
+p{
+  font-size: 16px;
 }
 
 

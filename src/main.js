@@ -4,6 +4,7 @@ import router from './router'
 
 import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VModal from 'vue-js-modal';
+import draggable from 'vuedraggable'
 
 import '@desislavsd/vue-select/dist/vue-select.css';
 
@@ -13,6 +14,7 @@ import VueSelect from '@desislavsd/vue-select';
 
 Vue.use(VueBlobJsonCsv);
 Vue.use(VModal);
+Vue.use(draggable);
 
 Vue.use(VueSelect, {
     /**

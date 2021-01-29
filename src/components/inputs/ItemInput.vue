@@ -1,8 +1,11 @@
 <template>
   <div class="total-height">
-    <div class="row f-height">
+    <div class="row ">
       <div class="col-2">
-        <p> Has Item </p>
+        <button
+          class="btn-default nice-mid-fit f-size adaptable-width">
+        Has Item
+        </button>
       </div>
 
       <div class="col-5">
@@ -26,38 +29,76 @@
 
       <div class="col-2">
         <button v-on:click="addItemConditionToPacket()"
-          class="btn-success nice-mid-fit adaptable-width"> Confirm
+          class="btn-warning nice-mid-fit adaptable-width"> Add
         </button>
 
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+
+    <div class="row f-height">
+      <div class="col-2"><p>Item Condition </p></div>
+      <div class="col-10 simple-border">
+        <!--
+        <span v-for="(item, index) in flagSet.isList" :key="index">
+            <button class="btn-default  nice-small-fit"> {{item}}</button>
+          </span>
+          -->
+          <draggable class="list-group" :list="itemSet" group="people">
+            <span
+              class="list-group-item"
+              v-for="(element, index) in itemSet"
+              :key="index"
+            >
+              <button class="btn-default  nice-small-fit">
+                "{{element.name}}" {{element.operator}} {{element.value}}
+              </button>
+            </span>
+          </draggable>
       </div>
     </div>
+
+    <div class="row f-height">
+      <div class="col-2"><p>Clear </p></div>
+      <div class="col-10 simple-border">
+          <draggable class="list-group" :list="clearList" group="people">
+            <span
+              class="list-group-item"
+              v-for="(element, index) in clearList"
+              :key="index"
+            >
+              <button class="btn-default  nice-small-fit">
+                "{{element.name}}" {{element.operator}} {{element.value}}
+              </button>
+            </span>
+          </draggable>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
   name: 'ItemInput',
+  components: {
+    draggable,
+  },
   data: function(){
     return {
       operatorList: [">", ">=", "==", "<=", "<"],
       inputString: "",
       inputItem: {
         name: "",
-        operator: "",
+        operator: ">=",
         value: 0
       },
       flagList: [],
+      clearList: [],
     }
   },
-  props: {
-    name: String,
-    area: Object,
-    conditionPacket: Object,
-  },
+  props: ['value', 'referenceList'],
   mounted(){
     console.log("SEE THE AreaList", this.areaList);
   },
@@ -69,21 +110,20 @@ export default {
     },
     addItemConditionToPacket(){
       console.log("see item input", this.inputItem);
+      let newItemSet = [...this.itemSet, this.inputItem];
+
+      this.$emit('input', newItemSet);
+
+      this.inputItem = {
+        name: "",
+        operator: ">=",
+        value: 0
+      }
     }
   },
   computed: {
-    referenceWorld: function(){
-      return this.$parent.referenceWorld;
-    },
-    referenceWorldFlag: function(){
-      let filtered = this.referenceWorld.flagList.filter(
-        function(e) {
-          return this.indexOf(e) < 0;
-        },
-        this.flagList
-      );
-      console.log("filtered", filtered);
-      return filtered;
+    itemSet: function(){
+      return this.value;
     }
 
   }
@@ -111,6 +151,6 @@ textarea {
   font-size: 15px;
 }
 .total-height{
-  height:60px;
+  min-height:100px;
 }
 </style>
