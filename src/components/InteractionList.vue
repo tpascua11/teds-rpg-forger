@@ -50,7 +50,7 @@ export default {
         name: 'New Interaaction',
         scriptList: [],
         tags: [],
-        conditions: [],
+        conditionList: [],
       });
     },
     selectInteraction(interaction){

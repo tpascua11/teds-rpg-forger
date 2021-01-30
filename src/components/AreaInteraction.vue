@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <Condition />
+        <Condition v-model="currentInteraction.conditionList"/>
       </div>
     </div>
 

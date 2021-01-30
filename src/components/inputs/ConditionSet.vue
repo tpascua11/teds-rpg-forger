@@ -1,3 +1,16 @@
+<!--
+Condition Set is part of the IS_CONDITION of an objects
+ITEM, AREA, INTERACTION[[],[]]
+
+The Condition Set is the inner array [], which represent the AND Statement of
+the is_condition.
+  Everything in the single array must be true for the inner array to be true
+  But if there are more inner arrays [[],[],[],[]], ethier one of them
+  can be true for the whole is_condition to be true.
+  A Condition Set can also be saved into a Complex so it can be easier to reused
+  or be used in a another Condition Set
+-->
+
 <template>
   <div class="simple-border max-height">
     <section class="top-section">
@@ -21,7 +34,7 @@
                 IsFlag
               </td>
               <td>
-                {{conditionTemplate.flagSet.isList}}
+                {{conditionTemplate.isList}}
               </td>
             </tr>
             <tr v-if="showNotList" v-on:click="selectConditionType('FLAG')"> 
@@ -29,7 +42,7 @@
                 NotFlag
               </td>
               <td>
-                {{conditionTemplate.flagSet.notList}}
+                {{conditionTemplate.notList}}
               </td>
             </tr>
             <tr v-if="showItemList" v-on:click="selectConditionType('ITEM')">
@@ -37,7 +50,7 @@
                 <p> Has Item: </p>
               </td>
               <td>
-                <p class="" v-for="(item, index) in conditionTemplate.itemSet" :key="index">
+                <p class="" v-for="(item, index) in conditionTemplate.hasItem" :key="index">
                   "{{item.name}}" {{item.operator}} {{item.value}}
                 </p>
               </td>
@@ -47,7 +60,7 @@
                 <p> Has Stat: </p>
               </td>
               <td>
-                <p class="" v-for="(item, index) in conditionTemplate.statSet" :key="index">
+                <p class="" v-for="(item, index) in conditionTemplate.hasStat" :key="index">
                   "{{item.name}}" {{item.operator}} {{item.value}}
                 </p>
               </td>
@@ -67,7 +80,7 @@
       <div class="row" v-if="menuConditionType == 'FLAG'">
         <div class="col-12 col">
           <FlagInput
-            v-model="conditionTemplate.flagSet"
+            v-model="conditionTemplate"
             :referenceList="referenceWorld.flagList"
           />
         </div>
@@ -77,7 +90,7 @@
       <div class="row" v-if="menuConditionType == 'ITEM'">
         <div class="col-12 col">
           <ItemInput
-            v-model="conditionTemplate.itemSet"
+            v-model="conditionTemplate.hasItem"
             :referenceList="referenceWorld.worldItemList"
           />
         </div>
@@ -86,7 +99,7 @@
       <div class="row" v-if="menuConditionType == 'STAT'">
         <div class="col-12 col">
           <StatInput
-            v-model="conditionTemplate.statSet"
+            v-model="conditionTemplate.hasStat"
             :referenceList="referenceWorld.worldItemList"
           />
         </div>
@@ -96,13 +109,17 @@
     <!-- Confirms  -->
     <div class="row">
       <div class="col-3 col">
-        <button v-on:click="selectConditionType('FLAG')" class="btn-warning
+        <button v-on:click="insertConditionOr()" class="btn-warning
           btn-block "> Set OR
         </button>
       </div>
-      <div class="col-6 col"></div>
+      <div class="col-6 col">
+        <button v-on:click="selectConditionType('FLAG')" class="btn-secondary
+          btn-block "> Convert as Complex
+        </button>
+      </div>
       <div class="col-3 col">
-        <button v-on:click="selectConditionType('FLAG')" class="btn-danger
+        <button v-on:click="insertConditionAnd()" class="btn-danger
           btn-block "> Set AND
         </button>
       </div>
@@ -124,9 +141,10 @@ export default {
     return {
       menuConditionType: "FLAG",
       conditionTemplate: {
-        flagSet: {isList: [], notList: []},
-        itemSet: [],
-        statSet: [],
+        isList: [],
+        notList: [],
+        hasItem: [],
+        hasStat: [],
       },
     }
   },
@@ -135,21 +153,59 @@ export default {
     ItemInput,
     StatInput,
   },
-  props: ['value', 'world'],
+  props: ['value', 'world', 'confirm'],
   mounted(){
-    console.log("SEE THE AreaList", this.areaList);
+    console.log("SEE THE Reference World", this.world);
   },
   methods:{
     selectConditionType(type){
       this.menuConditionType = type;
     },
     insertConditionAnd(){
-      this.referenceConditionList.push(this.conditionTemplate);
+      this.$emit('input', this.conditionTemplate);
+      this.$emit('confirm');
+      //this.referenceConditionList.push(this.conditionTemplate);
       //this.$emit('input', newSet);
     },
     insertConditionOr(){
+      this.$emit('confirm');
+      //this.convert();
       //this.$emit('input', newSet);
     },
+    convert(){
+      let newConditionTemplate = {
+        isList: [],
+        notList: [],
+        hasItem: [],
+        hasStat: [],
+      };
+      //let template = Object.assign({}, newConditionTemplate);
+
+      this.conditionTemplate.isList.forEach(function(item){
+        let template = JSON.parse(JSON.stringify(newConditionTemplate));
+        template.isList.push(item);
+        console.log("template added", template);
+      });
+
+      this.conditionTemplate.notList.forEach(function(item){
+        let template = JSON.parse(JSON.stringify(newConditionTemplate));
+        template.notList.push(item);
+        console.log("template added", template);
+      });
+
+      this.conditionTemplate.hasItem.forEach(function(item){
+        let template = JSON.parse(JSON.stringify(newConditionTemplate));
+        template.hasItem.push(item);
+        console.log("template added", template);
+      });
+
+      this.conditionTemplate.hasStat.forEach(function(item){
+        let template = JSON.parse(JSON.stringify(newConditionTemplate));
+        template.hasStat.push(item);
+        console.log("template added", template);
+      });
+    }
+
   },
   computed: {
     classObject: function () {
@@ -159,16 +215,17 @@ export default {
       }
     },
     referenceWorld: function(){
-      return this.$parent.referenceWorld;
+      //return this.$parent.referenceWorld;
+      return this.world;
     },
     referenceConditionList: function(){
       return this.value;
     },
 
-    showIsList: function()    { return this.conditionTemplate.flagSet.isList.length > 0},
-    showNotList: function()   { return this.conditionTemplate.flagSet.notList.length > 0},
-    showItemList: function()  { return this.conditionTemplate.itemSet.length > 0},
-    showStatList: function()  { return this.conditionTemplate.statSet.length > 0},
+    showIsList: function()    { return this.conditionTemplate.isList.length > 0},
+    showNotList: function()   { return this.conditionTemplate.notList.length > 0},
+    showItemList: function()  { return this.conditionTemplate.hasItem.length > 0},
+    showStatList: function()  { return this.conditionTemplate.hasStat.length > 0},
 
   }
 }

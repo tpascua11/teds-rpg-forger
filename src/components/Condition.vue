@@ -4,225 +4,63 @@
       Add Condition
     </button>
 
-
     <modal name="conditionModal"
       :width="700"
-      :height="700"
-      :shiftY="0.1"
-    >
-      <div class="row c-tag-in-nice">
-        <p class="c-tag-in-nice">
-          Test this text;
-        </p>
-      </div>
-      <div class="row">
-        <div class="col-3 col">
-          <button v-on:click="selectConditionType()" class="btn-default btn-block smallfit"> Flag             </button>
-          <button v-on:click="selectConditionType()" class="btn-default btn-block smallfit"> Player Item  </button>
-          <button v-on:click="selectConditionType()" class="btn-default btn-block smallfit"> Player Stat </button>
-          <button v-on:click="selectConditionType()" class="btn-default btn-block smallfit"> Time </button>
-        </div>
-        <div class="col-8 col">
-          <table>
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Configs</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr> <!-- Flag -->
-                <td class="c-tag-in-nice"> Flag </td>
-                <td>
-                  <div class="row">
-                    <section v-for="(item, index) in conditionTemplate.isFlag" :key="index">
-                      <button v-on:click="selectConditionType()"
-                        class="btn-default btn-block "> {{item}}
-                      </button>
-                    </section>
-                  </div>
-                  <div class="row">
-                    <v-select v-model="inputString" :from="referenceWorldFlag"
-                      class="hidden-border c-match-font" placeholder="Add Tag"
-                      @input="addFlagToTemplate(inputString);"
-                    >
-                      <template v-slot:option="{option}">
-                        <div class="c-tag-in-nice">
-                          {{option.label}}
-                        </div>
-                      </template>
+      :height="750"
+      :shiftY="0.1">
 
-                      <template v-slot:selected="{option}">
-                        <div class="c-tag-in-nice">
-                          <p>{{option.label}} </p>
-                        </div>
-                      </template>
-                    </v-select>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td> Item </td>
-                <td>
-                  <div class="row">
-                    <section v-for="(item, index) in operatorList" :key="index">
-                      <button v-on:click="changeOperator(item)"
-                        class="btn-default midfit" > {{item}}</button>
-                    </section>
-                  </div>
-                  <div class="row">
-                    <input class="smallfit smallwidefit" type="string" v-model="inputItem.name" placeholder="Name">
-                    <input class="" type="string" v-model="inputItem.value" placeholder="Value">
-                  </div>
-                  <div class="row">
-                    amount {{inputItem.operator}} {{inputItem.value}}
-                  </div>
-                </td>
-
-              </tr>
-            </tbody>
-          </table>
-
-        </div>
-      </div>
+      <ConditionSet
+        v-model="conditionSet"
+        :world="referenceWorld"
+        @confirm="confirmNewConditionSet()"
+      />
     </modal>
   </div>
 </template>
 
 <script>
+
+import ConditionSet from '@/components/inputs/ConditionSet.vue'
 export default {
   name: 'Conddition',
+  components: {
+    ConditionSet
+  },
   data: function(){
     return {
-      conditionList: [],
-      inputString: "",
-
-      operatorList: [">", ">=", "==", "<=", "<"],
-      inputItem: {
-        name  : "",
-        value : 0,
-        operator: 0,
-      },
-
-      conditionTemplate: {
-        isFlag: [],
-        playerHasItem: [{}],
-        playerHasStatus: [{}],
-        playerStat: [{}],
-        complexCondition: [],
-
-        not_Flag: [""],
-        not_PlayerHasItem: [{}],
-        not_PlayerHasStatus: [{}],
-        not_PlayerStat: [{}],
-        not_ComplexCondition: [],
-        /*
-          targetHasItem: [{}],
-          targetStat: [{}]
-
-          not_targetHasItem: [{}],
-          not_targetStat: [{}]
-         */
-      }
+      name: "OK",
+      conditionSet: {},
     }
   },
-  props: {
-    name: String,
-    conditionPacket: Object,
-  },
-  mounted(){
-    console.log("SEE THE AreaList", this.areaList);
-    console.log("SEE THE Refrence World ", this.referenceWorld);
-  },
+  props: ['value'],
+  mounted(){},
   methods:{
-    selectConditionType(){
-      console.log("nothing yet");
-    },
-    test(){
-      console.log("event change");
-    },
-    addFlagToTemplate(flag){
-      console.log('falg update', this.conditionTemplate);
-      this.conditionTemplate.isFlag.push(flag);
-    },
-    changeOperator(op){
-      this.inputItem.operator = op;
-    },
     show () {
       this.$modal.show('conditionModal');
     },
     hide () {
       this.$modal.hide('conditionModal');
+    },
+    confirmNewConditionSet (){
+      console.log("WHAT IS THE NEW CONDOTION SET", this.conditionSet);
+      this.referenceConditionList.push(this.conditionSet);
+      this.hide();
     }
 
   },
   computed: {
-    classObject: function () {
-      return {
-        active: this.isActive && !this.error,
-        'text-danger': this.error && this.error.type === 'fatal'
-      }
+    referenceConditionList(){
+      return this.value;
     },
     referenceWorld: function(){
       return this.$parent.referenceWorld;
     },
-    referenceWorldFlag: function(){
-      //conditionTemplate.flagLi
-      let filtered = this.referenceWorld.flagList.filter(
-        function(e) {
-          return this.indexOf(e) < 0;
-        },
-        this.conditionTemplate.isFlag
-      );
-      console.log("filtered", filtered);
-      return filtered;
-    }
   }
 }
 
 </script>
 
 <style scoped>
-table {
-  border-style: none;
-}
-td {
-  font-weight: 20px;
-}
-p{
-  font-weight: 20px;
-}
-.smallfit{
-  padding:0.1em;
-  font-size: 15px;
-}
-.midfit{
-  padding:0.1em;
-  font-size: 20px;
-  width: 35px;
-  height: 35px;
-}
-.smallwidefit{
-  font-size: 20px;
-  width: 200px;
-  height: 50px;
-}
-.c-match-font{
-  font-family: Neucha;
-  font-size: 15px;
-}
-.c-tag-in-nice{
-  background: none !important;
-}
-.c-fit-nice{
-  height: 20px;
-  font-family: Neucha;
-}
-.c-fit-height{
-  height: 100px;
-}
-
-
 
 </style>
 
