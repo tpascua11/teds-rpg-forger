@@ -71,7 +71,7 @@
         </tbody>
       </table>
     </div>
-    <div class="row">
+    <div class="row condition-row">
       <div class="col-12">
         <Condition v-model="currentInteraction.conditionList"/>
       </div>
