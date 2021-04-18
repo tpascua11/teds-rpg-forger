@@ -33,7 +33,7 @@ the condition to be true.
       </div>
 
       <div class="col-5">
-        <input class="nice-small-fit adaptable-width" type="string"
+        <input class="f-size adaptable-width" type="string"
           v-model="inputItem.name" placeholder="Item...">
 
         <v-select v-model="inputItem.operator" :from="operatorList"

@@ -8,8 +8,8 @@
         <router-link to="/testing"  class="routerFont" > Testing Zone </router-link> |
         <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
-				<router-link to="/"      class="routerFont" > World Items     </router-link> |
-        <router-link to="/"      class="routerFont" > Save   </router-link> |
+				<router-link to="/"      class="routerFont" > Items     </router-link> |
+        <router-link to="/world"      class="routerFont" > World </router-link> |
       </div>
     </nav>
     <div id="nav">

@@ -28,6 +28,15 @@ const routes = [
   },
 
   {
+    path: '/world',
+    name: 'World',
+    component: () => import ('../views/World.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
