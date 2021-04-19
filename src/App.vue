@@ -28,7 +28,13 @@ export default {
     return {
       world: new World(),
     };
-  }
+	},
+	methods:{
+		worldLoad(newWorld){
+			console.log("SEE WORLD", newWorld);
+			this.world = newWorld;
+		}
+	}
 }
 
 

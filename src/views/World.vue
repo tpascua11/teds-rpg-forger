@@ -24,8 +24,24 @@
       </div>
     </div>
     <div class="container container-md paper">
-      <input type="file" ref="myFile" @change="selectedFile"><br/>
-    </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="text-reader">
+            <input type="file" @change="loadTextFromFile">
+          </label>
+        </div>
+
+        <div class="col-md-6">
+          <div class="row" v-if="isValidWorld">
+            <button class="btn-default btn-block nice-small-fit"
+              v-on:click="loadWorld">
+              Load World In
+            </button>
+          </div>
+        </div>
+        <!-- {{fileInfo}} -->
+      </div>
+  </div>
 
   </div>
 </template>
@@ -38,6 +54,8 @@ export default {
   data: function() {
     return {
       name: "alpha",
+      isValidWorld: false,
+      fileInfo: {},
     };
   },
   components: {},
@@ -51,20 +69,20 @@ export default {
     downloadWorld(){
 
     },
-    selectedFile() {
-      /*
-      console.log('selected a file', e.target.files);
-       */
-      let file =  this.$refs.myFile.files[0];
-
-      console.log(this.$refs.myFile.files[0]);
-      let reader = new FileReader();
-
-
+    loadTextFromFile(ev) {
+      const file = ev.target.files[0];
+      const reader = new FileReader();
       reader.readAsText(file);
-      console.log("test", JSON.parse(reader.result));
-    },
 
+      reader.onload = e => this.fileInfo = e.target.result;
+      this.isValidWorld = true;
+    },
+    loadWorld(){
+      let newWorld = JSON.parse(this.fileInfo);
+      console.log("new world to be loaded", newWorld);
+      this.$parent.worldLoad(newWorld[0]);
+      //this.world = newWorld;
+    }
   },
   mounted(){}
 }
