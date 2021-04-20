@@ -2,7 +2,13 @@
   <div id="app">
     <nav class="border fixed split-nav">
       <div class="nav-brand">
-        <h5> Drago Book Maker</h5>
+				<h5>
+				<button class="btn-default btn-small  btn-warning top-bar-height"
+					v-on:click="saveToLocalStorage">
+					Drago Book Maker
+				</button>
+				</h5>
+
       </div>
 			<div class="nav-brand">
         <router-link to="/testing"  class="routerFont" > Testing Zone </router-link> |
@@ -33,6 +39,24 @@ export default {
 		worldLoad(newWorld){
 			console.log("SEE WORLD", newWorld);
 			this.world = newWorld;
+		},
+		changeWorldName(name){
+			this.world.name = name;
+		},
+		saveToLocalStorage(){
+			localStorage.setItem('currentWorld', JSON.stringify(this.world));
+		}
+	},
+	mounted() {
+		/*
+		let storedWorld = localStorage.getItem('currentWorld');
+		console.log("lets see stored world", JSON.parse(storedWorld));
+		this.world = JSON.parse(storedWorld);
+		 */
+	},
+	computed:{
+		loadWhichWorld(){
+			return new World();
 		}
 	}
 }
@@ -71,5 +95,13 @@ export default {
 .label {
 	color: white;
 }
+.top-bar-height{
+  font-family: Neucha;
+  font-size: 15px;
+	height: 29px;
+	padding:0.5em;
+}
+
+
 
 </style>
