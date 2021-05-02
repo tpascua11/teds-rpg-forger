@@ -10,7 +10,11 @@ import '@desislavsd/vue-select/dist/vue-select.css';
 
 import VueSelect from '@desislavsd/vue-select';
 
+Vue.prototype.theWorld = {};
 
+//* This Is Everything*//
+import {World} from './js/world.js';
+Vue.prototype.world = World;
 
 Vue.use(VueBlobJsonCsv);
 Vue.use(VModal);
