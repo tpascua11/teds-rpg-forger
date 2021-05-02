@@ -6,11 +6,11 @@
 			</button>
 			<button class="btn-default space"/>
 			<select v-model="selectedArea" class="smalldir areaName">
-				<option v-for="(option, index) in world.areaList" v-bind:value="option" :key="index">
+				<option v-for="(option, index) in referenceAreaList" v-bind:value="option" :key="index">
 					{{option.name}}
 				</option>
 			</select>
-			<button v-on:click="show()" class="btn-success smalldir smallNo">
+			<button v-on:click="addAreaModal()" class="btn-success smalldir smallNo">
 				Add
 			</button>
 			<button class="btn-default space"/>
@@ -29,21 +29,22 @@
 		<div v-if="tab === 'area'" class="row">
 			<div class="col-2 col">
 				<WorldLoadAndSave v-bind="world"/>
+				<br>
 
 				<AreaList
 					v-bind:name="'Area List'"
 					v-bind:areaList="world.areaList"
 					v-bind:selectedArea="selectedArea"
+					v-bind:method="{addList: addAreaModal}"
 				/>
 
-				<AreaList
-					v-bind:name="'Connected Areas'"
-					v-bind:areaList="selectedArea.connectedAreaList"
-					v-bind:selectedArea="selectedArea"
-				/>
 			</div>
 			<div class="col-10 col">
 				<Description v-bind:area="selectedArea" />
+
+				<button v-on:click="deleteArea(selectedArea)" class="btn-default btn-small">
+					Delete This Area
+					</button>
 			</div>
 
 		</div>
@@ -53,29 +54,28 @@
 			<!-- The True Template-->
 				<div class="col-1 col main-upleft">
 					<InteractionList
-						v-bind:interactionList="selectedArea.interactionList"
+						v-bind:interactionList="referenceAreaInteractionList"
 						v-bind:selectedInteraction="selectedInteraction"
 						v-bind:name="'Interactions'"
 					/>
 				</div>
-				<div class="col-3 col">
+				<div class="col-3 col" v-if="selectedInteraction">
 					<AreaInteraction
 						v-bind:currentInteraction="selectedInteraction"
 						v-bind:tags="world.tags"
 					/>
 				</div>
 
-				<div class="col-8 col">
+				<div class="col-8 col" v-if="selectedInteraction">
 					<InteractionBuilder
 						v-bind:currentInteraction="selectedInteraction"
 					/>
-
-
 				</div>
+
 			</div>
 		</div>
 
-		<modal name="my-first-modal"
+		<modal name="add-area-modal"
 			:width="300"
 			:height="300"
 			:shiftY="0.1"
@@ -84,7 +84,7 @@
 					<h3> New Area </h3>
 					<input class="" type="string" v-model="newArea.name" placeholder="name">
 					<br>
-					<button v-on:click="createNewArea()" class="btn-default btn-small">
+					<button v-on:click="createNewArea()" class="btn-default btn-small" :disabled="!checkIfAreaNameExist(newArea.name)">
 						Create New Area
 					</button>
 				</center>
@@ -130,7 +130,21 @@ export default {
 	computed: {
 		referenceWorld: function(){
 			return this.world;
-		}
+		},
+		referenceAreaList: function(){
+			//if(!this.world || this.world.arealist) return [];
+			if(this.world && this.world.areaList) return this.world.areaList;
+			else return [];
+		},
+		referenceAreaInteractionList: function(){
+			if(this.selectedArea && this.selectedArea.interactionList){
+				return this.selectedArea.interactionList;
+			}
+			else return [];
+		},
+		referenceConnectedList: function(){
+			return this.selectedArea.connectedAreaList;
+		},
   },
   methods:{
     test(){
@@ -142,6 +156,8 @@ export default {
     selectNewArea(newArea){
 			this.selectedArea = newArea;
 			console.log("see selected", this.selectedArea);
+
+			this.selectedInteraction = null;
 		},
 		addInteraction(interaction){
 			this.selectedArea.interactionList.push(interaction);
@@ -149,13 +165,14 @@ export default {
 		selectInteraction(interaction){
 			this.selectedInteraction = interaction;
 		},
-
 		createNewArea(){
 			this.selectedArea = this.newArea;
 			this.world.areaList.push(this.newArea);
-			this.$modal.hide('my-first-modal');
+			this.$modal.hide('add-area-modal');
+
+			this.selectedInteraction = null;
 		},
-		show () {
+		addAreaModal() {
 			this.newArea = {
 				name: "",
 				description: "",
@@ -163,11 +180,29 @@ export default {
 				interactionList: [],
 			}
 
-			this.$modal.show('my-first-modal');
+			this.$modal.show('add-area-modal');
 		},
-		hide () {
-			this.$modal.hide('my-first-modal');
-		}
+		hide(){
+			this.$modal.hide('add-area-modal');
+		},
+		deleteArea(selectedArea){
+			if(!window.confirm("Are You Sure")) return ;
+
+			this.world.areaList = this.world.areaList.filter((x) => x != selectedArea);
+
+			if(this.selectedArea == selectedArea){
+				this.selectedArea = {};
+			}
+		},
+		checkIfAreaNameExist(name){
+			if(!name) return false;
+
+			let check = true;
+			this.world.areaList.forEach(function(area){
+				if(area.name == name) check = false;
+			});
+			return check;
+		},
 	},
   mounted(){
       this.selectedArea = this.world.areaList[0];

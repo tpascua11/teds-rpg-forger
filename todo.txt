@@ -1,0 +1,8 @@
+[X] Remove an Area
+[X] No Area can have same name add function restriction
+[ ] Make a new way for traveling between areas
+[ ] Make A Condition Statement
+    interaction if condition
+    interaction to make that condition
+[ ] HURAY!
+[ ] Connected Area List is Stupid

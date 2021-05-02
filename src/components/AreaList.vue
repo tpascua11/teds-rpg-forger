@@ -8,6 +8,13 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <button v-on:click="method.addList()" class="btn-success btn-block btn-small">
+                Add Area
+              </button>
+            </td>
+          </tr>
           <tr v-for="item in areaList" :key="item.name">
             <div v-bind:style="[ item == selectedArea ? styleObject : {}]">
               <td
@@ -33,14 +40,15 @@ export default {
       error: null,
       styleObject: {
         color: 'red',
-        fontSize: '13px'
+        //fontSize: '13px'
       }
     }
   },
   props: {
     name: String,
     areaList: Array,
-    selectedArea: Object
+    selectedArea: Object,
+    method: Object,
   },
   mounted(){
 			console.log("SEE THE AreaList", this.areaList);

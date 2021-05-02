@@ -1,14 +1,18 @@
 <template>
   <div class="row">
-    <div class="col-4 col">
-      <section v-for="item in actions" :key="item.name">
-        <button v-on:click="selectNewAction(item)" class="btn-default btn-small
-          btn-block smallfit">
-          {{item.eventName}}
-        </button>
-      </section>
-
-    </div>
+		<div class="col-4 col">
+				<section v-for="item in actions" :key="item.name">
+					<button v-on:click="selectNewAction(item)" class="btn-default btn-small
+						btn-block smallfit">
+						{{item.eventName}}
+					</button>
+				</section>
+        <section>
+          <MoveToArea
+            v-bind:addScript="{activate: createAction}"
+          />
+        </section>
+		</div>
 
 
     <div class="col-8 col">
@@ -64,9 +68,13 @@
 
 <script>
 import ActionTemplates from '@/js/actionTemplates.js'
+import MoveToArea from '@/components/modals/MoveToArea.vue'
 
 export default {
   name: 'ActionBuilder',
+  components: {
+   MoveToArea
+  },
   data: function(){
     return {
 			actionsTemplates: ActionTemplates,
@@ -120,6 +128,10 @@ export default {
       }
       console.log("see new script added", script);
       this.$parent.insertNewAction(script);
+    },
+    createAction(template){
+      console.log("template", template);
+      //this.$parent.insertNewAction(script);
     }
   },
   computed: {
