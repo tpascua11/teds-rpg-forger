@@ -9,7 +9,9 @@
 				</section>
         <section>
           <MoveToArea
+            v-bind:selectDescription="'Select Area To Move to'"
             v-bind:addScript="{activate: createAction}"
+            v-bind:referenceList="$root.world.areaList"
           />
         </section>
 		</div>
@@ -131,7 +133,7 @@ export default {
     },
     createAction(template){
       console.log("template", template);
-      //this.$parent.insertNewAction(script);
+      this.$parent.insertNewAction(template);
     }
   },
   computed: {

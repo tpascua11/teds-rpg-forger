@@ -48,6 +48,7 @@ export default {
 		}
 	},
 	mounted() {
+		this.$root.world = this.world;
 		/*
 		let storedWorld = localStorage.getItem('currentWorld');
 		console.log("lets see stored world", JSON.parse(storedWorld));

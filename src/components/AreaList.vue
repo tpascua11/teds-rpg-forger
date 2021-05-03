@@ -10,7 +10,7 @@
         <tbody>
           <tr>
             <td>
-              <button v-on:click="method.addList()" class="btn-success btn-block btn-small">
+              <button v-on:click="method.addToList()" class="btn-success btn-block btn-small">
                 Add Area
               </button>
             </td>

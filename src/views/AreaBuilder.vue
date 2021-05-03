@@ -35,7 +35,7 @@
 					v-bind:name="'Area List'"
 					v-bind:areaList="world.areaList"
 					v-bind:selectedArea="selectedArea"
-					v-bind:method="{addList: addAreaModal}"
+					v-bind:method="{addToList: addAreaModal}"
 				/>
 
 			</div>
@@ -281,7 +281,9 @@ textarea {
 .simple-border{
 	border: 1px solid black;
 }
-
+.double-simple-border{
+	border: 3px solid black;
+}
 .hidden-border{
 	border-style: none;
 }

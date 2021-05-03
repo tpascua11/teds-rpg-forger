@@ -5,21 +5,27 @@
     </button>
 
    <modal name="modal"
-      :width="400"
-      :height="300"
-      :shiftY="0.1">
-      <div>
-        <select v-model="selectedArea" class="smalldir areaName">
-          <option v-for="(option, index) in referenceAreaList" v-bind:value="option" :key="index">
-            {{option.a}}
-          </option>
-        </select>
-
-
-        <button v-on:click="completeAction()" class="btn-success btn-block btn-small">
-          Complete Action
-        </button>
-
+      :width="250"
+      :height="252"
+      :shiftY="0.1"
+    >
+      <div class="double-simple-border">
+        <div class="row">
+          <div class="col-12 col">
+            <p>{{selectDescription}}</p>
+            <select v-model="selectedArea" class="smalldir referenceList">
+              <option v-for="(option, index) in referenceList" v-bind:value="option" :key="index">
+                {{option.name}}
+              </option>
+            </select>
+            <br>
+            <button v-on:click="completeAction()" class="btn-success btn-block btn-small">
+              Add Script
+            </button>
+          </div>
+        </div>
+        <div class="row">
+        </div>
       </div>
     </modal>
   </div>
@@ -31,27 +37,30 @@ export default {
   data: function(){
     return {
       selectedArea: {},
-      referenceAreaList: [{a:1}, {a:2}, {a:3}]
     }
   },
   props: {
     name: String,
-    areaList: Array,
+    selectDescription: String,
     referenceList: Array,
-    selectedChoice: Object,
-    topo: Object,
     addScript: Object,
   },
   mounted(){},
   methods:{
     show () {
+      console.log("give me reference list", this.referenceList);
       this.$modal.show('modal');
     },
     hide () {
       this.$modal.hide('modal');
     },
     completeAction(){
-      this.addScript.activate({test: "test", selectedArea: this.selectedArea});
+      this.addScript.activate(
+        {
+          eventName: "movetoarea",
+          areaName : this.selectedArea.name
+        }
+      );
     }
 
   },
@@ -62,4 +71,8 @@ export default {
 </script>
 
 <style scoped>
+.referenceList{
+  width: 200px;
+  height: 40px;
+}
 </style>
