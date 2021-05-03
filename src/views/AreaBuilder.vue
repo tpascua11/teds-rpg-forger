@@ -28,9 +28,6 @@
 
 		<div v-if="tab === 'area'" class="row">
 			<div class="col-2 col">
-				<WorldLoadAndSave v-bind="world"/>
-				<br>
-
 				<AreaList
 					v-bind:name="'Area List'"
 					v-bind:areaList="world.areaList"
@@ -96,7 +93,6 @@
 <script>
 import AreaList from '@/components/AreaList.vue'
 import Description from '@/components/Description.vue'
-import WorldLoadAndSave from '@/components/WorldLoadAndSave.vue'
 import InteractionBuilder from '@/components/InteractionBuilder.vue'
 import InteractionList from '@/components/InteractionList.vue'
 
@@ -119,7 +115,6 @@ export default {
   components: {
 		AreaList,
 		Description,
-		WorldLoadAndSave,
 		InteractionBuilder,
 		InteractionList,
 		AreaInteraction,

@@ -1,32 +1,36 @@
 <template>
-  <div class="areaList card" style="width: 10rem;">
+  <div class="areaList card" style="width: 10rem; height: 600px">
     <div class="card-body">
-      <table>
-        <thead>
-          <tr>
-            <th>{{name}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <button v-on:click="method.addToList()" class="btn-success btn-block btn-small">
-                Add Area
-              </button>
-            </td>
-          </tr>
-          <tr v-for="item in areaList" :key="item.name">
-            <div v-bind:style="[ item == selectedArea ? styleObject : {}]">
-              <td
-                v-on:click="selectNewArea(item)"
-                v-bind:class="classObject"
-               >
-                {{item.name}}
-              </td>
-            </div>
-          </tr>
-        </tbody>
-      </table>
+      {{name}}
+      <button v-on:click="method.addToList()" class="btn-success-outline btn-small">
+        +
+      </button>
+      <br>
+      <br>
+
+      <div style="overflow: scroll; height: 500px;">
+        <table>
+          <!--
+          <thead>
+            <tr style="height: 10px;">
+              <th> <h5>{{name}}</h5> </th>
+            </tr>
+          </thead>
+          -->
+          <tbody>
+            <tr v-for="item in areaList" :key="item.name">
+              <div v-bind:style="[ item == selectedArea ? styleObject : {}]">
+                <td
+                  v-on:click="selectNewArea(item)"
+                  v-bind:class="classObject"
+                 >
+                  {{item.name}}
+                </td>
+              </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +43,9 @@ export default {
       isActive: true,
       error: null,
       styleObject: {
-        color: 'red',
+        'text-decoration': 'underline',
+        'font-weight': 'bold',
+        //color: 'red',
         //fontSize: '13px'
       }
     }
