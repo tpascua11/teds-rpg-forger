@@ -1,10 +1,7 @@
 <template>
-  <div class="areaList card" style="width: 10rem; height: 600px">
+  <div class="areaList card" style="width: 10rem; height: 650px">
     <div class="card-body">
       {{name}}
-      <button v-on:click="method.addToList()" class="btn-success-outline btn-small">
-        +
-      </button>
       <br>
       <br>
 
@@ -31,6 +28,9 @@
           </tbody>
         </table>
       </div>
+      <button v-on:click="method.addToList()" class="btn-success btn-small btn-block">
+        Add Area
+      </button>
     </div>
   </div>
 </template>
@@ -67,7 +67,7 @@ export default {
     },
     isSelectedWorld(area){
       return this.selectedArea == area;
-    }
+    },
   },
   computed: {
     classObject: function () {

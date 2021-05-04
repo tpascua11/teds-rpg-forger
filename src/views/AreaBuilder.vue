@@ -25,7 +25,6 @@
 			</button>
 		</div>
 
-
 		<div v-if="tab === 'area'" class="row">
 			<div class="col-2 col">
 				<AreaList
@@ -34,14 +33,40 @@
 					v-bind:selectedArea="selectedArea"
 					v-bind:method="{addToList: addAreaModal}"
 				/>
+			</div>
+
+			<div class="col-3 col">
+				<h4> {{selectedArea.name}} </h4>
+				<div style="height: 45vh">
+					<Description v-bind:area="selectedArea" />
+				</div>
+			</div>
+
+			<div class="col-4 col">
+				<UnassignedList
+					v-bind:name="'Connected Areas'"
+					v-bind:list="selectedArea.connectedAreaList"
+					v-bind:method="{changeList: changeList}"
+				/>
+			</div>
+
+			<div class="col-2 col">
+				<ConnectedAreaList
+					v-bind:name="'Connect Selcted Area'"
+					v-bind:connectedAreaList="selectedArea.connectedAreaList"
+					v-bind:referenceList="world.areaList"
+					v-bind:selectedArea="selectedArea"
+					v-bind:method="{addToList: mergeConnectedAreaList}"
+				/>
 
 			</div>
-			<div class="col-10 col">
-				<Description v-bind:area="selectedArea" />
 
-				<button v-on:click="deleteArea(selectedArea)" class="btn-default btn-small">
+
+
+			<div class="col-1 col">
+				<button v-on:click="deleteArea(selectedArea)" class="btn-danger btn-small">
 					Delete This Area
-					</button>
+				</button>
 			</div>
 
 		</div>
@@ -92,6 +117,8 @@
 
 <script>
 import AreaList from '@/components/AreaList.vue'
+import ConnectedAreaList from '@/components/ConnectedAreaList.vue'
+import UnassignedList from '@/components/list/UnassignList.vue'
 import Description from '@/components/Description.vue'
 import InteractionBuilder from '@/components/InteractionBuilder.vue'
 import InteractionList from '@/components/InteractionList.vue'
@@ -114,6 +141,8 @@ export default {
   },
   components: {
 		AreaList,
+		ConnectedAreaList,
+		UnassignedList,
 		Description,
 		InteractionBuilder,
 		InteractionList,
@@ -185,9 +214,13 @@ export default {
 
 			this.world.areaList = this.world.areaList.filter((x) => x != selectedArea);
 
+			/*
 			if(this.selectedArea == selectedArea){
 				this.selectedArea = {};
 			}
+			 */
+			if(this.world.areaList.length > 0) this.selectedArea = this.world.areaList[0];
+			else this.selectedArea = {};
 		},
 		checkIfAreaNameExist(name){
 			if(!name) return false;
@@ -198,8 +231,26 @@ export default {
 			});
 			return check;
 		},
+		mergeConnectedAreaList(list){
+			console.log('-----', list);
+			this.selectedArea.connectedAreaList =
+				[ ...this.selectedArea.connectedAreaList,
+					...list
+				];
+			console.log("See Connected", this.selectedArea.connectedAreaList);
+		},
+		clearConnectedList(tlist){
+			let clist = this.selectedArea.connectedAreaList;
+			clist = clist.filter(item => !tlist.includes(item));
+			console.log(clist);
+		},
+		changeList(newList){
+			if(!window.confirm("Are You Sure")) return ;
+			this.selectedArea.connectedAreaList = newList;
+		}
 	},
-  mounted(){
+	mounted(){
+			this.selectedList = [];
       this.selectedArea = this.world.areaList[0];
 			console.log("SEE THE WORLD", this.world);
 	}
