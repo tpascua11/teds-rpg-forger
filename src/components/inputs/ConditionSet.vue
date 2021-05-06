@@ -155,7 +155,7 @@ export default {
   },
   props: ['value', 'world', 'confirm'],
   mounted(){
-    console.log("SEE THE Reference World", this.world);
+    console.log("SEE THE Reference World", this.$root.world);
   },
   methods:{
     selectConditionType(type){
@@ -216,7 +216,7 @@ export default {
     },
     referenceWorld: function(){
       //return this.$parent.referenceWorld;
-      return this.world;
+      return this.$root.world;
     },
     referenceConditionList: function(){
       return this.value;
