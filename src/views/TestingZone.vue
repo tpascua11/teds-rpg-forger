@@ -4,8 +4,21 @@
       <div class="col-2 col"> --- </div>
       <div class="col-2 col"> --- </div>
       <div class="col-6 col">
-        <ConditionSet />
+        <!--
+        <SelectFromList
+          v-bind:targetListName="'flagList'"
+          v-bind:type="'String'"
+        />
+        -->
+
+        <SelectFromList
+          v-bind:targetListName="'areaList'"
+          v-bind:type="'Object'"
+        />
       </div>
+    </div>
+    <div v-if="false">
+      <ConditionSet />
     </div>
   </div>
 </template>
@@ -13,6 +26,7 @@
 <script>
 
 import ConditionSet from '@/components/inputs/ConditionSet.vue'
+import SelectFromList from '@/components/inputs/SelectFromList.vue'
 
 export default {
   name: 'areabuilder',
@@ -34,6 +48,7 @@ export default {
   },
   components: {
     ConditionSet,
+    SelectFromList,
   },
   props: {
     world: Object

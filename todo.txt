@@ -1,9 +1,9 @@
 [X] Remove an Area
 [X] No Area can have same name add function restriction
 [X] Make a new way for traveling between areas
-[ ] Make A new way to to make connected areas
+[X] Make A new way to to make connected areas
 [ ] Make A Condition Statement
-    interaction if condition
-    interaction to make that condition
+    interaction if condition.
+    interaction to make that condition.
+    dont do condition statements on the scripts yet.
 [ ] HURAY!
-[ ] Connected Area List is Stupid

@@ -13,6 +13,12 @@
             v-bind:addScript="{activate: createAction}"
             v-bind:referenceList="$root.world.areaList"
           />
+
+          <ToggleFlag
+            v-bind:selectDescription="'Select Area To Move to'"
+            v-bind:addScript="{activate: createAction}"
+          />
+
         </section>
 		</div>
 
@@ -71,11 +77,13 @@
 <script>
 import ActionTemplates from '@/js/actionTemplates.js'
 import MoveToArea from '@/components/modals/MoveToArea.vue'
+import ToggleFlag from '@/components/modals/ToggleFlag.vue'
 
 export default {
   name: 'ActionBuilder',
   components: {
-   MoveToArea
+    MoveToArea,
+    ToggleFlag,
   },
   data: function(){
     return {
