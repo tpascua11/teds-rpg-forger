@@ -9,6 +9,7 @@ export class World {
 		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];
 		this.conditionList =  ['debug1', 'debug2'];
 		this.flagList =  [];
+		this.flagMap =  {};
 		this.complexConditionList = [{}];
   }
 }

@@ -71,7 +71,11 @@ export default {
       this.selectedFlag = {name: value.name, flag:true};
       this.testList.push({name: value.name, flag: true});
 
+      //this.$root.world.flagList.push({name: value.name, flag: true});
+      this.$root.world.flagMap[value.name] = true;
+
       //this.$root.world.flagList.push({name: flag.value, flag: true});
+      //console.log("see new world", this.$root.world);
     },
     completeAction(toggle){
       this.addScript.activate(
