@@ -140,7 +140,7 @@ export default {
       this.$parent.insertNewAction(script);
     },
     createAction(template){
-      console.log("template", template);
+      console.log("template added", template);
       this.$parent.insertNewAction(template);
     }
   },

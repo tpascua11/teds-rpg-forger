@@ -8,7 +8,7 @@ export class World {
 		this.statusEffectList = [];
 		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];
 		this.conditionList =  ['debug1', 'debug2'];
-		this.flagList =  ['debug1', 'debug2', 'debug3', 'debug4', 'debug5'];
+		this.flagList =  [];
 		this.complexConditionList = [{}];
   }
 }
