@@ -12,9 +12,10 @@
       </div>
 			<div class="nav-brand">
         <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
-				<router-link to="/world"      class="routerFont" > World </router-link> |
+				<router-link to="/world" class="routerFont" > World </router-link> |
 
-				<router-link to="/testing"  class="routerFont" > Testing Zone </router-link> |
+				<router-link to="/item"  class="routerFont" > Items </router-link> |
+				<router-link to="/testing" class="routerFont" > Testing Zone </router-link> |
 				<!--
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
 				<router-link to="/"      class="routerFont" > Items     </router-link> |
