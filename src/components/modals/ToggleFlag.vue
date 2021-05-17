@@ -16,7 +16,7 @@
             <v-select
               v-model="selectedFlag.name"
               as="name::id"
-              :from="testList"
+              :from="flagList"
               @create="newFlag"
             />
           </div>
@@ -48,6 +48,9 @@ export default {
       selectedArea: {},
       selectedFlag: {},
       testList: [{name: "cool", flag: true}],
+      list: [],
+      update: false,
+      componentKey: 0,
     }
   },
   props: {
@@ -56,11 +59,16 @@ export default {
     referenceList: Array,
     addScript: Object,
   },
-  mounted(){},
+  mounted(){
+    this.list = Object.keys(this.$root.world.flagMap);
+  },
   methods:{
-    show () {
+    show (){
       console.log("give me reference list", this.referenceList);
       this.$modal.show('flag-modal');
+
+      this.update = !this.update;
+      this.componentKey++;
     },
     hide () {
       this.$modal.hide('flag-modal');
@@ -71,11 +79,9 @@ export default {
       this.selectedFlag = {name: value.name, flag:true};
       this.testList.push({name: value.name, flag: true});
 
-      //this.$root.world.flagList.push({name: value.name, flag: true});
-      this.$root.world.flagMap[value.name] = true;
+      this.$root.world.flagMap[value.name] = false;
 
-      //this.$root.world.flagList.push({name: flag.value, flag: true});
-      //console.log("see new world", this.$root.world);
+      this.list = Object.keys(this.$root.world.flagMap);
     },
     completeAction(toggle){
       this.addScript.activate(
@@ -87,10 +93,14 @@ export default {
       );
       this.selectedFlag = {};
       this.$modal.hide('flag-modal');
-    }
 
+      this.update = !this.update;
+    }
   },
   computed: {
+    flagList (){
+      return this.list;
+    }
   }
 }
 

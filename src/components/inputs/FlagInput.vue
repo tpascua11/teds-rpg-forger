@@ -43,17 +43,17 @@ ConditionTemplate that will be reference will have these 2 variables
           class="f-size adaptable-width" placeholder="Add Flag" />
       </div>
       <div class="col-6">
-        <v-select v-model="flagList" :from="optionList"
+        <v-select v-model="flagList" :from="dlist"
           class="f-size adaptable-width" placeholder="Add Flag">
           <template v-slot:selected="{option}">
             <div class="f-size">
-              <p>{{option.label}} </p>
+              <p> {{option.raw}}</p>
             </div>
           </template>
 
           <template v-slot:option="{option}">
             <div class="f-size">
-              {{option.label}}
+              {{option.raw}}
             </div>
           </template>
 
@@ -79,7 +79,7 @@ ConditionTemplate that will be reference will have these 2 variables
               v-for="(element, index) in flagSet.isList"
               :key="index"
             >
-              <button class="btn-default  nice-small-fit"> 
+              <button class="btn-default  nice-small-fit">
               {{ element }}
               </button>
             </span>
@@ -101,7 +101,7 @@ ConditionTemplate that will be reference will have these 2 variables
               v-for="(element, index) in flagSet.notList"
               :key="index"
             >
-              <button class="btn-default  nice-small-fit"> 
+              <button class="btn-default  nice-small-fit">
               {{ element }}
               </button>
             </span>
@@ -176,6 +176,9 @@ export default {
       return this.value;
     },
     optionList: function(){
+      let tmp = Object.keys(this.$root.world.flagMap);
+      console.log(tmp);
+
       /* Returns A List that is not selected or not already in the flagSet */
       let filtered = this.referenceList.filter(
         function(e) {
@@ -186,6 +189,21 @@ export default {
       console.log("filtered", filtered);
       return filtered;
     },
+    dlist: function(){
+      let tmp = Object.keys(this.$root.world.flagMap);
+      console.log(tmp);
+
+      let filtered = tmp.filter(
+        function(e) {
+          return this.indexOf(e) < 0;
+        },
+        [...this.value.isList, ...this.value.notList, ...this.putBackList]
+      );
+
+      console.log("filtered", filtered);
+      return filtered;
+
+    }
   },
   mounted(){},
 }
