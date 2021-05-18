@@ -1,29 +1,57 @@
 <template>
   <div class="Items container container-lg paper">
     <div class="row">
-      <div class="col-4 col">
+      <div class="col-2 col">
         <ItemList
           v-bind:name="'Item List'"
           v-bind:selectedItem="selectedItem"
+          v-bind:selectedName="selectedName"
           v-bind:method="{addNewItem, selectItem}"
         />
       </div>
-      <div class="col-8 col">
-        <div class="row">
-          <input v-model="name" placeholder="item name" :disabled="nameLock">
 
-          <textarea v-model="selectedItem.description" placeholder="area description"></textarea>
+      <div class="col-10 col">
+        <form>
+          <div class="row">
+            <div class="col sm-5">
+              <div class="form-group">
+                <label for="paperInputs1"> Name </label>
+                <input class="input-block" v-model="name" type="text"
+                  placeholder="name of item..." id="paperInputs1"
+                  :disabled="nameLock">
+              </div>
+            </div>
+            <div class="col sm-2">
+              <div class="form-group">
+                <label for="paperInputs1"> Limit </label>
+                <input
+                  class="input-block"
+                  v-model="selectedItem.limit" type="number" placeholder="Limit" id="paperInputs1">
+              </div>
+            </div>
+          </div>
+          <div class="row description-row">
+            <div class="col sm-12">
+              <div class="form-group">
+                <label for="large-input">Description</label>
+                <textarea v-model="selectedItem.description" id="large-input"
+                  placeholder="describe item usage"></textarea>
+              </div>
+            </div>
         </div>
+      </form>
 
-        <div class="row">
-        </div>
+      <div class="row">
+      </div>
 
+      <div class="row">
+        <div class="col sm-12">
+        <button v-on:click="convergeToItemList()" class="btn-success-outline btn-small btn-block">
+          Converge
+        </button>
 
-        <div class="row">
-          <button v-on:click="convergeToItemList()" class="btn-success-outline btn-small btn-block">
-            Converge
-          </button>
-        </div>
+      </div>
+      </div>
       </div>
     </div>
     <div v-if="false">
@@ -40,12 +68,14 @@ export default {
   data: function() {
     return {
       name: "",
+      selectedInteraction: {},
       selectedItem: {},
+      selectedName: "",
       nameLock: true,
 		};
   },
   components: {
-		ItemList,
+    ItemList,
   },
   props: {
     world: Object,
@@ -60,7 +90,12 @@ export default {
   },
   methods:{
     setNewItem: function(){
-      this.selectedItem = {name: '', description: '', scriptList: []};
+      this.selectedItem = {
+        name: '',
+        description: '',
+        limit: 10,
+        scriptList: []
+      };
     },
     addNewItem: function(){
       this.selectedItem = {limit: 10, description: ""};
@@ -74,6 +109,7 @@ export default {
     selectItem: function(item, name){
       console.log("what is item", item);
 
+      this.selectedName = name;
       this.name = name;
       this.nameLock = true;
       this.selectedItem = {};
@@ -83,8 +119,9 @@ export default {
       this.$root.world.itemMap[this.name] = this.selectedItem;
       console.log("update", this.$root.world);
 
-      //this.selectedItem = {};
-      //this.name = "";
+      this.selectedName = this.name;
+      this.nameLock = true;
+
       this.$forceUpdate();
     }
 	},
@@ -124,6 +161,11 @@ textarea {
   font-size: 21px;
   height: 30px;
   padding:0.2em
+}
+
+.description-row{
+  position:relative;
+  top: -50px;
 }
 
 p{

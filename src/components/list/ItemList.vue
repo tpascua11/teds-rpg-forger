@@ -16,7 +16,7 @@
           -->
           <tbody>
             <tr v-for="(value, name) in itemMap" :key="name">
-              <div v-bind:style="[ value == selectedItem ? styleObject : {}]">
+              <div v-bind:style="[ name == selectedName ? styleObject : {}]">
                 <td
                   v-on:click="method.selectItem(value, name)"
                   v-bind:class="classObject"
@@ -56,6 +56,7 @@ export default {
     areaList: Array,
     selectedItem: Object,
     method: Object,
+    selectedName: String,
   },
   mounted(){
 			console.log("SEE THE AreaList", this.areaList);
