@@ -1,4 +1,7 @@
 [ ] Item View
 [ ] Make Gold
 [ ] Make Potion
+[ ] Able to Add Item By Script
+[ ] Trade In Item
+[ ] Lose Item Amount
 

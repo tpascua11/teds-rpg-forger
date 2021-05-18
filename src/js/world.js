@@ -9,7 +9,13 @@ export class World {
 		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];
 		this.conditionList =  ['debug1', 'debug2'];
 		this.flagList =  ['test', 'fire', 'cool'];
-		this.flagMap =  {'test': true, 'good': false};
+
+		this.flagMap =  {};
+		this.itemMap = {
+			'Gold'  : {description: "currency"},
+			'Silver': {description: "currency"},
+		};
+
 		this.complexConditionList = [{}];
   }
 }
