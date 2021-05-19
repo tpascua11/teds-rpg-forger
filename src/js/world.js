@@ -12,8 +12,8 @@ export class World {
 
 		this.flagMap =  {};
 		this.itemMap = {
-			'Gold'  : {description: "currency"},
-			'Silver': {description: "currency"},
+			'Gold'  : {description: "currency", scriptList:[]},
+			'Silver': {description: "currency", scriptList:[]},
 		};
 
 		this.complexConditionList = [{}];

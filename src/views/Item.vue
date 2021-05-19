@@ -1,7 +1,7 @@
 <template>
   <div class="Items container container-lg paper">
     <div class="row">
-      <div class="col-2 col">
+      <div class="col-3 col">
         <ItemList
           v-bind:name="'Item List'"
           v-bind:selectedItem="selectedItem"
@@ -10,51 +10,59 @@
         />
       </div>
 
-      <div class="col-10 col">
-        <form>
-          <div class="row">
-            <div class="col sm-5">
-              <div class="form-group">
-                <label for="paperInputs1"> Name </label>
-                <input class="input-block" v-model="name" type="text"
-                  placeholder="name of item..." id="paperInputs1"
-                  :disabled="nameLock">
-              </div>
-            </div>
-            <div class="col sm-2">
-              <div class="form-group">
-                <label for="paperInputs1"> Limit </label>
-                <input
-                  class="input-block"
-                  v-model="selectedItem.limit" type="number" placeholder="Limit" id="paperInputs1">
-              </div>
+      <div class="col-9 col paper">
+        <div class="row">
+          <div class="col sm-5">
+            <div class="form-group">
+              <label for="paperInputs1"> Name </label>
+              <input class="input-block" v-model="name" type="text"
+                placeholder="name of item..." id="paperInputs1"
+                :disabled="nameLock">
             </div>
           </div>
-          <div class="row description-row">
-            <div class="col sm-12">
-              <div class="form-group">
-                <label for="large-input">Description</label>
-                <textarea v-model="selectedItem.description" id="large-input"
-                  placeholder="describe item usage"></textarea>
-              </div>
+
+          <div class="col sm-3">
+            <div class="form-group">
+              <label for="paperInputs1"> Limit </label>
+              <input
+                class="input-block"
+                v-model="selectedItem.limit" type="number" placeholder="Limit" id="paperInputs1">
             </div>
+          </div>
+
+          <div class="col sm-4">
+            <div class="form-group">
+            <label for="paperInputs1"> ---  </label>
+            <button v-on:click="convergeToItemList()" class="btn-success btn-small btn-block">
+              Converge
+            </button>
+          </div>
+          </div>
         </div>
-      </form>
 
-      <div class="row">
-      </div>
+        <div class="row description-row">
+          <div class="col sm-12">
+            <div class="form-group">
+              <label for="large-input">Description</label>
+              <textarea v-model="selectedItem.description" id="large-input"
+                placeholder="describe item usage"></textarea>
+            </div>
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="col sm-12">
-        <button v-on:click="convergeToItemList()" class="btn-success-outline btn-small btn-block">
-          Converge
-        </button>
+        <div class="row description-row">
+          <div class="col sm-12">
+          </div>
+        </div>
+
+        <div class="row script-row">
+          <ScriptListBuilder
+            v-bind:method="{addToScriptList}"
+            v-bind:scriptList="selectedItem.scriptList"
+          />
+        </div>
 
       </div>
-      </div>
-      </div>
-    </div>
-    <div v-if="false">
     </div>
   </div>
 </template>
@@ -62,6 +70,7 @@
 <script>
 
 import ItemList from '@/components/list/ItemList.vue'
+import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
 
 export default {
   name: 'Items',
@@ -72,21 +81,22 @@ export default {
       selectedItem: {},
       selectedName: "",
       nameLock: true,
-		};
+    };
   },
   components: {
     ItemList,
+    ScriptListBuilder,
   },
   props: {
     world: Object,
   },
-	computed: {
-		rworld: function(){
-			return this.$root.world;
+  computed: {
+    rworld: function(){
+      return this.$root.world;
     },
-		itemMap: function(){
-			return this.$root.world.itemMap;
-		}
+    itemMap: function(){
+      return this.$root.world.itemMap;
+    }
   },
   methods:{
     setNewItem: function(){
@@ -98,7 +108,11 @@ export default {
       };
     },
     addNewItem: function(){
-      this.selectedItem = {limit: 10, description: ""};
+      this.selectedItem = {
+        limit: 10,
+        description: "",
+        scriptList: []
+      };
       console.log("see item", this.selectedItem);
       this.name = "";
       this.nameLock = false;
@@ -123,10 +137,13 @@ export default {
       this.nameLock = true;
 
       this.$forceUpdate();
+    },
+    addToScriptList(script){
+      this.selectedItem.scriptList.push(script);
     }
-	},
+  },
   mounted(){
-	}
+  }
 }
 </script>
 
@@ -138,15 +155,15 @@ textarea {
   width: 100%;
 }
 .nice-border{
-	border: 1px solid black;
+  border: 1px solid black;
 }
 
 .simple-border{
-	border: 1px solid black;
+  border: 1px solid black;
 }
 
 .hidden-border{
-	border-style: none;
+  border-style: none;
 }
 
 .nice-small-fit{
@@ -166,6 +183,12 @@ textarea {
 .description-row{
   position:relative;
   top: -50px;
+}
+
+.script-row{
+  height: 225px;
+  position:relative;
+  top: -125px;
 }
 
 p{
