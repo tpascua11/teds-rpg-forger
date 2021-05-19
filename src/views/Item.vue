@@ -108,6 +108,7 @@ export default {
       };
     },
     addNewItem: function(){
+      this.selectedName = "";
       this.selectedItem = {
         limit: 10,
         description: "",
