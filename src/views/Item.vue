@@ -57,8 +57,9 @@
 
         <div class="row script-row">
           <ScriptListBuilder
-            v-bind:method="{addToScriptList}"
+            v-bind:method="{addToScriptList, convergeScriptList}"
             v-bind:scriptList="selectedItem.scriptList"
+            v-bind:name="selectedName"
           />
         </div>
 
@@ -141,6 +142,17 @@ export default {
     },
     addToScriptList(script){
       this.selectedItem.scriptList.push(script);
+    },
+    convergeScriptList(scriptList){
+      this.refreshList(scriptList);
+      this.selectedItem.scriptList = scriptList;
+      this.convergeToItemList();
+      return this.selectedItem.scriptList;
+    },
+    refreshList(scriptList){
+      scriptList.forEach(function(script){
+        delete script.isMoved;
+      });
     }
   },
   mounted(){

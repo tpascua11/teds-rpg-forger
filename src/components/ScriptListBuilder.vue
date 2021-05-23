@@ -1,16 +1,35 @@
 <template>
   <section class="basedHeight">
+    <div class="row"> <hr> <hr></div>
+    <div class="row">
+      <div class="col-2 col"> </div>
+      <div class="col-8 col">
+        <div class="row">
+          <button v-on:click="saveScript()" class="btn-warning
+            btn-small scriptSave btn-block">
+            Save Script Order
+          </button>
+        </div>
+      </div>
+      <div class="col-2 col"> </div>
+    </div>
     <div class="row">
       <div class="col-8 col">
         <table class="table" style="width: 100%; table-layout: fixed;">
           <thead>
             <tr>
-              <th scope="col" style="width: 90%;"> Script List</th>
+              <th scope="col" style="width: 90%;">
+                Script List
+              </th>
               <th scope="col" style="width: 10%;"> Edit </th>
             </tr>
           </thead>
-          <draggable v-model="scriptList" tag="tbody">
-            <tr v-for="(item, index) in scriptList" :key="index">
+
+
+          <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove">
+            <tr v-for="(item, index) in selectedScriptList" :key="index"
+          v-bind:style="[ item.isMoved ? moved : {}]"
+            >
               <td>{{item}}</td>
               <td>
                 <button v-on:click="removeAction(index)" class="btn-danger
@@ -46,6 +65,9 @@ export default {
         color: 'red',
         fontSize: '13px'
       },
+      moved: {
+        'background-color': 'yellow'
+      },
       action: {},
       selectedActionName: '',
       selectedAction: {},
@@ -54,6 +76,7 @@ export default {
         lastName: 'Andersen',
         age: 27
       },
+      selectedScriptList: [],
     }
   },
   components: {
@@ -67,7 +90,24 @@ export default {
     method: Object,
     scriptList: Array,
   },
+  watch: {
+    name: function(){
+      this.selectedScriptList = this.scriptList;
+    },
+    scriptList: function(){
+      /*
+      if(oldv) oldv.every(function(row){
+        row.isMoved = false;
+      });
+      if(newv) newv.every(function(row){
+        row.isMoved = false;
+      });
+      this.selectedScriptList = this.scriptList;
+       */
+    }
+  },
   mounted(){
+    console.log("DID IT CHANGED!");
   },
   methods:{
     selectNewAction(action){
@@ -84,8 +124,17 @@ export default {
       this.scriptList.splice(index, 1);
     },
     addToScriptList(script){
-      this.method.addToScriptList(script);
-      //this.scriptList.push(script);
+      //this.method.addToScriptList(script);
+      this.selectedScriptList.push(script);
+    },
+    saveScript(){
+      console.log("Script Overwritten!");
+      this.method.convergeScriptList(this.selectedScriptList);
+      this.$forceUpdate();
+    },
+    checkMove({draggedContext}){
+      console.log("movement at", draggedContext.element);
+      draggedContext.element.isMoved = true;
     }
   },
   computed: {
@@ -118,7 +167,11 @@ export default {
   height: 25px;
   padding:0.1em
 }
-
+.scriptSave{
+  font-size: 20px;
+  height: 30px;
+  padding:0.1em
+}
 .rightside{
   /*background-color: lightgrey;*/
 }
