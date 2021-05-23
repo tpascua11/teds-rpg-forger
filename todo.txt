@@ -3,5 +3,5 @@
 [X] Make Potion
 [X] Able to Add Item By Script
 [ ] Trade In Item
-[ ] Lose Item Amount
+[X] Lose Item Amount
 

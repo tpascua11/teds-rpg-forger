@@ -4,7 +4,6 @@ export class World {
 		this.areaList = [
 		];
     this.worldItemList = [];
-    this.startingItemList = [];
 		this.statusEffectList = [];
 		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];
 		this.conditionList =  ['debug1', 'debug2'];
@@ -12,9 +11,10 @@ export class World {
 
 		this.flagMap =  {};
 		this.itemMap = {
-			'Gold'  : {description: "currency", scriptList:[]},
-			'Silver': {description: "currency", scriptList:[]},
+			'Gold'  : {description: "currency", limit: 9001, scriptList:[]},
+			'Silver': {description: "currency", limit: 9001, scriptList:[]},
 		};
+		this.startingItemList = [{name: 'Gold', total: 10}],
 
 		this.complexConditionList = [{}];
   }
