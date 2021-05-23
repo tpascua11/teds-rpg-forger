@@ -2,7 +2,7 @@
   <div class="row">
 		<div class="col-12 col" v-if="(mode === 'MENU')">
 				<section v-for="item in actions" :key="item.name">
-					<button v-on:click="selectNewAction(item)" class="btn-default btn-small
+					<button v-on:click="selectNewAction(item)" class="btn-success-outline btn-small
 						btn-block smallfit">
 						{{item.eventName}}
 					</button>
@@ -20,6 +20,19 @@
             v-bind:addScript="{activate: createAction}"
           />
         </section>
+
+        <section>
+          <button v-on:click="mode = 'ADD_ITEM'" class="btn-success-outline btn-small btn-block smallfit">
+            Add Item
+					</button>
+        </section>
+
+    </div>
+
+    <div class="col-12 col" v-else-if="mode == 'ADD_ITEM'">
+      <AddItem
+        v-bind:addScript="{activate: forgeAction}"
+      />
     </div>
 
     <div class="col-12 col" v-else>
@@ -81,12 +94,14 @@
 import ActionTemplates from '@/js/actionTemplates.js'
 import MoveToArea from '@/components/modals/MoveToArea.vue'
 import ToggleFlag from '@/components/modals/ToggleFlag.vue'
+import AddItem from '@/components/scriptInput/AddItem.vue'
 
 export default {
   name: 'ActionBuilder',
   components: {
     MoveToArea,
     ToggleFlag,
+    AddItem,
   },
   data: function(){
     return {
@@ -149,6 +164,11 @@ export default {
       console.log("see new script added", script);
       //this.$parent.insertNewAction(script);
 
+      this.method.addToScriptList(script);
+    },
+    forgeAction(script){
+      console.log(script);
+      this.mode = "MENU";
       this.method.addToScriptList(script);
     },
     createAction(template){

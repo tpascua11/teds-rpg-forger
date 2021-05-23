@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on:click="show()" class="btn-success btn-block btn-small">
+    <button v-on:click="show()" class="btn-warning-outline btn-block btn-small smallfit">
       MoveArea
     </button>
 
@@ -75,4 +75,9 @@ export default {
   width: 200px;
   height: 40px;
 }
+.smallfit{
+  height: 25px;
+  padding:0.1em
+}
+
 </style>
