@@ -142,11 +142,14 @@ export default {
   },
   watch: {
     editedAction: function(oldv, newv){
+      console.log("SEE NEW STUFF ----------------------------------");
+      console.log(oldv,newv);
       //if(!newv) return true;
       //|| ( oldv && (oldv === newv))) return;
 
-      if(!newv) this.selectNewAction(oldv, 'EDITED');
-      else      this.selectNewAction(newv, 'EDITED');
+      //if(!newv) this.selectNewAction(oldv, 'EDITED');
+      //else      this.selectNewAction(newv, 'EDITED');
+      this.selectNewAction(oldv, 'EDITED');
     }
   },
   mounted(){
