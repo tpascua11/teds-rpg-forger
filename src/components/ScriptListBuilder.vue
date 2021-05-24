@@ -30,7 +30,11 @@
             <tr v-for="(item, index) in selectedScriptList" :key="index"
           v-bind:style="[ item.isMoved ? moved : {}]"
             >
-              <td>{{item}}</td>
+              <td v-on:click="selectAction(item)" style="cursor: move;"
+                v-bind:style="[ selectedAction == item ? selected : {}]"
+              >
+                {{item}}
+              </td>
               <td>
                 <button v-on:click="removeAction(index)" class="btn-danger
                   btn-small smalltext">
@@ -66,7 +70,10 @@ export default {
         fontSize: '13px'
       },
       moved: {
-        'background-color': 'yellow'
+        'background-color': '#FFFFE0'
+      },
+      selected: {
+        'background-color': 'peachpuff'
       },
       action: {},
       selectedActionName: '',
@@ -123,9 +130,25 @@ export default {
       console.log(index);
       this.scriptList.splice(index, 1);
     },
+    selectAction(script){
+      this.selectedAction = script;
+      console.log("check script", this.selectedAction);
+    },
+    convertSelectedAction(script){
+      this.selectedAction = script;
+      console.log("see the new selected action", this.selectedAction);
+    },
     addToScriptList(script){
       //this.method.addToScriptList(script);
       this.selectedScriptList.push(script);
+    },
+    editScript(script){
+      console.log(script);
+      this.selectedAction = script;
+      //this.method.addToScriptList(script);
+      //this.selectedScriptList.push(script);
+    },
+    clearScript(){
     },
     saveScript(){
       console.log("Script Overwritten!");

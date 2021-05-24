@@ -1,7 +1,13 @@
-[X] Item View
-[X] Make Gold
-[X] Make Potion
-[X] Able to Add Item By Script
-[ ] Trade In Item
-[X] Lose Item Amount
+[ ] Select A Row In Script List
+[ ] Selected Row is editable
+[ ] Make a if condition case in script list
+   ( ) a new script list will be used inside the if condition
+       script: {eventName: "if", case: "flag/condition", scriptList}
+   ( ) Test add Description within if condition case.
+   ( ) this if condition is selectable
+[ ] Make a choice condition case
+[ ] Make a while condition case
+
+[ ] Put all work in the the area interaction
+[ ] Equilvent to Trade In Item
 
