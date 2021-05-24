@@ -21,7 +21,12 @@
       </div>
     </div>
     <div class="row fit2">
-      <div class="col-12 col">
+      <div class="col-4 col">
+        <button v-on:click="cancelAction" class="btn-danger btn-small btn-block smallfit">
+          X
+        </button>
+      </div>
+      <div class="col-8 col">
         <button v-on:click="completeAction" class="btn-success-outline btn-small btn-block smallfit">
           {{type}} Item
         </button>
@@ -86,6 +91,9 @@ export default {
           amount: this.amount
         }
       );
+    },
+    cancelAction(){
+      this.addScript.cancel();
     },
     getTemplateA(){
       if(this.templateA.name) this.selectedName  = this.templateA.name;

@@ -5,7 +5,7 @@
               || (editMode == 'NEW_ITEM' && (selectedAction.eventName == 'addItem'))
       )">
       <AddItem
-        v-bind:addScript="{activate: forgeAction}"
+        v-bind:addScript="{activate: forgeAction, cancel}"
         v-bind:templateA="editedAction"
       />
     </div>
@@ -185,6 +185,7 @@ export default {
     },
     cancel(){
       this.mode = "MENU";
+      this.editMode = "NEW";
     },
     makeAction(){
       this.mode = "MENU";
