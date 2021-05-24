@@ -1,5 +1,7 @@
-[ ] Select A Row In Script List
-[ ] Selected Row is editable
+
+[X] Select A Row In Script List
+[X] Selected Row is editable
+[ ] Convert To $root style editing.
 [ ] Make a if condition case in script list
    ( ) a new script list will be used inside the if condition
        script: {eventName: "if", case: "flag/condition", scriptList}

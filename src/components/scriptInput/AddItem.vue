@@ -45,11 +45,22 @@ export default {
   },
   props: {
     name: String,
+    templateA: Object,
     selectDescription: String,
     addScript: Object,
   },
+  watch: {
+    templateA: function(oldv, newv){
+      console.log("replace!");
+
+      this.selectedName = newv.name;
+      this.amount = newv.amount;
+    }
+  },
   mounted(){
     this.list = Object.keys(this.$root.world.flagMap);
+    this.getTemplateA();
+
   },
   methods:{
     test(){
@@ -68,7 +79,6 @@ export default {
       let eventName = '';
       if(this.type == 'ADD') eventName = "addItem";
       else eventName = "subtractItem";
-    
       this.addScript.activate(
         {
           eventName,
@@ -76,6 +86,10 @@ export default {
           amount: this.amount
         }
       );
+    },
+    getTemplateA(){
+      if(this.templateA.name) this.selectedName  = this.templateA.name;
+      if(this.templateA.amount) this.amount      = this.templateA.amount;
     }
   },
   computed: {

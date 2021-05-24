@@ -47,7 +47,8 @@
       </div>
       <div class="col-4 col script-match-height">
       <Script
-        v-bind:method="{addToScriptList}"
+        v-bind:method="{addToScriptList, hardModifyScript}"
+        v-bind:editedAction="selectedAction"
       />
       </div>
     </div>
@@ -101,7 +102,16 @@ export default {
     name: function(){
       this.selectedScriptList = this.scriptList;
     },
-    scriptList: function(){
+    selectedScriptList: function(oldv, newv){
+      if(oldv != newv){
+        this.saveScript();
+      }
+    },
+    scriptList: function(oldv, newv){
+      if(oldv != newv){
+        console.log("SAVE POSITION!");
+        this.saveScript();
+      }
       /*
       if(oldv) oldv.every(function(row){
         row.isMoved = false;
@@ -148,16 +158,26 @@ export default {
       //this.method.addToScriptList(script);
       //this.selectedScriptList.push(script);
     },
-    clearScript(){
+    hardModifyScript(script){
+      console.log("HARD MODIFY!");
+      Object.assign(this.selectedAction, script);
+    },
+    deselectAction(){
+      console.log("ACTION DESELECTED!");
+      this.selectedAction = null;
     },
     saveScript(){
       console.log("Script Overwritten!");
       this.method.convergeScriptList(this.selectedScriptList);
       this.$forceUpdate();
     },
-    checkMove({draggedContext}){
-      console.log("movement at", draggedContext.element);
-      draggedContext.element.isMoved = true;
+    checkMove(/*{draggedContext}*/){
+      //if(draggedContext)
+      //console.log("movement at", draggedContext.element);
+      //draggedContext.element.isMoved = true;
+    },
+    test(){
+      console.log("----------------------------------------------");
     }
   },
   computed: {

@@ -1,6 +1,17 @@
 <template>
   <div class="row">
-		<div class="col-12 col" v-if="(mode === 'MENU')">
+    <div class="col-12 col"
+      v-if="(    (editMode == 'EDITED' && (editedAction.eventName == 'addItem'))
+              || (editMode == 'NEW_ITEM' && (selectedAction.eventName == 'addItem'))
+      )">
+      <AddItem
+        v-bind:addScript="{activate: forgeAction}"
+        v-bind:templateA="editedAction"
+      />
+    </div>
+
+
+    <div class="col-12 col" v-else-if="(mode === 'MENU')">
 				<section v-for="item in actions" :key="item.name">
 					<button v-on:click="selectNewAction(item)" class="btn-success-outline btn-small
 						btn-block smallfit">
@@ -21,18 +32,18 @@
           />
         </section>
 
+        <!--
         <section>
           <button v-on:click="mode = 'ADD_ITEM'" class="btn-success-outline btn-small btn-block smallfit">
             Add Item
 					</button>
         </section>
-
-    </div>
-
-    <div class="col-12 col" v-else-if="mode == 'ADD_ITEM'">
-      <AddItem
-        v-bind:addScript="{activate: forgeAction}"
-      />
+        -->
+        <section>
+          <button v-on:click="selectNewActionTemplate('addItem', 'NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
+            Add Item
+					</button>
+        </section>
     </div>
 
     <div class="col-12 col" v-else>
@@ -78,8 +89,12 @@
               </button>
             </td>
             <td colspan=2>
-              <button v-on:click="makeAction()" class="btn-success-outline btn-small btn-block">
+              <button v-if="editMode == 'NEW'" v-on:click="makeAction()" class="btn-success-outline btn-small btn-block">
                 Make Action
+              </button>
+
+              <button v-if="editMode == 'EDITED'" v-on:click="editAction()" class="btn-success-outline btn-small btn-block">
+                Edit Action
               </button>
             </td>
           </tr>
@@ -116,26 +131,35 @@ export default {
       selectedActionName: '',
       selectedAction: {description: ""},
       mode: "MENU",
+      editMode: "NEW",
+      stop: 0,
     }
   },
   props: {
     name: String,
-    selectedArea: Object,
+    editedAction: Object,
     method: Object,
   },
-  mouned(){
-			console.log("SEE THE AreaList", this.areaList);
+  watch: {
+    editedAction: function(oldv, newv){
+      //if(!newv) return true;
+      //|| ( oldv && (oldv === newv))) return;
+
+      if(!newv) this.selectNewAction(oldv, 'EDITED');
+      else      this.selectNewAction(newv, 'EDITED');
+    }
+  },
+  mounted(){
   },
   methods:{
     selectNewArea(newArea){
       console.log(newArea);
       //this.$parent.selectNewArea(newArea);
     },
-    /*
-    isSelectedWorld(area){
-      return this.selectedArea == area;
-    },*/
-    selectNewAction(action){
+    selectNewAction(action, editMode){
+      if(editMode) this.editMode = editMode;
+      else this.editMode = "NEW";
+
       this.mode = "action";
       console.log("see action", action);
       this.selectedAction = {};
@@ -148,6 +172,13 @@ export default {
           {type: typeof action[property], value: action.[property]}
       }
       console.log('test action', this.selectedAction);
+    },
+    selectNewActionTemplate(name, editMode){
+      //Used For Advanced Template
+      if(editMode) this.editMode = editMode;
+      else this.editMode = "NEW";
+      this.selectedAction = {eventName: name};
+      console.log("new eventName", this.selectedAction.eventName);
     },
     cancel(){
       this.mode = "MENU";
@@ -166,10 +197,23 @@ export default {
 
       this.method.addToScriptList(script);
     },
+    editAction(){
+      this.mode = "MENU";
+
+      let script = {};
+      for(let i in this.selectedAction){
+        console.log(i);
+        script[i] = this.selectedAction[i].value;
+      }
+      this.method.hardModifyScript(script);
+    },
     forgeAction(script){
       console.log(script);
+      if(this.editMode == 'EDITED') this.method.hardModifyScript(script);
+      else this.method.addToScriptList(script);
+
       this.mode = "MENU";
-      this.method.addToScriptList(script);
+      this.editMode = "NEW";
     },
     createAction(template){
       console.log("template added", template);
