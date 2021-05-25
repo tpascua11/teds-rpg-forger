@@ -1,5 +1,6 @@
 <template>
   <section class="basedHeight">
+      <!--
     <div class="row"> <hr> <hr></div>
     <div class="row">
       <div class="col-2 col"> </div>
@@ -13,6 +14,7 @@
       </div>
       <div class="col-2 col"> </div>
     </div>
+    -->
     <div class="row">
       <div class="col-8 col">
         <table class="table" style="width: 100%; table-layout: fixed;">

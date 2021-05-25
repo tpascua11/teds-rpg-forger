@@ -1,6 +1,11 @@
 <template>
-  <div>
+  <div class="creator">
     <div class="row">
+      <div class="col">
+        {{editMode}}
+      </div>
+    </div>
+    <div class="row fit1">
       <div class="col-12 col">
         <v-select
           v-model="selectedName"
@@ -22,7 +27,7 @@
     </div>
     <div class="row fit2">
       <div class="col-4 col">
-        <button v-on:click="cancelAction" class="btn-danger btn-small btn-block smallfit">
+        <button v-on:click="cancelAction" class="btn-danger btn-small btn-block ">
           X
         </button>
       </div>
@@ -46,11 +51,13 @@ export default {
       selectedItem: {},
       selectedName: '',
       type: 'ADD',
+      mode: '',
     }
   },
   props: {
     name: String,
     templateA: Object,
+    editMode: String,
     selectDescription: String,
     addScript: Object,
   },
@@ -98,6 +105,14 @@ export default {
     getTemplateA(){
       if(this.templateA.name) this.selectedName  = this.templateA.name;
       if(this.templateA.amount) this.amount      = this.templateA.amount;
+
+      if(this.templateA.name){
+        this.mode = 'EDIT';
+      }
+      else{
+        this.mode = '';
+      }
+
     }
   },
   computed: {
@@ -126,9 +141,16 @@ export default {
 
 .fit1{
   margin-top: -50px;
-  /*background-color: grey;*/
 }
 .fit2{
   margin-top: -40px;
 }
+.creator{
+  border: 1px solid black;
+  min-width: 250px;
+}
+.big{
+  width: 200px;
+}
+
 </style>

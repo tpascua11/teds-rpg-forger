@@ -7,6 +7,7 @@
       <AddItem
         v-bind:addScript="{activate: forgeAction, cancel}"
         v-bind:templateA="editedAction"
+        v-bind:editMode="editMode"
       />
     </div>
 
