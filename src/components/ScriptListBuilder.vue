@@ -20,7 +20,8 @@
         <table class="table" style="width: 100%; table-layout: fixed;">
           <thead>
             <tr>
-              <th scope="col" style="width: 90%;">
+              <th style="width: 5%;"> ID </th>
+              <th scope="col" style="width: 85%;">
                 Script List
               </th>
               <th scope="col" style="width: 10%;"> Edit </th>
@@ -31,7 +32,8 @@
           <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove">
             <tr v-for="(item, index) in selectedScriptList" :key="index"
           v-bind:style="[ item.isMoved ? moved : {}]"
-            >
+        >
+          <td> {{index}}</td>
               <td v-on:click="selectAction(item)" style="cursor: move;"
                 v-bind:style="[ selectedAction == item ? selected : {}]"
               >
