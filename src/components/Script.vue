@@ -1,29 +1,8 @@
 <template>
   <div class="row">
+    {{mode}}
 
-    <div class="col-12 col"
-      v-if="(    (editMode == 'EDITED' && (editedAction.eventName == 'addItem'))
-              || (editMode == 'NEW_ITEM' && (selectedAction.eventName == 'addItem'))
-      )">
-      <AddItem
-        v-bind:addScript="{activate: forgeAction, cancel}"
-        v-bind:templateA="editedAction"
-        v-bind:editMode="editMode"
-      />
-    </div>
-
-    <div class="col-12 col"
-      v-else-if="(    (editMode == 'EDITED'   && (editedAction.ifSet))
-              || (     editMode == 'NEW_ITEM' && (selectedAction.ifSet))
-              )">
-      <IfCondition
-        v-bind:addScript="{activate: forgeAction, cancel}"
-        v-bind:templateA="editedAction"
-        v-bind:editMode="editMode"
-      />
-    </div>
-
-    <div class="col-12 col" v-else-if="(mode === 'MENU')">
+    <div class="col-12 col" v-if="(mode == 'MENU')">
 				<section v-for="item in actions" :key="item.name">
 					<button v-on:click="selectNewAction(item)" class="btn-success-outline btn-small
 						btn-block smallfit">
@@ -58,11 +37,50 @@
         </section>
 
         <section>
+          <button v-on:click="selectNewActionTemplate('toggleFlag', 'NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
+            Toggle Flags 2
+					</button>
+        </section>
+
+        <section>
           <button v-on:click="ifTemplate('NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
             If Set
 					</button>
         </section>
     </div>
+
+    <div class="col-12 col"
+      v-else-if="(    (editMode == 'EDITED' && (editedAction.eventName == 'addItem'))
+              || (editMode == 'NEW_ITEM' && (selectedAction.eventName == 'addItem'))
+      )">
+      <AddItem
+        v-bind:addScript="{activate: forgeAction, cancel}"
+        v-bind:templateA="editedAction"
+        v-bind:editMode="editMode"
+      />
+    </div>
+
+    <div class="col-12 col"
+      v-else-if="(    (editMode == 'EDITED'   && (editedAction.ifSet))
+              || (     editMode == 'NEW_ITEM' && (selectedAction.ifSet))
+              )">
+      <IfCondition
+        v-bind:templateA="editedAction"
+        v-bind:editMode="editMode"
+      />
+    </div>
+
+    <div class="col-12 col"
+      v-else-if="   (editedAction.eventName == 'toggleFlag')
+                 || (selectedAction.eventName == 'toggleFlag')
+                 "
+               >
+      <ToggleFlag2
+        v-bind:templateA="editedAction"
+        v-bind:editMode="editMode"
+      />
+    </div>
+
 
     <div class="col-12 col" v-else>
       <table class="table" style="width: 100%;">
@@ -127,6 +145,8 @@
 import ActionTemplates from '@/js/actionTemplates.js'
 import MoveToArea from '@/components/modals/MoveToArea.vue'
 import ToggleFlag from '@/components/modals/ToggleFlag.vue'
+
+import ToggleFlag2 from '@/components/scriptInput/ToggleFlag.vue'
 import AddItem from '@/components/scriptInput/AddItem.vue'
 import IfCondition from '@/components/scriptInput/IfCondition.vue'
 
@@ -135,6 +155,7 @@ export default {
   components: {
     MoveToArea,
     ToggleFlag,
+    ToggleFlag2,
     AddItem,
     IfCondition,
   },
@@ -162,13 +183,7 @@ export default {
   },
   watch: {
     editedAction: function(oldv, newv){
-      console.log("SEE NEW STUFF ----------------------------------");
       console.log(oldv,newv);
-      //if(!newv) return true;
-      //|| ( oldv && (oldv === newv))) return;
-
-      //if(!newv) this.selectNewAction(oldv, 'EDITED');
-      //else      this.selectNewAction(newv, 'EDITED');
       this.selectNewAction(oldv, 'EDITED');
     }
   },
@@ -200,16 +215,22 @@ export default {
       //Used For Advanced Template
       if(editMode) this.editMode = editMode;
       else this.editMode = "NEW";
+      this.mode = "action";
       this.selectedAction = {eventName: name};
       console.log("new eventName", this.selectedAction.eventName);
     },
     ifTemplate(editMode){
       if(editMode) this.editMode = editMode;
       else this.editMode = "NEW";
+      this.mode = "action";
 
       this.selectedAction = {ifSet: true};
     },
     cancel(){
+      //this.selectedAction = {};
+      //this.editedAction = {};
+      //this.$parent.deselectAction();
+      //this.selectedAction = {};
       this.mode = "MENU";
       this.editMode = "NEW";
     },
@@ -243,11 +264,12 @@ export default {
       else this.method.addToScriptList(script);
 
       this.mode = "MENU";
-      this.editMode = "NEW";
+      this.editMode = "NEW_ITEM";
     },
     createAction(template){
       console.log("template added", template);
-      this.$parent.insertNewAction(template);
+      //this.$parent.insertNewAction(template);
+      this.$parent.addToScriptList(template);
     }
   },
   computed: {

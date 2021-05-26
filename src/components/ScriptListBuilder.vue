@@ -189,7 +189,7 @@ export default {
     },
     deselectAction(){
       //console.log("ACTION DESELECTED!");
-      this.selectedAction = null;
+      this.selectedAction = {};
     },
     saveScript(){
       console.log("Script Overwritten!");
