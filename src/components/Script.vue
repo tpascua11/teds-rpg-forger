@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+
     <div class="col-12 col"
       v-if="(    (editMode == 'EDITED' && (editedAction.eventName == 'addItem'))
               || (editMode == 'NEW_ITEM' && (selectedAction.eventName == 'addItem'))
@@ -11,6 +12,16 @@
       />
     </div>
 
+    <div class="col-12 col"
+      v-else-if="(    (editMode == 'EDITED'   && (editedAction.ifSet))
+              || (     editMode == 'NEW_ITEM' && (selectedAction.ifSet))
+              )">
+      <IfCondition
+        v-bind:addScript="{activate: forgeAction, cancel}"
+        v-bind:templateA="editedAction"
+        v-bind:editMode="editMode"
+      />
+    </div>
 
     <div class="col-12 col" v-else-if="(mode === 'MENU')">
 				<section v-for="item in actions" :key="item.name">
@@ -43,6 +54,12 @@
         <section>
           <button v-on:click="selectNewActionTemplate('addItem', 'NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
             Add Item
+					</button>
+        </section>
+
+        <section>
+          <button v-on:click="ifTemplate('NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
+            If Set
 					</button>
         </section>
     </div>
@@ -111,6 +128,7 @@ import ActionTemplates from '@/js/actionTemplates.js'
 import MoveToArea from '@/components/modals/MoveToArea.vue'
 import ToggleFlag from '@/components/modals/ToggleFlag.vue'
 import AddItem from '@/components/scriptInput/AddItem.vue'
+import IfCondition from '@/components/scriptInput/IfCondition.vue'
 
 export default {
   name: 'ActionBuilder',
@@ -118,6 +136,7 @@ export default {
     MoveToArea,
     ToggleFlag,
     AddItem,
+    IfCondition,
   },
   data: function(){
     return {
@@ -183,6 +202,12 @@ export default {
       else this.editMode = "NEW";
       this.selectedAction = {eventName: name};
       console.log("new eventName", this.selectedAction.eventName);
+    },
+    ifTemplate(editMode){
+      if(editMode) this.editMode = editMode;
+      else this.editMode = "NEW";
+
+      this.selectedAction = {ifSet: true};
     },
     cancel(){
       this.mode = "MENU";

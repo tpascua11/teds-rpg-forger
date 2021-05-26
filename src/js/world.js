@@ -9,7 +9,7 @@ export class World {
 		this.conditionList =  ['debug1', 'debug2'];
 		this.flagList =  ['test', 'fire', 'cool'];
 
-		this.flagMap =  {};
+		this.flagMap =  {'debug1': true, 'debug2': false, 'debug3': true};
 		this.itemMap = {
 			'Gold'  : {description: "currency", limit: 9001, scriptList:[]},
 			'Silver': {description: "currency", limit: 9001, scriptList:[]},
