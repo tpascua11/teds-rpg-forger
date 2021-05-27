@@ -1,20 +1,5 @@
 <template>
   <section class="basedHeight">
-      <!--
-    <div class="row"> <hr> <hr></div>
-    <div class="row">
-      <div class="col-2 col"> </div>
-      <div class="col-8 col">
-        <div class="row">
-          <button v-on:click="saveScript()" class="btn-warning
-            btn-small scriptSave btn-block">
-            Save Script Order
-          </button>
-        </div>
-      </div>
-      <div class="col-2 col"> </div>
-    </div>
-    -->
     <div class="row">
       {{error}}
       <div class="col-8 col">
@@ -157,6 +142,8 @@ export default {
     removeAction(index){
       //console.log(index);
       this.scriptList.splice(index, 1);
+
+      this.validScriptList();
     },
     targetIndex(index){
       this.atIndex = index;

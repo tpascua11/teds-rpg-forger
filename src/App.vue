@@ -53,11 +53,9 @@ export default {
 		}
 	},
 	mounted() {
-		/*
 		let storedWorld = localStorage.getItem('currentWorld');
 		console.log("lets see stored world", JSON.parse(storedWorld));
 		this.world = JSON.parse(storedWorld);
-		 */
 		this.$root.world = this.world;
 
 	},

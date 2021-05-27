@@ -72,7 +72,7 @@ export default {
     completeAction(){
       this.$parent.forgeAction({
         ifCondition: true,
-        conditionSet: this.flagName
+        conditionList: [{isList: [this.flagName]}]
       });
       this.$parent.forgeAction({endCondition: true});
     },

@@ -1,15 +1,11 @@
-
 [X] Select A Row In Script List
 [X] Selected Row is editable
 [ ] Convert To $root style editing.
 [ ] Make a if condition case in script list
-   ( ) a new script list will be used inside the if condition
-       script: {eventName: "if", case: "flag/condition", scriptList}
-   ( ) Test add Description within if condition case.
-   ( ) this if condition is selectable
-[ ] Make a choice condition case
-[ ] Make a while condition case
+   (X) a new script list will be used inside the if condition
+   (X) Test add Description within if condition case.
 
+Make A New Dialogue Instead
+[-] Make a choice condition case
+[-] Make a while condition case
 [ ] Put all work in the the area interaction
-[ ] Equilvent to Trade In Item
-

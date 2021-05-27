@@ -14,7 +14,7 @@ export class World {
 			'Gold'  : {description: "currency", limit: 9001, scriptList:[]},
 			'Silver': {description: "currency", limit: 9001, scriptList:[]},
 		};
-		this.startingItemList = [{name: 'Gold', total: 10}],
+		this.startingItemList = [{name: 'Gold', total: 10}, {name: 'Silver', total: 20}],
 
 		this.complexConditionList = [{}];
   }
