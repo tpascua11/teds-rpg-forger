@@ -1,8 +1,14 @@
 export class World {
   constructor() {
-    this.name = "cool";
-		this.areaList = [
-		];
+		this.name = "cool";
+		this.areaList = [{"name":"Home","description":"","connectedAreaList":[],"interactionList":[{"name":"Wolf!","scriptList":[{"eventName":"addDescription","description":"Bark!"},{"eventName":"restore","stat":"health","number":"20"},{"eventName":"addDescription","description":"The Wolf Licks Your Face!"}],"tags":[],"conditionList":[]}]}];
+		this.areaMap = {
+			'area1': {name: 'cool'},
+			'area2': {name: 'cool'},
+			'area3': {name: 'cool'},
+			'area4': {name: 'cool'},
+		};
+		//this.areaList = [];
     this.worldItemList = [];
 		this.statusEffectList = [];
 		this.tags = ['unique', 'normal', 'monday', 'tuesday', 'wenesday', 'thursday', 'friday', 'sunday', 'extra', 'fighter', 'knight', 'druid', 'priest'];

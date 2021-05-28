@@ -11,6 +11,14 @@ const routes = [
     component: Home
   },
   {
+    path: '/betterArea',
+    name: 'Area',
+    component: () => import ('../views/Area.vue'),
+    prop: {
+      world: Object
+    }
+  },
+  {
     path: '/area',
     name: 'AreaBuilder',
     component: () => import ('../views/AreaBuilder.vue'),
