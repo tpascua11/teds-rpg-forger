@@ -7,6 +7,7 @@ import VModal from 'vue-js-modal';
 import draggable from 'vuedraggable'
 
 import '@desislavsd/vue-select/dist/vue-select.css';
+import '../node_modules/rpg-awesome/css/rpg-awesome.min.css'
 
 import VueSelect from '@desislavsd/vue-select';
 

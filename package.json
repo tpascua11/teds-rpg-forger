@@ -10,6 +10,7 @@
   "dependencies": {
     "@desislavsd/vue-select": "^0.5.0",
     "core-js": "^3.6.5",
+    "rpg-awesome": "^0.2.0",
     "vue": "^2.6.11",
     "vue-blob-json-csv": "^0.1.7",
     "vue-js-modal": "^2.0.0-rc.6",

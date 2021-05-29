@@ -5,12 +5,14 @@
 				<h5>
 				<button class="btn-default btn-small  btn-warning top-bar-height"
 					v-on:click="saveToLocalStorage">
+
 					Drago Book Maker
 				</button>
 				</h5>
 
       </div>
 			<div class="nav-brand">
+				<i class="ra ra-burning-book ra-1x"></i>
         <router-link to="/betterArea"  class="routerFont" > Area </router-link> |
         <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
 				<router-link to="/world" class="routerFont" > World </router-link> |
@@ -75,6 +77,7 @@ export default {
 <style>
 
 @import './css/paper.min.css';
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
