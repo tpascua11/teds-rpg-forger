@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    {{mode}}
+    <section v-if="false">{{mode}} </section>
 
     <div class="col-12 col" v-if="(mode == 'MENU')">
 				<section v-for="item in actions" :key="item.name">

@@ -42,25 +42,55 @@
 
         <div class="col-10 col paper">
           <section v-if="mode === 'INTERACTION_BUILDER'">
-            <div class="row">
+            <div class="row match-2">
+
               <div class="col-2 col ">
                 <p class="title2"> Interactions </p>
-                <table class="table " style="width: 100%; table-layout: fixed;">
-                  <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove">
-                    <tr class="thin-table-row" v-for="(item, index) in selectedScriptList" :key="index">
-                      <td class="thin-table-row"> {{item.name}}</td>
-                    </tr>
+                      <button v-on:click="addNewInteraction()"
+                        class="btn-warning btn-small btn-block">
+                        Add Interaction
+                      </button>
+                      <hr>
+                <section class="interaction-list-scroll">
+                  <table class="table " style="width: 100%; table-layout: fixed;">
+                    <draggable  tag="tbody" :move="checkMove">
+                      <tr class="thin-table-row" v-for="(item, index) in
+                        areaInteractionList" :key="index"
+                        v-on:click="selectInteraction(item)"
+                        v-bind:style="[ item == selectedInteraction ?
+                        styleSelected : {}]"
+                      >
+                        <td class="thin-table-row"> {{item.name}}</td>
+                      </tr>
 
-                  </draggable>
-                  <tr> <hr> </tr>
-                </table>
+                    </draggable>
+                  </table>
+                </section>
+                <hr>
               </div>
-              <div class="col-10 col">
+              <div class="col-10 col paper">
+                <div class="row">
+                  <div class="col-4 col">
+                    <div class="row">
+                    </div>
+                    <div class="row title3">
+                      <input class="smallInput input3" type="string"
+                        v-model="selectedInteraction.name" placeholder="...">
+                    </div>
+                  </div>
+                  <div class="col-6 col">
+                    <div class="row">
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row match-2">
                   <ScriptListBuilder
                     v-bind:method="{addToScriptList, convergeScriptList}"
                     v-bind:scriptList="selectedItem.scriptList"
                     v-bind:name="selectedName"
                   />
+                </div>
               </div>
             </div>
           </section>
@@ -95,8 +125,12 @@ export default {
         {name: 'test'},
         {name: 'test'}
       ],
+      selectedInteraction: {},
       selectedItem: {},
       mode: 'INFO',
+      styleSelected: {
+        'background-color': 'pink'
+      },
     };
   },
   components: {
@@ -105,6 +139,49 @@ export default {
   },
   props: {
     //world: Object,
+  },
+  methods:{
+    test(){console.log("test");},
+    selectMode(mode){this.mode = mode;},
+    refreshKeys(){
+      this.areaMap = Object.keys(this.$root.world.areaMap);
+      this.$forceUpdate();
+      console.log("SEE AREA MAP", this.areaMap);
+    },
+    selectNewArea({value}){
+      console.log('%c Selected Area ! ', 'background: #222; color: #bada55', value);
+      this.isSelectingArea = false;
+      this.selectedAreaName = value;
+      this.$forceUpdate();
+    },
+    createNewArea({value}){
+      console.log('%c Creating New Area ! ', 'background: #222; color: #orange', value);
+      this.isSelectingArea = false;
+      //this.selected = value.name;
+      this.selectedAreaName = value.name;
+
+      this.$root.world.areaMap[value.name] = {
+        interactionList: [],
+      };
+      this.refreshKeys();
+    },
+
+    addNewInteraction(){
+      let newInteraction = {
+        name: "template",
+        scriptList: [],
+        conditionList:[]
+      };
+
+      this.$root.world.areaMap[this.selectedAreaName].interactionList.push(newInteraction);
+    },
+    selectInteraction(targetInteraction){
+      console.log(targetInteraction);
+      this.selectedInteraction = targetInteraction;
+    },
+    addToScriptList(){},
+    checkMove(){},
+    convergeScriptList(){}
   },
   computed: {
     areaList (){
@@ -123,38 +200,12 @@ export default {
     lock(){
       if(!this.selectedAreaName) return true;
       else return false;
+    },
+    areaInteractionList(){
+      return this.$root.world.areaMap[this.selectedAreaName].interactionList;
     }
   },
-  methods:{
-    test(){
-      console.log("test");
-    },
-    selectMode(mode){
-      this.mode = mode;
-    },
-    refreshKeys(){
-      this.areaMap = Object.keys(this.$root.world.areaMap);
-      this.$forceUpdate();
-      console.log("SEE AREA MAP", this.areaMap);
-    },
-    selectNewArea({value}){
-      console.log('%c Selected Area ! ', 'background: #222; color: #bada55', value);
-      this.isSelectingArea = false;
-      this.selectedAreaName = value;
-      this.$forceUpdate();
-    },
-    createNewArea({value}){
-      console.log('%c Creating New Area ! ', 'background: #222; color: #orange', value);
-      this.isSelectingArea = false;
-      //this.selected = value.name;
-      this.selectedAreaName = value.name;
 
-      this.$root.world.areaMap[value.name] = {};
-      this.refreshKeys();
-    },
-    addToScriptList(){},
-    convergeScriptList(){}
-  },
   mounted(){
   }
 }
@@ -166,6 +217,7 @@ textarea {
   box-sizing:border-box;
   height: 20%;
   width: 100%;
+  font-size: 14px;
 }
 .nice-border{
   border: 1px solid black;
@@ -219,6 +271,24 @@ p{
   font-weight: bold;
   border-bottom: 2px solid #aaa;
 }
+.title3{
+  font-size: 20px;
+  font-weight: bold;
+  height: 50px;
+  border-bottom: 2px solid #aaa;
+
+  position:relative;
+  top: -65px;
+}
+.input3{
+  height: 25px;
+  width: 100vh;
+  position:relative;
+  top: 20px;
+  border: 0px solid black;
+  background-color: #E8E8E8;
+}
+
 .lightorange{
   background-color: #FFD580;
 }
@@ -241,8 +311,22 @@ p{
 }
 
 .thin-table-row{
+  font-size: 15px;
   line-height: 14px;
   height: 10px;
+  border: 1px solid black;
 }
+
+.match-2{
+  margin-top: -35px;
+  /*background-color: grey;*/
+}
+.interaction-list-scroll{
+  overflow: scroll;
+  height: 70vh;
+}
+
+
+
 
 </style>
