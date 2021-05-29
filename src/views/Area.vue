@@ -55,9 +55,11 @@
                   <table class="table " style="width: 100%; table-layout: fixed;">
                     <draggable
                       tag="tbody"
+                      v-model="selectedAreaInteractionList"
+                      @end="saveAreaInteractionListPosition"
                     >
                       <tr class="thin-table-row" v-for="(item, index) in
-                        areaInteractionList" :key="index"
+                        selectedAreaInteractionList" :key="index"
                         v-on:click="selectInteraction(item)"
                         v-bind:style="[ item == selectedInteraction ?
                         styleSelected : {}]"
@@ -124,6 +126,7 @@ export default {
       selectedAreaName: '',
       selectedName: "Test",
       selectedArea: {},
+      selectedAreaInteractionList: [],
       selectedInteraction: {},
       selectedItem: {},
 
@@ -155,6 +158,7 @@ export default {
       this.selectedAreaName = value;
 
       this.selectedInteraction = {};
+      this.referenceAreaInteractionList();
 
       this.$forceUpdate();
     },
@@ -168,6 +172,7 @@ export default {
         interactionList: [],
       };
       this.refreshKeys();
+      this.referenceAreaInteractionList();
     },
 
     addNewInteraction(){
@@ -196,7 +201,15 @@ export default {
       scriptList.forEach(function(script){
         delete script.isMoved;
       });
-    }
+    },
+    referenceAreaInteractionList(){
+      this.selectedAreaInteractionList =
+        this.$root.world.areaMap[this.selectedAreaName].interactionList;
+    },
+    saveAreaInteractionListPosition(){
+      this.$root.world.areaMap[this.selectedAreaName].interactionList
+        = this.selectedAreaInteractionList;
+    },
   },
   computed: {
     areaList (){
@@ -334,8 +347,9 @@ p{
 .thin-table-row{
   font-size: 15px;
   line-height: 14px;
-  height: 10px;
+  height: 30px;
   border: 1px solid black;
+  cursor: move;
 }
 
 .match-2{

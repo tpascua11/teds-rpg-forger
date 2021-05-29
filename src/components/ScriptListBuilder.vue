@@ -120,35 +120,12 @@ export default {
     conditionList: Array,
   },
   watch: {
-    /*
-    name: function(){
-      this.selectedScriptList = this.scriptList;
-    },
-    selectedScriptList: function(oldv, newv){
-      console.log("----");
-      if(oldv != newv){
-        this.saveScript();
-        this.validScriptList();
-      }
-    },
-    */
     scriptList: function(newv, oldv){
-      console.log("oldv", JSON.stringify(oldv));
-      console.log("newv", JSON.stringify(newv));
-
+      //console.log("oldv", JSON.stringify(oldv));
+      //console.log("newv", JSON.stringify(newv));
       if(oldv != newv){
         this.selectedScriptList = newv;
       }
-      //return newv;
-      /*
-      if(newv) this.selectedScriptList = newv;
-      else this.selectedScriptList = oldv;
-      if(oldv != newv){
-        //console.log("SAVE POSITION!");
-        //this.saveScript();
-        //this.validScriptList();
-      }
-       */
     }
   },
   mounted(){
