@@ -1,6 +1,8 @@
 <template>
   <section class="basedHeight">
     <div class="row">
+    </div>
+    <div class="row">
       {{error}}
       <div class="col-8 col">
         <table class="table" style="width: 100%; table-layout: fixed;">
@@ -14,7 +16,11 @@
             </tr>
           </thead>
 
-          <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove">
+          <draggable v-model="selectedScriptList"
+            tag="tbody"
+            :move="checkMove"
+            @end="saveScript"
+          >
             <tr v-for="(item, index) in selectedScriptList" :key="index"
               v-bind:style="[ item.isMoved ? moved : {}]"
             >
@@ -111,26 +117,43 @@ export default {
     currentInteraction: Object,
     method: Object,
     scriptList: Array,
+    conditionList: Array,
   },
   watch: {
+    /*
     name: function(){
       this.selectedScriptList = this.scriptList;
     },
     selectedScriptList: function(oldv, newv){
+      console.log("----");
       if(oldv != newv){
         this.saveScript();
         this.validScriptList();
       }
     },
-    scriptList: function(oldv, newv){
+    */
+    scriptList: function(newv, oldv){
+      console.log("oldv", JSON.stringify(oldv));
+      console.log("newv", JSON.stringify(newv));
+
       if(oldv != newv){
-        console.log("SAVE POSITION!");
-        this.saveScript();
-        this.validScriptList();
+        this.selectedScriptList = newv;
       }
+      //return newv;
+      /*
+      if(newv) this.selectedScriptList = newv;
+      else this.selectedScriptList = oldv;
+      if(oldv != newv){
+        //console.log("SAVE POSITION!");
+        //this.saveScript();
+        //this.validScriptList();
+      }
+       */
     }
   },
   mounted(){
+    console.log("TRUE TEST!", this.scriptList);
+    this.selectedScriptList = this.scriptList;
   },
   methods:{
     selectNewAction(action){
@@ -162,6 +185,7 @@ export default {
       else this.selectedScriptList.splice(this.atIndex, 0, script);
 
       this.validScriptList();
+      this.saveScript();
     },
     editScript(script){
       //console.log(script);
@@ -172,7 +196,8 @@ export default {
     hardModifyScript(script){
       //console.log("HARD MODIFY!");
       Object.assign(this.selectedAction, script);
-      this.validScriptList(); 
+      this.validScriptList();
+      this.saveScript();
     },
     deselectAction(){
       //console.log("ACTION DESELECTED!");
@@ -266,6 +291,9 @@ export default {
         'text-danger': this.error && this.error.type === 'fatal'
       }
     },
+    parentScriptList: function(){
+      return true;
+    }
   }
 }
 </script>

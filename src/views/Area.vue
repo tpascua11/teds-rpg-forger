@@ -73,7 +73,7 @@
               <!-- Area's Selected Interaction -->
               <div class="col-10 col paper">
                 <section v-if="selectedInteractionEmpty">
-                <div class="row">
+                  <div class="row">
                   <div class="col-4 col">
                     <div class="row title3">
                       <div class="col-1 col">
@@ -81,7 +81,9 @@
                       </div>
                       <div class="col-6 col">
                         <input class="smallInput input3" type="string"
-                          v-model="selectedInteraction.name" placeholder="write interaction name...">
+                          v-model="selectedInteraction.name" placeholder="write interaction name..."
+                          ref="set_interaction_name"
+                        >
                       </div>
                     </div>
                   </div>
@@ -91,6 +93,7 @@
                 <div class="row match-2 move50up">
                   <ScriptListBuilder
                     v-bind:scriptList="selectedInteraction.scriptList"
+                    v-bind:conditionList="selectedInteraction.conditionList"
                   />
                 </div>
                 </section>
@@ -180,14 +183,13 @@ export default {
     selectInteraction(targetInteraction){
       console.log(targetInteraction);
       this.selectedInteraction = targetInteraction;
-      console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
+      //console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
     },
     addToScriptList(){},
     checkMove(){console.log("CHECKING!");},
     convergeScriptList(scriptList){
       this.refreshList(scriptList);
       this.selectedInteraction.scriptList = scriptList;
-      console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
       return this.selectedItem.scriptList;
     },
     refreshList(scriptList){
