@@ -2,6 +2,7 @@
   <div class="row big">
     <div class="col-12">
       <div class="row">
+        <!-- Area Selection Main Menu -->
         <div class="col-2 col paper">
           <div class="col-11">
           <div class="row title">
@@ -39,12 +40,11 @@
           </div>
         </div>
 
-
         <div class="col-10 col paper">
           <section v-if="mode === 'INTERACTION_BUILDER'">
             <div class="row match-2">
-
-              <div class="col-2 col ">
+              <!-- Area's Interaction List -->
+              <div class="col-2 col">
                 <p class="title2"> Interactions </p>
                       <button v-on:click="addNewInteraction()"
                         class="btn-warning btn-small btn-block">
@@ -53,7 +53,9 @@
                       <hr>
                 <section class="interaction-list-scroll">
                   <table class="table " style="width: 100%; table-layout: fixed;">
-                    <draggable  tag="tbody" :move="checkMove">
+                    <draggable
+                      tag="tbody"
+                    >
                       <tr class="thin-table-row" v-for="(item, index) in
                         areaInteractionList" :key="index"
                         v-on:click="selectInteraction(item)"
@@ -68,29 +70,30 @@
                 </section>
                 <hr>
               </div>
+              <!-- Area's Selected Interaction -->
               <div class="col-10 col paper">
+                <section v-if="selectedInteractionEmpty">
                 <div class="row">
                   <div class="col-4 col">
-                    <div class="row">
-                    </div>
                     <div class="row title3">
-                      <input class="smallInput input3" type="string"
-                        v-model="selectedInteraction.name" placeholder="...">
+                      <div class="col-1 col">
+                        <i class="ra ra-quill-ink ra-lg"></i>
+                      </div>
+                      <div class="col-6 col">
+                        <input class="smallInput input3" type="string"
+                          v-model="selectedInteraction.name" placeholder="write interaction name...">
+                      </div>
                     </div>
                   </div>
                   <div class="col-6 col">
-                    <div class="row">
-                    </div>
-
                   </div>
                 </div>
-                <div class="row match-2">
+                <div class="row match-2 move50up">
                   <ScriptListBuilder
-                    v-bind:method="{addToScriptList, convergeScriptList}"
-                    v-bind:scriptList="selectedItem.scriptList"
-                    v-bind:name="selectedName"
+                    v-bind:scriptList="selectedInteraction.scriptList"
                   />
                 </div>
+                </section>
               </div>
             </div>
           </section>
@@ -111,23 +114,18 @@ export default {
   name: 'Items',
   data: function() {
     return {
-      isSelectingArea: false,
+      mode: 'INFO',
+
       selected: '',
+      isSelectingArea: false,
       selectedAreaName: '',
       selectedName: "Test",
       selectedArea: {},
-      areaMap: Object.keys(this.$root.world.areaMap),
-      selectedScriptList: [
-        {name: 'test'},
-        {name: 'test'},
-        {name: 'test'},
-        {name: 'test'},
-        {name: 'test'},
-        {name: 'test'}
-      ],
       selectedInteraction: {},
       selectedItem: {},
-      mode: 'INFO',
+
+      areaMap: Object.keys(this.$root.world.areaMap),
+
       styleSelected: {
         'background-color': 'pink'
       },
@@ -152,6 +150,9 @@ export default {
       console.log('%c Selected Area ! ', 'background: #222; color: #bada55', value);
       this.isSelectingArea = false;
       this.selectedAreaName = value;
+
+      this.selectedInteraction = {};
+
       this.$forceUpdate();
     },
     createNewArea({value}){
@@ -168,20 +169,32 @@ export default {
 
     addNewInteraction(){
       let newInteraction = {
-        name: "template",
+        name: "",
         scriptList: [],
         conditionList:[]
       };
+      this.selectedInteraction = newInteraction;
 
       this.$root.world.areaMap[this.selectedAreaName].interactionList.push(newInteraction);
     },
     selectInteraction(targetInteraction){
       console.log(targetInteraction);
       this.selectedInteraction = targetInteraction;
+      console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
     },
     addToScriptList(){},
-    checkMove(){},
-    convergeScriptList(){}
+    checkMove(){console.log("CHECKING!");},
+    convergeScriptList(scriptList){
+      this.refreshList(scriptList);
+      this.selectedInteraction.scriptList = scriptList;
+      console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
+      return this.selectedItem.scriptList;
+    },
+    refreshList(scriptList){
+      scriptList.forEach(function(script){
+        delete script.isMoved;
+      });
+    }
   },
   computed: {
     areaList (){
@@ -203,7 +216,10 @@ export default {
     },
     areaInteractionList(){
       return this.$root.world.areaMap[this.selectedAreaName].interactionList;
-    }
+    },
+    selectedInteractionEmpty(){
+      return Object.keys(this.selectedInteraction).length;
+    },
   },
 
   mounted(){
@@ -265,7 +281,6 @@ p{
   font-weight: bold;
   border-bottom: 2px solid #aaa;
 }
-
 .title2{
   font-size: 20px;
   font-weight: bold;
@@ -275,18 +290,22 @@ p{
   font-size: 20px;
   font-weight: bold;
   height: 50px;
+  width: 40vh;
   border-bottom: 2px solid #aaa;
 
   position:relative;
-  top: -65px;
+  top: -40px;
+}
+.title3-line{
+  display: inline-block;
 }
 .input3{
   height: 25px;
-  width: 100vh;
+  width: 33vh;
   position:relative;
-  top: 20px;
+  top: 0px;
+  right: 0px;
   border: 0px solid black;
-  background-color: #E8E8E8;
 }
 
 .lightorange{

@@ -180,7 +180,7 @@ export default {
     },
     saveScript(){
       console.log("Script Overwritten!");
-      this.method.convergeScriptList(this.selectedScriptList);
+      this.$parent.convergeScriptList(this.selectedScriptList);
       this.$forceUpdate();
     },
     checkMove(/*{draggedContext}*/){

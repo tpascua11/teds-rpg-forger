@@ -1,5 +1,6 @@
 <template>
-    <div class="row big paper">
+  <div class="Items container container-lg paper">
+    <div class="row">
       <div class="col-3 col">
         <ItemList
           v-bind:name="'Item List'"
@@ -64,6 +65,7 @@
 
       </div>
     </div>
+  </div>
 </template>
 
 <script>

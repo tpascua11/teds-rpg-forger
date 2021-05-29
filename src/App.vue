@@ -113,6 +113,16 @@ export default {
 	padding:0.5em;
 }
 
+/* Based Stuff*/
+.move25up{
+  position: relative;
+  top: 25px;
+}
+.move50up{
+  position: relative;
+  top: -50px;
+}
+
 
 
 </style>
