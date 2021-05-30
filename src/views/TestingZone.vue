@@ -10,10 +10,6 @@
           v-bind:type="'String'"
         />
         -->
-            <v-select v-model="selected" as="name::name" :from="areaMap" tagging
-              class="v-spec">
-            </v-select>
-
 
         <SelectFromList
           v-bind:targetListName="'areaList'"

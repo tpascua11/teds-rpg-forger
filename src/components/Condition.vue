@@ -62,8 +62,8 @@ export default {
 
 <style scoped>
 .thin{
-  height: 25px;
-  font-size: 15px;
+  height: 30px;
+  font-size: 14px;
   padding:0.5em;
 }
 
