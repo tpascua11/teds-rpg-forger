@@ -10,6 +10,10 @@
           v-bind:type="'String'"
         />
         -->
+            <v-select v-model="selected" as="name::name" :from="areaMap" tagging
+              class="v-spec">
+            </v-select>
+
 
         <SelectFromList
           v-bind:targetListName="'areaList'"
@@ -19,19 +23,6 @@
     </div>
     <div v-if="false">
       <ConditionSet />
-    </div>
-    <div class="row">
-      <div>
-        <h1> Vue Transition Animation </h1>
-        <button @click='open = !open'> Toggle Animation </button>
-        <transition name="slide">
-          <div v-if='open' class='example-div'>
-            <p> Hello World </p>
-            <p> Goodday  </p>
-            <p> Goodday  </p>
-          </div>
-        </transition>
-      </div>
     </div>
   </div>
 </template>
@@ -45,6 +36,7 @@ export default {
   name: 'areabuilder',
   data: function() {
     return {
+      selected: [],
       open: true,
 			selectedArea: {},
 			selectedInteraction: {conditionList: []},
@@ -53,6 +45,7 @@ export default {
 			tab: 'interactions',
 			newArea: {name: ""},
       newAreaname: "",
+      areaMap:  Object.keys(this.$root.world.areaMap),
 
       conditionTemplate: {
         list: [[],[]],

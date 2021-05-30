@@ -3,10 +3,10 @@ export class World {
 		this.name = "cool";
 		this.areaList = [{"name":"Home","description":"","connectedAreaList":[],"interactionList":[{"name":"Wolf!","scriptList":[{"eventName":"addDescription","description":"Bark!"},{"eventName":"restore","stat":"health","number":"20"},{"eventName":"addDescription","description":"The Wolf Licks Your Face!"}],"tags":[],"conditionList":[]}]}];
 		this.areaMap = {
-			'area1': {name: 'cool', interactionList:[]},
-			'area2': {name: 'cool', interactionList:[]},
-			'area3': {name: 'cool', interactionList:[]},
-			'area4': {name: 'cool', interactionList:[]},
+			'area1': {name: 'cool', interactionList:[], connectedAreaList: []},
+			'area2': {name: 'cool', interactionList:[], connectedAreaList: []},
+			'area3': {name: 'cool', interactionList:[], connectedAreaList: []},
+			'area4': {name: 'cool', interactionList:[], connectedAreaList: []},
 		};
 		//this.areaList = [];
     this.worldItemList = [];

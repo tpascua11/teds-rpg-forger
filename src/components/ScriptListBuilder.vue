@@ -10,7 +10,7 @@
             <tr>
               <th style="width: 5%;"> ID </th>
               <th scope="col" style="width: 85%;">
-                Script List
+                - Script List -
               </th>
               <th scope="col" style="width: 10%;"> Edit </th>
             </tr>
@@ -125,12 +125,14 @@ export default {
       //console.log("newv", JSON.stringify(newv));
       if(oldv != newv){
         this.selectedScriptList = newv;
+        this.saveScript();
       }
     }
   },
   mounted(){
     console.log("TRUE TEST!", this.scriptList);
     this.selectedScriptList = this.scriptList;
+    this.saveScript();
   },
   methods:{
     selectNewAction(action){
@@ -142,7 +144,6 @@ export default {
     removeAction(index){
       //console.log(index);
       this.scriptList.splice(index, 1);
-
       this.validScriptList();
     },
     targetIndex(index){
@@ -173,7 +174,6 @@ export default {
     hardModifyScript(script){
       //console.log("HARD MODIFY!");
       Object.assign(this.selectedAction, script);
-      this.validScriptList();
       this.saveScript();
     },
     deselectAction(){
@@ -182,6 +182,7 @@ export default {
     },
     saveScript(){
       console.log("Script Overwritten!");
+      this.validScriptList();
       this.$parent.convergeScriptList(this.selectedScriptList);
       this.$forceUpdate();
     },

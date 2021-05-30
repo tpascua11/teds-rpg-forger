@@ -20,21 +20,21 @@
               class="btn-warning btn-small btn-block">
               Interactions
             </button>
-            <button :disabled="lock" v-on:click="selectMode('')"
+            <button :disabled="lock" v-on:click="selectMode('AREA_CONFIGURE')"
               class="btn-success btn-small btn-block">
-              Info
+              Configure Area
             </button>
-            <button :disabled="lock" v-on:click="selectMode('')"
+            <button :disabled="lock" v-on:click="selectMode('AREA_NETWORK')"
               class="btn-secondary btn-small btn-block">
-              Connected
+              Area Network
             </button>
-            <button :disabled="lock" v-on:click="selectMode('TEST')"
+            <button :disabled="true" v-on:click="selectMode('TEST')"
               class="btn-default btn-small btn-block lightorange">
-              Info
+              On Visit Events
             </button>
-            <button :disabled="lock" v-on:click="selectMode('')"
+            <button :disabled="true" v-on:click="selectMode('')"
               class="btn-danger btn-small btn-block">
-              Testing
+              Hard Modify
             </button>
             </div>
           </div>
@@ -161,6 +161,33 @@
             </div>
             </div>
           </section>
+          <section v-if="mode === 'AREA_CONFIGURE'">
+            <div class="row title2">
+              Area Configure!
+            </div>
+            <div class="row">
+              <div class="col-6 col">
+              <textarea class="area-nice heightexpansion" v-model="selectedArea.description"
+                    placeholder="area description">
+                  </textarea>
+              </div>
+            </div>
+          </section>
+          <section v-if="mode === 'AREA_NETWORK'">
+            <div class="row title2">
+              Connected Areas
+            </div>
+            <div class="row">
+              <div class="col col-6">
+              <v-select v-model="selectedArea.connectedAreaList"
+                as="name::name" :from="areaMap" tagging
+                class="v-spec">
+              </v-select>
+              </div>
+              <div class="col col-6">
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -223,6 +250,7 @@ export default {
       this.selectedInteraction = {};
       this.referenceAreaInteractionList();
 
+      this.selectedArea = this.$root.world.areaMap[this.selectedAreaName];
       this.$forceUpdate();
     },
     createNewArea({value}){
@@ -235,6 +263,8 @@ export default {
         interactionList: [],
       };
       this.refreshKeys();
+
+      this.selectedArea = this.$root.world.areaMap[this.selectedAreaName];
       this.referenceAreaInteractionList();
     },
 
@@ -323,6 +353,10 @@ textarea {
   height: 100%;
   width: 100%;
   font-size: 16px;
+}
+.heightexpansion{
+  height: 200px;
+  border: 3px solid black;
 }
 .nice-border{
   border: 1px solid black;

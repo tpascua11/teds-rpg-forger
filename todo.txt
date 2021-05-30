@@ -1,11 +1,29 @@
 [X] Select A Row In Script List
 [X] Selected Row is editable
 [ ] Convert To $root style editing.
-[ ] Make a if condition case in script list
+[X] Make a if condition case in script list
    (X) a new script list will be used inside the if condition
    (X) Test add Description within if condition case.
 
-Make A New Dialogue Instead
-[-] Make a choice condition case
-[-] Make a while condition case
-[ ] Put all work in the the area interaction
+Priority NO FOCUS CLEAN UI
+
+[X] Change Location
+    (X) Make it work for the game
+
+[ ] Condition Set Overhaul 2
+    ( ) Use Stats Condition
+    ( ) Use Item Condition
+    ( ) Use Time Condition
+    ( ) Complex Condition
+    ( ) Use Complex Condition on Interaction
+
+[ ] Case Condition
+    While Condition
+
+[ ] Random Chance Of Event Action
+
+[ ] World Events
+[ ] Area On Visit or Time Event
+
+// Mobile App
+
