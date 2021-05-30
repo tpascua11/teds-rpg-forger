@@ -20,6 +20,19 @@
     <div v-if="false">
       <ConditionSet />
     </div>
+    <div class="row">
+      <div>
+        <h1> Vue Transition Animation </h1>
+        <button @click='open = !open'> Toggle Animation </button>
+        <transition name="slide">
+          <div v-if='open' class='example-div'>
+            <p> Hello World </p>
+            <p> Goodday  </p>
+            <p> Goodday  </p>
+          </div>
+        </transition>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +45,7 @@ export default {
   name: 'areabuilder',
   data: function() {
     return {
+      open: true,
 			selectedArea: {},
 			selectedInteraction: {conditionList: []},
 			testArray: [],
@@ -131,6 +145,36 @@ export default {
 
 p{
   font-size: 16px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active {
+   transition-duration: 0.3s;
+   transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+   transition-duration: 0.3s;
+   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to, .slide-leave {
+   max-height: 100px;
+   overflow: hidden;
+}
+
+.slide-enter, .slide-leave-to {
+   overflow: hidden;
+   max-height: 0;
 }
 
 

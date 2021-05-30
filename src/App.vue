@@ -122,6 +122,29 @@ export default {
   position: relative;
   top: -50px;
 }
+.move75up{
+  position: relative;
+  top: -75px;
+}
+.move100up{
+  position: relative;
+  top: -100px;
+}
+
+.debugblue{
+  background-color: lightblue;
+}
+
+.debugpink{
+  background-color: pink;
+}
+
+.debugy{
+  background-color: #dbd1b4;
+}
+
+
+
 
 
 

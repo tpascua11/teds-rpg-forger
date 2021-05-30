@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on:click="show()" class="btn-success btn-block">
+    <button v-on:click="show()" class="btn-warning btn-block thin">
       Add Condition
     </button>
 
@@ -61,6 +61,11 @@ export default {
 </script>
 
 <style scoped>
+.thin{
+  height: 25px;
+  font-size: 15px;
+  padding:0.5em;
+}
 
 </style>
 

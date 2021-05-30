@@ -64,7 +64,7 @@
                         v-bind:style="[ item == selectedInteraction ?
                         styleSelected : {}]"
                       >
-                        <td class="thin-table-row"> {{item.name}}</td>
+                        <td class="thin-table-row moveable"> {{item.name}}</td>
                       </tr>
 
                     </draggable>
@@ -76,30 +76,89 @@
               <div class="col-10 col paper">
                 <section v-if="selectedInteractionEmpty">
                   <div class="row">
-                  <div class="col-4 col">
-                    <div class="row title3">
-                      <div class="col-1 col">
-                        <i class="ra ra-quill-ink ra-lg"></i>
-                      </div>
-                      <div class="col-6 col">
-                        <input class="smallInput input3" type="string"
-                          v-model="selectedInteraction.name" placeholder="write interaction name..."
-                          ref="set_interaction_name"
-                        >
+                    <div class="col-4 col">
+                      <div class="row title3">
+                        <div class="col-1 col">
+                          <i class="ra ra-quill-ink ra-lg"></i>
+                        </div>
+                        <div class="col-6 col">
+                          <input class="smallInput input3" type="string"
+                            v-model="selectedInteraction.name" placeholder="write interaction name..."
+                            ref="set_interaction_name"
+                          >
+                        </div>
+                        <div class="col-1 col">
+                          <button v-on:click="popShowCondition"
+                            class="btn-default btn-small open-condition">
+                            <i v-if="!showCondition" class="ra ra-key-basic ra-lg"></i>
+                            <i v-else class="ra ra-key ra-lg"></i>
+                          </button>
+                        </div>
                       </div>
                     </div>
+                    <div v-if="!showCondition" class="col-5 col small3">
+                      <!--
+                      IF {{selectedInteraction.conditionList[0].isList}}
+                      AND IF NOT {{selectedInteraction.conditionList[0].isList}}
+
+                      <table class="nice-border">
+                        <tbody>
+                          <tr class="thin-table-row" v-for="(item, index) in selectedInteraction.conditionList" :key="index">
+                            <td>
+                              OR {{item.isList}}
+                            </td>
+                          </tr>
+                          <tr class="thin-table-row">
+                            <td>
+                              <Condition v-model="selectedInteraction.conditionList"/>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      -->
+                    </div>
+                    <div v-else class="col-5 col">
+                    </div>
+                    <div class="col-1 col small4">
+                      <button v-on:click="deleteInteraction(selectedInteraction)"
+                        class="btn-danger btn-small open-condition">
+                        <i class="ra ra-crossed-bones ra-lg"></i>
+                      </button>
+                    </div>
                   </div>
-                  <div class="col-6 col">
-                  </div>
-                </div>
-                <div class="row match-2 move50up">
-                  <ScriptListBuilder
+                  <transition name="slide">
+                    <div class="row move75up" v-if="showCondition">
+                      <div class="col col-6 pink">
+                        <textarea class="area-nice" v-model="selectedInteraction.description"
+                          placeholder="interaction description"></textarea>
+                      </div>
+                      <div class="col col-6">
+                        <table class="nice-border">
+                          <tbody>
+                            <tr class="thin-table-row" v-for="(item, index) in selectedInteraction.conditionList" :key="index">
+                              <td>
+                                OR {{item}}
+                              </td>
+                            </tr>
+                            <tr class="thin-table-row">
+                              <td>
+                                <Condition v-model="selectedInteraction.conditionList"/>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </transition>
+                  <div class="row move100up"
+                  >
+                    <ScriptListBuilder
                     v-bind:scriptList="selectedInteraction.scriptList"
                     v-bind:conditionList="selectedInteraction.conditionList"
                   />
                 </div>
-                </section>
-              </div>
+              </section>
+            </div>
             </div>
           </section>
         </div>
@@ -112,8 +171,9 @@
 
 
 import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
-
 import draggable from 'vuedraggable'
+
+import Condition from '@/components/Condition.vue'
 
 export default {
   name: 'Items',
@@ -130,6 +190,8 @@ export default {
       selectedInteraction: {},
       selectedItem: {},
 
+      showCondition: true,
+
       areaMap: Object.keys(this.$root.world.areaMap),
 
       styleSelected: {
@@ -140,6 +202,7 @@ export default {
   components: {
     ScriptListBuilder,
     draggable,
+    Condition,
   },
   props: {
     //world: Object,
@@ -190,6 +253,14 @@ export default {
       this.selectedInteraction = targetInteraction;
       //console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
     },
+    deleteInteraction(targetInteraction){
+      if(!confirm("Do You Wish to Delete Interaction!"));
+      this.selectedAreaInteractionList =
+        this.selectedAreaInteractionList.filter(
+          item => item !== targetInteraction);
+      this.saveAreaInteractionListPosition();
+      this.selectedInteraction = {};
+    },
     addToScriptList(){},
     checkMove(){console.log("CHECKING!");},
     convergeScriptList(scriptList){
@@ -210,6 +281,9 @@ export default {
       this.$root.world.areaMap[this.selectedAreaName].interactionList
         = this.selectedAreaInteractionList;
     },
+    popShowCondition(){
+      this.showCondition = !this.showCondition;
+    }
   },
   computed: {
     areaList (){
@@ -246,9 +320,9 @@ export default {
 <style scoped>
 textarea {
   box-sizing:border-box;
-  height: 20%;
+  height: 100%;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
 }
 .nice-border{
   border: 1px solid black;
@@ -349,6 +423,9 @@ p{
   line-height: 14px;
   height: 30px;
   border: 1px solid black;
+}
+
+.moveable{
   cursor: move;
 }
 
@@ -361,6 +438,53 @@ p{
   height: 70vh;
 }
 
+.open-condition{
+  border: 3px solid black;
+  position:relative;
+  top: -10px;
+  left: 125px;
+}
+
+.small3{
+  font-size: 13px;
+  position:relative;
+  left: 100px;
+  top: -25px;
+  z-index: 10;
+}
+
+.small4{
+  font-size: 13px;
+  position:relative;
+  left: 80px;
+  top: -25px;
+  z-index: 10;
+}
+
+
+
+.test-transition{
+  opacity: 1;
+  height: 30px;
+  transition: opacity 0.3s 0.1s, height 0.3s;
+}
+
+.slide-enter-active {
+   transition-duration: 0.3s;
+   transition-timing-function: ease-in;
+}
+.slide-leave-active {
+   transition-duration: 0.3s;
+   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+.slide-enter-to, .slide-leave {
+   max-height: 500px;
+   overflow: hidden;
+}
+.slide-enter, .slide-leave-to {
+   overflow: hidden;
+   max-height: 0;
+}
 
 
 
