@@ -32,15 +32,14 @@ ConditionTemplate that will be reference will have these 2 variables
 <template>
   <div>
     <div class="row f-height">
-      <div class="col-2">
-        <button
-          class="btn-default nice-mid-fit f-size adaptable-width">
-        Flag
-        </button>
+      <div class="col-1 small-s title-s">
+          Flag
       </div>
-      <div class="col-2">
-        <v-select v-model="flagType" :from="typeList"
-          class="f-size adaptable-width" placeholder="Add Flag" />
+      <div class="col-1">
+        <button v-if="flagType == 'IS'"  v-on:click="flagType = 'NOT'"
+          class="btn-success small-s"> IS </button>
+        <button v-if="flagType == 'NOT'" v-on:click="flagType = 'IS'"
+          class="btn-danger small-s"> NOT </button>
       </div>
       <div class="col-6">
         <v-select v-model="flagList" :from="dlist"
@@ -56,89 +55,23 @@ ConditionTemplate that will be reference will have these 2 variables
               {{option.raw}}
             </div>
           </template>
-
         </v-select>
       </div>
       <div class="col-2">
         <button v-on:click="updateFlagSet()"
-          class="btn-secondary nice-mid-fit adaptable-width"> Add
+          class="small-s btn-secondary"> Add
         </button>
       </div>
     </div>
-    <div class="row f-height">
-      <div class="col-2"><p>Is Flags</p></div>
-      <div class="col-10 simple-border">
-        <!--
-        <span v-for="(item, index) in flagSet.isList" :key="index">
-            <button class="btn-default  nice-small-fit"> {{item}}</button>
-          </span>
-          -->
-          <draggable class="list-group" :list="flagSet.isList" group="people">
-            <span
-              class="list-group-item"
-              v-for="(element, index) in flagSet.isList"
-              :key="index"
-            >
-              <button class="btn-default  nice-small-fit">
-              {{ element }}
-              </button>
-            </span>
-          </draggable>
-      </div>
-    </div>
-
-    <div class="row f-height">
-      <div class="col-2"><p>Not Flags</p></div>
-      <div class="col-10 simple-border">
-        <!--
-        <span v-for="(item, index) in flagSet.notList" :key="index">
-            <button class="btn-default  nice-small-fit"> {{item}}</button>
-          </span>
-          -->
-          <draggable class="list-group" :list="flagSet.notList" group="people">
-            <span
-              class="list-group-item"
-              v-for="(element, index) in flagSet.notList"
-              :key="index"
-            >
-              <button class="btn-default  nice-small-fit">
-              {{ element }}
-              </button>
-            </span>
-          </draggable>
-      </div>
-    </div>
-
-    <div class="row f-height">
-      <div class="col-2"><p>Clear </p></div>
-      <div class="col-10 simple-border">
-          <draggable class="list-group" :list="putBackList" group="people">
-            <span
-              class="list-group-item"
-              v-for="(element, index) in putBackList"
-              :key="index"
-            >
-              <button class="btn-default  nice-small-fit"> 
-              {{ element }}
-              </button>
-            </span>
-          </draggable>
-      </div>
-    </div>
-
-
-
   </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 
 export default {
   name: 'FlagInput',
   props: ["value", "referenceList"],
   components: {
-    draggable,
   },
   data: function(){
     return {
@@ -230,4 +163,17 @@ textarea {
   height:45px;
   font-size: 15px;
 }
+.small-s{
+  font-size: 15px;
+  height: 35px;
+  width: 35px;
+  padding:0.3em;
+}
+.title-s{
+  font-size: 20px;
+}
+.border-bottom{
+  border: 1px solid black;
+}
+
 </style>

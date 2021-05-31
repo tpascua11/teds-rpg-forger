@@ -75,30 +75,11 @@ or be used in a another Condition Set
 		<!-- Input Types -->
 		<section class="input-type-section">
 			<!-- Flag Inputs  -->
-			<div class="row" v-if="menuConditionType == 'FLAG'">
+			<div class="row">
 				<div class="col-12 col">
-					<FlagInput
+					<ImprovedCondition
 						v-model="conditionTemplate"
 						:referenceList="referenceWorld.flagList"
-					/>
-				</div>
-			</div>
-
-			<!-- Item Inputs  -->
-			<div class="row" v-if="menuConditionType == 'ITEM'">
-				<div class="col-12 col">
-					<ItemInput
-						v-model="conditionTemplate.hasItem"
-						:referenceList="referenceWorld.worldItemList"
-					/>
-				</div>
-			</div>
-			<!-- Stat Inputs -->
-			<div class="row" v-if="menuConditionType == 'STAT'">
-				<div class="col-12 col">
-					<StatInput
-						v-model="conditionTemplate.hasStat"
-						:referenceList="referenceWorld.worldItemList"
 					/>
 				</div>
 			</div>
@@ -128,9 +109,8 @@ or be used in a another Condition Set
 </template>
 
 <script>
-import FlagInput from '@/components/inputs/FlagInput.vue'
-import ItemInput from '@/components/inputs/ItemInput.vue'
-import StatInput from '@/components/inputs/StatInput.vue'
+import ImprovedCondition from '@/components/inputs/ImprovedCondition.vue'
+
 
 
 export default {
@@ -147,9 +127,7 @@ export default {
 		}
 	},
 	components: {
-		FlagInput,
-		ItemInput,
-		StatInput,
+		ImprovedCondition,
 	},
 	props: ['value', 'world', 'confirm'],
 	mounted(){
