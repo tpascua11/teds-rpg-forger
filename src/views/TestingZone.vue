@@ -4,6 +4,15 @@
       <div class="col-2 col"> --- </div>
       <div class="col-2 col"> --- </div>
       <div class="col-6 col">
+        {{take}}
+        <SimpleSelect v-model="take"/>
+        <select v-model="num"> <option v-bind:value="{ number: 123 }"></option>
+        num</select>
+      </div>
+    <div v-if="false">
+      <ConditionSet />
+
+      <Dropdown v-bind:options="testArray"/>
         <!--
         <SelectFromList
           v-bind:targetListName="'flagList'"
@@ -11,14 +20,7 @@
         />
         -->
 
-        <SelectFromList
-          v-bind:targetListName="'areaList'"
-          v-bind:type="'Object'"
-        />
       </div>
-    </div>
-    <div v-if="false">
-      <ConditionSet />
     </div>
   </div>
 </template>
@@ -26,17 +28,20 @@
 <script>
 
 import ConditionSet from '@/components/inputs/ConditionSet.vue'
-import SelectFromList from '@/components/inputs/SelectFromList.vue'
+import Dropdown from '@/components/list/Dropdown.vue'
+import SimpleSelect from '@/components/inputs/SimpleSelect.vue'
 
 export default {
   name: 'areabuilder',
   data: function() {
     return {
+      num: 0,
+      take: '',
       selected: [],
       open: true,
 			selectedArea: {},
 			selectedInteraction: {conditionList: []},
-			testArray: [],
+			testArray: [1,2,3,4,5],
 			buddy: {testArray: []},
 			tab: 'interactions',
 			newArea: {name: ""},
@@ -51,7 +56,8 @@ export default {
   },
   components: {
     ConditionSet,
-    SelectFromList,
+    Dropdown,
+    SimpleSelect,
   },
   props: {
     world: Object

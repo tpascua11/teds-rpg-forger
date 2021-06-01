@@ -5,10 +5,11 @@
     </button>
 
     <modal name="conditionModal"
-      :width="700"
-      :height="750"
-      :shiftY="0.1">
-
+      :width="550"
+      :height="700"
+      :shiftY="0.1"
+      :styles="'border: 2px solid black'"
+    >
       <ConditionSet
         v-model="conditionSet"
         :world="referenceWorld"
@@ -65,6 +66,9 @@ export default {
   height: 30px;
   font-size: 14px;
   padding:0.5em;
+}
+.nice-border{
+	border: 3px solid black;
 }
 
 </style>

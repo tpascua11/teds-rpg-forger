@@ -136,14 +136,18 @@
                         <table class="nice-border">
                           <tbody>
                             <tr class="thin-table-row" v-for="(item, index) in selectedInteraction.conditionList" :key="index">
-                              <td>
-                                OR {{item}}
+                              <td colspan="2" v-on:click="selectCondition(item)"
+                                style="cursor: context-menu" v-bind:style="[
+                                item == selectedCondition ? styleSelected : {}]"
+                              >
+                                {{item}}
                               </td>
                             </tr>
                             <tr class="thin-table-row">
                               <td>
-                                <Condition v-model="selectedInteraction.conditionList"/>
+                                <Condition v-model="selectedInteraction.conditionList" />
                               </td>
+                              <td> Clear </td>
                             </tr>
                           </tbody>
                         </table>
@@ -217,7 +221,10 @@ export default {
       selectedInteraction: {},
       selectedItem: {},
 
+      targetConditionList: [],
+
       showCondition: true,
+      selectedCondition: {},
 
       areaMap: Object.keys(this.$root.world.areaMap),
 
@@ -313,6 +320,10 @@ export default {
     },
     popShowCondition(){
       this.showCondition = !this.showCondition;
+    },
+    selectCondition(item){
+      console.log("select condition", item);
+      this.selectedCondition = item;
     }
   },
   computed: {

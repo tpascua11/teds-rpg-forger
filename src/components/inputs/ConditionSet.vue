@@ -13,65 +13,7 @@ or be used in a another Condition Set
 
 <template>
 	<div class="simple-border max-height">
-		<section class="top-section">
-			<!-- Condition Sets -->
-			<div class="row">
-				<div class="col-3 col">
-					<button v-on:click="selectConditionType('FLAG')" class="btn-default btn-block nice-small-fit"> Flag             </button>
-					<button v-on:click="selectConditionType('ITEM')" class="btn-default btn-block nice-small-fit"> Player Item  </button>
-					<button v-on:click="selectConditionType('STAT')" class="btn-default btn-block nice-small-fit"> Player Stat </button>
-					<button v-on:click="selectConditionType()" class="btn-default btn-block nice-small-fit"> Time </button>
-					<button v-on:click="selectConditionType()" class="btn-default btn-block nice-small-fit"> Complex </button>
-				</div>
-				<div class="col-9 col">
-					<div class="condition-list-table">
-						<table class=''>
-							<thead>
-							</thead>
-							<tbody class="condition-list-table">
-								<tr v-if="showIsList" class="short-row" v-on:click="selectConditionType('FLAG')">
-									<td style="width: 20%">
-										Is Flag
-									</td>
-									<td>
-										{{conditionTemplate.isList}}
-									</td>
-								</tr>
-								<tr v-if="showNotList" v-on:click="selectConditionType('FLAG')">
-									<td style="width: 20%">
-										NotFlag
-									</td>
-									<td>
-										{{conditionTemplate.notList}}
-									</td>
-								</tr>
-								<tr v-if="showItemList" v-on:click="selectConditionType('ITEM')">
-									<td style="width: 20%">
-										<p> Has Item: </p>
-									</td>
-									<td>
-										<p class="" v-for="(item, index) in conditionTemplate.hasItem" :key="index">
-											"{{item.name}}" {{item.operator}} {{item.value}}
-										</p>
-									</td>
-								</tr>
-								<tr v-if="showStatList" v-on:click="selectConditionType('STAT')">
-									<td style="width: 20%">
-										<p> Has Stat: </p>
-									</td>
-									<td>
-										<p class="" v-for="(item, index) in conditionTemplate.hasStat" :key="index">
-											"{{item.name}}" {{item.operator}} {{item.value}}
-										</p>
-									</td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</section>
+		<div class="row title"> Conditions </div>
 		<!-- Input Types -->
 		<section class="input-type-section">
 			<!-- Flag Inputs  -->
@@ -84,21 +26,116 @@ or be used in a another Condition Set
 				</div>
 			</div>
 		</section>
+
+		<section class="top-section" v-if="true">
+			<!-- Condition Sets -->
+			<div class="row">
+				<div v-if="false" class="col-3 col">
+				</div>
+				<div class="col-9 col">
+					<div class="condition-list-table">
+						<table class=''>
+							<thead>
+							</thead>
+							<tbody class="condition-list-table">
+								<tr v-if="showIsList" class="short-row" v-on:click="selectConditionType('FLAG')">
+									<td>
+										Is Flag
+									</td>
+									<td>
+										{{conditionTemplate.isList}}
+									</td>
+									<td style="width: 10%">
+										<button v-on:click="conditionTemplate.isList = []" class="btn-danger nice-small-fit btn-block ">
+											X
+										</button>
+									</td>
+								</tr>
+								<tr v-if="showNotList" v-on:click="selectConditionType('FLAG')">
+									<td style="width: 20%">
+										NotFlag
+									</td>
+									<td>
+										{{conditionTemplate.notList}}
+									</td>
+									<td>
+										<button v-on:click="conditionTemplate.notList = []" class="btn-danger nice-small-fit btn-block ">
+											X
+										</button>
+									</td>
+								</tr>
+								<tr v-if="showItemList" v-on:click="selectConditionType('ITEM')">
+									<td style="width: 20%">
+										<p> Has Item: </p>
+									</td>
+									<td>
+										<p class="" v-for="(item, index) in conditionTemplate.hasItem" :key="index">
+											"{{item.name}}" {{item.operator}} {{item.value}}
+										</p>
+									</td>
+									<td>
+										<button v-on:click="conditionTemplate.hasItem = []" class="btn-danger nice-small-fit btn-block ">
+											X
+										</button>
+									</td>
+								</tr>
+								<tr v-if="showStatList" v-on:click="selectConditionType('STAT')">
+									<td style="width: 20%">
+										<p> Has Stat: </p>
+									</td>
+									<td>
+										<p class="" v-for="(item, index) in conditionTemplate.hasStat" :key="index">
+											"{{item.name}}" {{item.operator}} {{item.value}}
+										</p>
+									</td>
+									<td>
+										<button v-on:click="conditionTemplate.hasStat = []" class="btn-danger nice-small-fit btn-block ">
+											X
+										</button>
+									</td>
+								</tr>
+								<tr v-if="conditionTemplate.time">
+									<td style="width: 20%">
+										<p> Time : </p>
+									</td>
+									<td>
+										{{conditionTemplate.time}}
+									</td>
+									<td>
+										<button v-on:click="conditionTemplate.time = null" class="btn-danger nice-small-fit btn-block ">
+											X
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
 		<section class="confirm-section">
 			<!-- Confirms  -->
 			<div class="row">
+				<!--
 				<div class="col-3 col">
-					<button v-on:click="insertConditionOr()" class="btn-warning
+					<button v-on:click="insertConditionOr()" class="btn-warning nice-small-fit
 						btn-block "> Set OR
 					</button>
 				</div>
-				<div class="col-6 col">
-					<button v-on:click="selectConditionType('FLAG')" class="btn-secondary
-						btn-block "> Convert as Complex
+				-->
+				<div class="col-5 col">
+					<input
+						class="" type="string"
+						v-model="conditionTemplate.name" placeholder="Value"
+					>
+				</div>
+				<div class="col-4 col">
+					<button v-on:click="saveComplex" class="btn-secondary nice-small-fit
+						btn-block "> Save As Complex
 					</button>
 				</div>
 				<div class="col-3 col">
-					<button v-on:click="insertConditionAnd()" class="btn-danger
+					<button v-on:click="insertConditionAnd()" class="btn-danger nice-small-fit
 						btn-block "> Set AND
 					</button>
 				</div>
@@ -119,10 +156,12 @@ export default {
 		return {
 			menuConditionType: "FLAG",
 			conditionTemplate: {
+				name: '',
 				isList: [],
 				notList: [],
 				hasItem: [],
 				hasStat: [],
+				time: {},
 			},
 		}
 	},
@@ -180,6 +219,15 @@ export default {
 				template.hasStat.push(item);
 				console.log("template added", template);
 			});
+		},
+		saveComplex(){
+			if(this.$root.world.complexConditionMap[this.conditionTemplate.name]){
+				if(!confirm("Complex Name Is Used \n do you wish to override")) return;
+			}
+
+			this.$root.world.complexConditionMap[this.conditionTemplate.name] =
+				this.conditionTemplate;
+			console.log("SEE THE COMPLEX MAP", this.$root.world.complexConditionMap);
 		}
 
 	},
@@ -246,20 +294,23 @@ textarea {
 }
 
 .top-section{
-	height: 35vh;
 }
 
 .condition-list-table{
-	height: 30vh;
+	height: 25vh;
 	overflow: scroll;
 }
 
 .input-type-section{
-	height: 30vh;
+  border: 2px solid black;
+	height: 300px;
+  overflow: scroll;
 }
 
 .confirm-section{
-	height: 10vh;
+}
+.title{
+  font-size: 20px;
 }
 
 </style>

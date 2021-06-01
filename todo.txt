@@ -11,10 +11,11 @@ Priority NO FOCUS CLEAN UI
     (X) Make it work for the game
 
 [ ] Condition Set Overhaul 2
-    ( ) Use Stats Condition
-    ( ) Use Item Condition
-    ( ) Use Time Condition
-    ( ) Complex Condition
+    (X) Use Stats Condition
+    (X) Use Item Condition
+    (X) Use Time Condition
+    (X) Complex Condition
+    ( ) Overhaul Condition Modal Again! Smallify
     ( ) Use Complex Condition on Interaction
 
 [ ] Case Condition
