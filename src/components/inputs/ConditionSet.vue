@@ -13,8 +13,11 @@ or be used in a another Condition Set
 
 <template>
 	<div class="simple-border max-height">
-		<div class="row title"> Conditions </div>
 		<!-- Input Types -->
+		<div class="row border-bottom border-top title-3">
+      <div class="col col-4 title-s-2">Condition</div>
+      <div class="col col-4"></div>
+    </div>
 		<section class="input-type-section">
 			<!-- Flag Inputs  -->
 			<div class="row">
@@ -30,82 +33,43 @@ or be used in a another Condition Set
 		<section class="top-section" v-if="true">
 			<!-- Condition Sets -->
 			<div class="row">
-				<div v-if="false" class="col-3 col">
-				</div>
-				<div class="col-9 col">
+				<div class="col-12 col">
 					<div class="condition-list-table">
 						<table class=''>
 							<thead>
 							</thead>
 							<tbody class="condition-list-table">
-								<tr v-if="showIsList" class="short-row" v-on:click="selectConditionType('FLAG')">
-									<td>
-										Is Flag
-									</td>
-									<td>
-										{{conditionSet.isList}}
-									</td>
+								<tr class="short-row">
+									<td style="width: 20%"> Is Flag </td>
+									<td style="width: 70%"> {{conditionSet.isList}} </td>
 									<td style="width: 10%">
-										<button v-on:click="conditionSet.isList = []" class="btn-danger nice-small-fit btn-block ">
-											X
-										</button>
+										<button v-on:click="conditionSet.isList = []" class="btn-danger nice-small-fit btn-block "> X </button>
 									</td>
 								</tr>
-								<tr v-if="showNotList" v-on:click="selectConditionType('FLAG')">
-									<td style="width: 20%">
-										NotFlag
-									</td>
-									<td>
-										{{conditionSet.notList}}
-									</td>
-									<td>
-										<button v-on:click="conditionSet.notList = []" class="btn-danger nice-small-fit btn-block ">
-											X
-										</button>
-									</td>
+								<tr class="short-row">
+									<td style="width: 20%"> Not Flag </td>
+									<td style="width: 70%"> {{conditionSet.notList}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.notList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr v-if="showItemList" v-on:click="selectConditionType('ITEM')">
-									<td style="width: 20%">
-										<p> Has Item: </p>
-									</td>
-									<td>
-										<p class="" v-for="(item, index) in conditionSet.hasItem" :key="index">
-											"{{item.name}}" {{item.operator}} {{item.value}}
-										</p>
-									</td>
-									<td>
-										<button v-on:click="conditionSet.hasItem = []" class="btn-danger nice-small-fit btn-block ">
-											X
-										</button>
-									</td>
+								<tr class="short-row">
+									<td style="width: 20%"> Has Item</td>
+									<td style="width: 70%"> {{conditionSet.hasItem}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.hasItem = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr v-if="showStatList" v-on:click="selectConditionType('STAT')">
-									<td style="width: 20%">
-										<p> Has Stat: </p>
-									</td>
-									<td>
-										<p class="" v-for="(item, index) in conditionSet.hasStat" :key="index">
-											"{{item.name}}" {{item.operator}} {{item.value}}
-										</p>
-									</td>
-									<td>
-										<button v-on:click="conditionSet.hasStat = []" class="btn-danger nice-small-fit btn-block ">
-											X
-										</button>
-									</td>
+								<tr class="short-row">
+									<td style="width: 20%"> Has Stat</td>
+									<td style="width: 70%"> {{conditionSet.hasStat}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.hasStat = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr v-if="conditionSet.time">
-									<td style="width: 20%">
-										<p> Time : </p>
-									</td>
-									<td>
-										{{conditionSet.time}}
-									</td>
-									<td>
-										<button v-on:click="conditionSet.time = null" class="btn-danger nice-small-fit btn-block ">
-											X
-										</button>
-									</td>
+								<tr class="short-row">
+									<td style="width: 20%"> Time </td>
+									<td style="width: 70%"> {{conditionSet.time}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.time = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
+								</tr>
+								<tr class="short-row">
+									<td style="width: 20%"> Complex </td>
+									<td style="width: 70%"> {{conditionSet.complexList}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
 							</tbody>
 						</table>
@@ -123,20 +87,16 @@ or be used in a another Condition Set
 					</button>
 				</div>
 				-->
+				<div class="col-3 col"></div>
 				<div class="col-5 col">
 					<input
-						class="" type="string"
-						v-model="name" placeholder="Value"
+						class="small-s-width" type="string"
+						v-model="name" placeholder="Name of Complex"
 					>
 				</div>
 				<div class="col-4 col">
-					<button v-on:click="saveComplex" class="btn-secondary nice-small-fit
+					<button v-on:click="saveComplex" class="btn-secondary small-s-width
 						btn-block "> Save As Complex
-					</button>
-				</div>
-				<div class="col-3 col" v-if="false">
-					<button v-on:click="insertConditionAnd()" class="btn-danger nice-small-fit
-						btn-block "> Set AND
 					</button>
 				</div>
 			</div>
@@ -157,6 +117,7 @@ export default {
 			menuConditionType: "FLAG",
 			name: '',
 			conditionTemplate: {
+				complexList: [],
 				isList: [],
 				notList: [],
 				hasItem: [],
@@ -189,10 +150,12 @@ export default {
 		},
 		convert(){
 			let newConditionTemplate = {
+				complexList: [],
 				isList: [],
 				notList: [],
 				hasItem: [],
 				hasStat: [],
+				time: {},
 			};
 			//let template = Object.assign({}, newConditionTemplate);
 
@@ -300,7 +263,6 @@ textarea {
 }
 
 .condition-list-table{
-	height: 25vh;
 	overflow: scroll;
 }
 
@@ -314,6 +276,25 @@ textarea {
 }
 .title{
   font-size: 20px;
+}
+
+.title-3{
+  font-weight: bold;
+  position:relative;
+	top: -5px;
+	text-decoration: underline;
+	height: 25px;
+}
+
+th, td{
+  font-size: 14px;
+}
+
+.small-s-width{
+  font-size: 14px;
+  height: 35px;
+  padding:0.3em;
+  width: 95%;
 }
 
 </style>

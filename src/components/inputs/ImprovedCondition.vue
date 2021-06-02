@@ -1,26 +1,18 @@
 <template>
   <section>
-    <div v-if="false" class="row">
-					<button v-on:click="selectConditionType('FLAG')" class="btn-default btn-block nice-small-fit"> Flag             </button>
-					<button v-on:click="selectConditionType('ITEM')" class="btn-default btn-block nice-small-fit"> Player Item  </button>
-					<button v-on:click="selectConditionType('STAT')" class="btn-default btn-block nice-small-fit"> Player Stat </button>
-					<button v-on:click="selectConditionType()" class="btn-default btn-block nice-small-fit"> Time </button>
-					<button v-on:click="selectConditionType()" class="btn-default btn-block nice-small-fit"> Complex </button>
-    </div>
-    <!-- Add Flag Condition -->
-    <div class="row border-bottom">
-      <div class="col-2 small-s title-s">
+   <!-- Add Flag Condition -->
+    <div class="row border-bottom border-top close-up">
+      <div class="col-1 small-s title-s mini-down">
         Flag
       </div>
       <div class="col-1">
         <button v-if="flagType == 'IS'"  v-on:click="flagType = 'NOT'"
-          class="btn-success small-s"> IS </button>
+          class="btn-success small-s mini-down"> IS </button>
         <button v-if="flagType == 'NOT'" v-on:click="flagType = 'IS'"
-          class="btn-danger small-s"> NOT </button>
+          class="btn-danger small-s mini-down"> NOT </button>
       </div>
-      <div class="col-6">
-        <v-select v-model="flagList" :from="dlist"
-          class="f-size adaptable-width" placeholder="Add Flag">
+      <div class="col-7">
+        <v-select v-model="flagList" :from="dlist" class="f-size mini-down" placeholder="Add Flag">
           <template v-slot:selected="{option}">
             <div class="f-size">
               <p> {{option.raw}}</p>
@@ -41,16 +33,15 @@
         </button>
       </div>
     </div>
-
     <!-- Add Item Condition -->
-    <div class="row border-bottom">
-      <div class="col-2 small-s title-s">
+    <div class="row border-bottom close-up-2">
+      <div class="col-1 small-s title-s">
         Item
       </div>
 
-      <div class="col-4">
+      <div class="col-5">
         <v-select v-model="inputItem.name" :from="itemList"
-          class="f-size adaptable-width" placeholder="Add Item" />
+          class="f-size" placeholder="Add Item" />
       </div>
 
       <div class="col-1">
@@ -60,7 +51,7 @@
       </div>
 
       <div class="col-2">
-        <input class="small-s-width adaptable-width" type="number" v-model="inputItem.value" placeholder="Value">
+        <input class="small-s-width" type="number" v-model="inputItem.value" placeholder="Value">
       </div>
 
       <div class="col-1">
@@ -74,15 +65,15 @@
     </div>
 
     <!-- Add Stat Condition -->
-    <div class="row border-bottom">
-      <div class="col-2 small-s title-s">
+    <div class="row border-bottom close-up-3">
+      <div class="col-1 small-s title-s">
         Stat
       </div>
 
 
-      <div class="col-4">
+      <div class="col-5">
         <v-select v-model="inputStat.name" :from="statList"
-          class="f-size adaptable-width" placeholder="Add Item" />
+          class="f-size " placeholder="Add Item" />
       </div>
 
       <div class="col-1">
@@ -93,7 +84,7 @@
       </div>
 
       <div class="col-2">
-        <input class="small-s-width adaptable-width" type="number"
+        <input class="small-s-width " type="number"
           v-model="inputStat.value" placeholder="Value">
 
         </div>
@@ -110,14 +101,14 @@
       </div>
 
     <!-- Add Stat Condition -->
-    <div class="row">
+    <div class="row move50up" v-if="false">
 			<div class="col-2 small-s title-s">
 				<button v-on:click="showTime = !showTime" class="small-s-width title-s">
 					Time
 				</button>
 			</div>
 		</div>
-    <div class="row" v-if="showTime">
+    <div class="row move50up" v-if="showTime">
       <div class="col-12">
         <table class=''>
           <thead>
@@ -158,14 +149,47 @@
         </table>
       </div>
     </div>
-    <div class="row">
-      <div class="col-10"></div>
+    <div class="row move50up">
+      <div class="col-2">
+				<button v-on:click="showTime = !showTime" class="small-s-width title-s">
+					Time
+				</button>
+      </div>
+      <div class="col-8"></div>
       <div class="col-2">
         <button v-on:click="updateDateSet()"
           class="btn-secondary small-s-width"> Add
         </button>
       </div>
     </div>
+   <!-- Add Complex Condition -->
+    <div class="row border-bottom border-top close-up">
+      <div class="col-2 small-s title-s mini-down">
+        Complex
+      </div>
+     <div class="col-7">
+        <v-select v-model="complexList" :from="clist" class="f-size mini-down" placeholder="Add Flag">
+          <template v-slot:selected="{option}">
+            <div class="f-size">
+              <p> {{option.raw}}</p>
+            </div>
+          </template>
+
+          <template v-slot:option="{option}">
+            <div class="f-size">
+              {{option.raw}}
+            </div>
+          </template>
+        </v-select>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-2">
+        <button v-on:click="updateComplexSet()"
+          class="small-s-width btn-secondary"> Add
+        </button>
+      </div>
+    </div>
+
 
   </section>
 </template>
@@ -186,6 +210,7 @@ export default {
       typeList: ["NOT", "IS"],
       flagType: "IS",
       flagList: [],
+      complexList: [],
       putBackList: [],
 
 
@@ -224,6 +249,15 @@ export default {
         this.$emit('input', newSet);
       }
       this.flagList = [];
+    },
+    updateComplexSet(){
+      /* Use the selected flags and option to add new flags into one of the
+       * flagSet lists */
+      let newSet = this.value;
+      console.log("-----", newSet);
+      newSet.complexList = [...newSet.complexList, ...this.complexList]
+      this.$emit('input', newSet);
+      this.complexList = [];
     },
     updateItemSet(){
       console.log("Item Set", this.inputItem);
@@ -314,6 +348,23 @@ export default {
       console.log("filtered", filtered);
       return filtered;
     },
+    clist: function(){
+      return Object.keys(this.$root.world.complexConditionMap);
+      /*
+      let tmp = Object.keys(this.$root.world.complexConditionMap);
+      console.log(tmp);
+
+      let filtered = tmp.filter(
+        function(e) {
+          return this.indexOf(e) < 0;
+        },
+        [...this.value.complexList, ...this.complexList]
+      );
+
+      console.log("filtered", filtered);
+      return filtered;*/
+    },
+
     itemList: function(){
       return Object.keys(this.$root.world.itemMap);
     },
@@ -354,28 +405,63 @@ textarea {
   font-size: 15px;
 }
 .small-s{
-  font-size: 15px;
+  font-size: 14px;
   height: 35px;
   width: 35px;
   padding:0.3em;
 }
 .small-s-width{
-  font-size: 15px;
+  font-size: 14px;
   height: 35px;
   padding:0.3em;
   width: 95%;
 }
 
 .title-s{
+  font-size: 15px;
+  font-weight: bold;
+}
+.title-s2{
   font-size: 20px;
+  font-weight: bold;
 }
 .border-bottom{
   border-bottom: 2px solid black;
 }
-.close-up{
-  position:relative;
-  top: -75px;
+.border-top{
+  border-top: 2px solid black;
 }
+
+.mini-up{
+  position:relative;
+  top: -3px;
+}
+.mini-down{
+  position:relative;
+  top: 2px;
+}
+.close-up{
+  min-height:86px;
+  position:relative;
+  top: -15px;
+}
+.close-up-2{
+  position:relative;
+  top: -30px;
+}
+.close-up-3{
+  position:relative;
+  top: -45px;
+}
+
+.f-size{
+  font-size:12px;
+}
+
+th, td{
+  font-size: 14px;
+}
+
 
 
 
