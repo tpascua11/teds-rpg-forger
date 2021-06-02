@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import Condition from '@/components/Condition.vue'
+import Condition from '@/components/modals/Condition.vue'
 
 export default {
 

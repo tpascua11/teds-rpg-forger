@@ -187,7 +187,7 @@
 import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
 import draggable from 'vuedraggable'
 
-import Condition from '@/components/Condition.vue'
+import Condition from '@/components/modals/Condition.vue'
 
 export default {
   name: 'Items',
