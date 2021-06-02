@@ -20,7 +20,7 @@ or be used in a another Condition Set
 			<div class="row">
 				<div class="col-12 col">
 					<ImprovedCondition
-						v-model="conditionTemplate"
+						v-model="value"
 						:referenceList="referenceWorld.flagList"
 					/>
 				</div>
@@ -43,10 +43,10 @@ or be used in a another Condition Set
 										Is Flag
 									</td>
 									<td>
-										{{conditionTemplate.isList}}
+										{{conditionSet.isList}}
 									</td>
 									<td style="width: 10%">
-										<button v-on:click="conditionTemplate.isList = []" class="btn-danger nice-small-fit btn-block ">
+										<button v-on:click="conditionSet.isList = []" class="btn-danger nice-small-fit btn-block ">
 											X
 										</button>
 									</td>
@@ -56,10 +56,10 @@ or be used in a another Condition Set
 										NotFlag
 									</td>
 									<td>
-										{{conditionTemplate.notList}}
+										{{conditionSet.notList}}
 									</td>
 									<td>
-										<button v-on:click="conditionTemplate.notList = []" class="btn-danger nice-small-fit btn-block ">
+										<button v-on:click="conditionSet.notList = []" class="btn-danger nice-small-fit btn-block ">
 											X
 										</button>
 									</td>
@@ -69,12 +69,12 @@ or be used in a another Condition Set
 										<p> Has Item: </p>
 									</td>
 									<td>
-										<p class="" v-for="(item, index) in conditionTemplate.hasItem" :key="index">
+										<p class="" v-for="(item, index) in conditionSet.hasItem" :key="index">
 											"{{item.name}}" {{item.operator}} {{item.value}}
 										</p>
 									</td>
 									<td>
-										<button v-on:click="conditionTemplate.hasItem = []" class="btn-danger nice-small-fit btn-block ">
+										<button v-on:click="conditionSet.hasItem = []" class="btn-danger nice-small-fit btn-block ">
 											X
 										</button>
 									</td>
@@ -84,25 +84,25 @@ or be used in a another Condition Set
 										<p> Has Stat: </p>
 									</td>
 									<td>
-										<p class="" v-for="(item, index) in conditionTemplate.hasStat" :key="index">
+										<p class="" v-for="(item, index) in conditionSet.hasStat" :key="index">
 											"{{item.name}}" {{item.operator}} {{item.value}}
 										</p>
 									</td>
 									<td>
-										<button v-on:click="conditionTemplate.hasStat = []" class="btn-danger nice-small-fit btn-block ">
+										<button v-on:click="conditionSet.hasStat = []" class="btn-danger nice-small-fit btn-block ">
 											X
 										</button>
 									</td>
 								</tr>
-								<tr v-if="conditionTemplate.time">
+								<tr v-if="conditionSet.time">
 									<td style="width: 20%">
 										<p> Time : </p>
 									</td>
 									<td>
-										{{conditionTemplate.time}}
+										{{conditionSet.time}}
 									</td>
 									<td>
-										<button v-on:click="conditionTemplate.time = null" class="btn-danger nice-small-fit btn-block ">
+										<button v-on:click="conditionSet.time = null" class="btn-danger nice-small-fit btn-block ">
 											X
 										</button>
 									</td>
@@ -126,7 +126,7 @@ or be used in a another Condition Set
 				<div class="col-5 col">
 					<input
 						class="" type="string"
-						v-model="conditionTemplate.name" placeholder="Value"
+						v-model="name" placeholder="Value"
 					>
 				</div>
 				<div class="col-4 col">
@@ -134,7 +134,7 @@ or be used in a another Condition Set
 						btn-block "> Save As Complex
 					</button>
 				</div>
-				<div class="col-3 col">
+				<div class="col-3 col" v-if="false">
 					<button v-on:click="insertConditionAnd()" class="btn-danger nice-small-fit
 						btn-block "> Set AND
 					</button>
@@ -155,8 +155,8 @@ export default {
 	data: function(){
 		return {
 			menuConditionType: "FLAG",
+			name: '',
 			conditionTemplate: {
-				name: '',
 				isList: [],
 				notList: [],
 				hasItem: [],
@@ -177,7 +177,7 @@ export default {
 			this.menuConditionType = type;
 		},
 		insertConditionAnd(){
-			this.$emit('input', this.conditionTemplate);
+			this.$emit('input', this.conditionSet);
 			this.$emit('confirm');
 			//this.referenceConditionList.push(this.conditionTemplate);
 			//this.$emit('input', newSet);
@@ -221,12 +221,12 @@ export default {
 			});
 		},
 		saveComplex(){
-			if(this.$root.world.complexConditionMap[this.conditionTemplate.name]){
+			if(this.$root.world.complexConditionMap[this.name]){
 				if(!confirm("Complex Name Is Used \n do you wish to override")) return;
 			}
 
-			this.$root.world.complexConditionMap[this.conditionTemplate.name] =
-				this.conditionTemplate;
+			this.$root.world.complexConditionMap[this.name] =
+				this.conditionSet;
 			console.log("SEE THE COMPLEX MAP", this.$root.world.complexConditionMap);
 		}
 
@@ -238,6 +238,9 @@ export default {
 				'text-danger': this.error && this.error.type === 'fatal'
 			}
 		},
+		conditionSet: function(){
+			return this.value;
+		},
 		referenceWorld: function(){
 			//return this.$parent.referenceWorld;
 			return this.$root.world;
@@ -248,10 +251,10 @@ export default {
 		referenceFlagList: function(){
 			return 10;
 		},
-		showIsList: function()    { return this.conditionTemplate.isList.length > 0},
-		showNotList: function()   { return this.conditionTemplate.notList.length > 0},
-		showItemList: function()  { return this.conditionTemplate.hasItem.length > 0},
-		showStatList: function()  { return this.conditionTemplate.hasStat.length > 0},
+		showIsList: function()    { return this.value.isList.length > 0},
+		showNotList: function()   { return this.value.notList.length > 0},
+		showItemList: function()  { return this.value.hasItem.length > 0},
+		showStatList: function()  { return this.value.hasStat.length > 0},
 
 	}
 }

@@ -133,24 +133,7 @@
                           placeholder="interaction description"></textarea>
                       </div>
                       <div class="col col-6">
-                        <table class="nice-border">
-                          <tbody>
-                            <tr class="thin-table-row" v-for="(item, index) in selectedInteraction.conditionList" :key="index">
-                              <td colspan="2" v-on:click="selectCondition(item)"
-                                style="cursor: context-menu" v-bind:style="[
-                                item == selectedCondition ? styleSelected : {}]"
-                              >
-                                {{item}}
-                              </td>
-                            </tr>
-                            <tr class="thin-table-row">
-                              <td>
-                                <Condition v-model="selectedInteraction.conditionList" />
-                              </td>
-                              <td> Clear </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                          <Condition v-model="selectedInteraction.conditionList" />
                       </div>
                     </div>
                   </transition>

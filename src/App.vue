@@ -113,6 +113,14 @@ export default {
 	padding:0.5em;
 }
 
+.default-based-font{
+	font-size: 14px;
+}
+
+.default-thin-border{
+	border: 1px solid black;
+}
+
 /* Based Stuff*/
 .move25up{
   position: relative;

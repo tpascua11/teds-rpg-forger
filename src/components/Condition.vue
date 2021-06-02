@@ -1,6 +1,28 @@
+<!--
+This is a div box that contains a button to create condition for object 
+     it will show conditions added to objects
+-->
 <template>
   <div>
-    <button v-on:click="show()" class="btn-warning btn-block thin">
+    <table class="default-thin-border">
+      <tbody>
+        <tr class="thin-table-row" v-for="(item, index) in conditionList" :key="index">
+          <td class="default-based-font"
+            colspan="2" v-on:click="editCondition(item);"
+            style="cursor: context-menu"
+            v-bind:style="[ item == selectedCondition ? styleSelected : {}]"
+          >
+            {{item}}
+          </td>
+          <td>
+            <button v-on:click="removeCondition(index)" class="btn-danger thin">
+              x
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button v-on:click="makeNewConditionSet()" class="btn-warning btn-block thin">
       Add Condition
     </button>
 
@@ -13,7 +35,7 @@
       <ConditionSet
         v-model="conditionSet"
         :world="referenceWorld"
-        @confirm="confirmNewConditionSet()"
+        @confirm="updateConditionSet()"
       />
     </modal>
   </div>
@@ -30,26 +52,74 @@ export default {
   data: function(){
     return {
       name: "OK",
-      conditionSet: {},
+      mode: "NEW",
+      conditionSet: {
+				isList: [],
+				notList: [],
+				hasItem: [],
+				hasStat: [],
+				time: {},
+			},
+
+      selectedCondition: {},
     }
   },
   props: ['value'],
   mounted(){},
   methods:{
+    test(){},
     show () {
+      this.mode = "NEW";
+      this.conditionSet = {
+				isList: [],
+				notList: [],
+				hasItem: [],
+				hasStat: [],
+				time: {},
+			};
       this.$modal.show('conditionModal');
     },
     hide () {
       this.$modal.hide('conditionModal');
     },
+    makeNewConditionSet (){
+      this.conditionSet = {
+				name: '',
+				isList: [],
+				notList: [],
+				hasItem: [],
+				hasStat: [],
+				time: {},
+      };
+      this.referenceConditionList.push(this.conditionSet);
+      this.$modal.show('conditionModal');
+    },
+    updateConditionSet(){
+      this.hide();
+    },
     confirmNewConditionSet (){
       console.log("WHAT IS THE NEW CONDOTION SET", this.conditionSet);
-      this.referenceConditionList.push(this.conditionSet);
+      if(this.mode === "NEW") this.referenceConditionList.push(this.conditionSet);
       this.hide();
+    },
+    editCondition(conditionSet){
+      this.mode = "EDIT";
+      this.conditionSet = conditionSet;
+      this.$modal.show('conditionModal');
+    },
+    removeCondition(index){
+      this.value.splice(index, 1);
+    },
+    arrayRemove(arr, value) {
+        return arr.filter(function(ele){
+            return ele != value;
+        });
     }
-
   },
   computed: {
+    conditionList(){
+      return this.value;
+    },
     referenceConditionList(){
       return this.value;
     },
