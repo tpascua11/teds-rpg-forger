@@ -14,10 +14,9 @@
 			<div class="nav-brand">
 				<i class="ra ra-burning-book ra-1x"></i>
         <router-link to="/betterArea"  class="routerFont" > Area </router-link> |
-        <router-link to="/area"  class="routerFont" > Area Builder   </router-link> |
+				<router-link to="/item"  class="routerFont" > Items </router-link> |
 				<router-link to="/world" class="routerFont" > World </router-link> |
 
-				<router-link to="/item"  class="routerFont" > Items </router-link> |
 				<router-link to="/testing" class="routerFont" > Testing Zone </router-link> |
 				<!--
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |

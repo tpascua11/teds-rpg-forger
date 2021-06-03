@@ -2,7 +2,7 @@
   <section>
    <!-- Add Flag Condition -->
     <div class="row border-bottom border-top close-up">
-      <div class="col-1 small-s title-s mini-down">
+      <div class="col-2 small-s title-s mini-down">
         Flag
       </div>
       <div class="col-1">
@@ -11,7 +11,7 @@
         <button v-if="flagType == 'NOT'" v-on:click="flagType = 'IS'"
           class="btn-danger small-s mini-down"> NOT </button>
       </div>
-      <div class="col-7">
+      <div class="col-6">
         <v-select v-model="flagList" :from="dlist" class="f-size mini-down" placeholder="Add Flag">
           <template v-slot:selected="{option}">
             <div class="f-size">
@@ -38,8 +38,10 @@
       <div class="col-1 small-s title-s">
         Item
       </div>
+      <div class="col-1">
+      </div>
 
-      <div class="col-5">
+      <div class="col-4">
         <v-select v-model="inputItem.name" :from="itemList"
           class="f-size" placeholder="Add Item" />
       </div>
@@ -70,8 +72,9 @@
         Stat
       </div>
 
+      <div class="col-1"></div>
 
-      <div class="col-5">
+      <div class="col-4">
         <v-select v-model="inputStat.name" :from="statList"
           class="f-size " placeholder="Add Item" />
       </div>
@@ -168,7 +171,7 @@
         Complex
       </div>
      <div class="col-7">
-        <v-select v-model="complexList" :from="clist" class="f-size mini-down" placeholder="Add Flag">
+        <v-select v-model="complexList" :from="referenceComplexList" class="f-size mini-down" placeholder="Add Flag">
           <template v-slot:selected="{option}">
             <div class="f-size">
               <p> {{option.raw}}</p>
@@ -182,14 +185,18 @@
           </template>
         </v-select>
       </div>
-      <div class="col-1"></div>
+      <div class="col-1">
+        <button v-on:click="refresh()" class="small-s-width btn-warning">
+          <i class="ra ra-gears ra-2x"></i>
+        </button>
+      </div>
       <div class="col-2">
         <button v-on:click="updateComplexSet()"
           class="small-s-width btn-secondary"> Add
         </button>
       </div>
     </div>
-
+    <br><br><br><br>
 
   </section>
 </template>
@@ -206,6 +213,8 @@ export default {
   },
   data: function(){
     return {
+      referenceComplexList:  Object.keys(this.$root.world.complexConditionMap),
+
       showTime: true,
       typeList: ["NOT", "IS"],
       flagType: "IS",
@@ -234,6 +243,12 @@ export default {
     }
   },
   methods:{
+    refresh(){
+      this.referenceComplexList = Object.keys(this.$root.world.complexConditionMap);
+    },
+    modern(){
+      return this.$root.world.complexConditionMap;
+    },
     updateFlagSet(){
       /* Use the selected flags and option to add new flags into one of the
        * flagSet lists */
@@ -251,13 +266,16 @@ export default {
       this.flagList = [];
     },
     updateComplexSet(){
+      //this.value.complexList = this.complexList;
+      //console.log("see this value", this.value);
+      //console.log("SEE THIS INPUT", this.input);
       /* Use the selected flags and option to add new flags into one of the
        * flagSet lists */
       let newSet = this.value;
-      console.log("-----", newSet);
       newSet.complexList = [...newSet.complexList, ...this.complexList]
-      this.$emit('input', newSet);
+      this.$emit('value', newSet);
       this.complexList = [];
+      this.$forceUpdate();
     },
     updateItemSet(){
       console.log("Item Set", this.inputItem);

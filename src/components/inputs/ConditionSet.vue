@@ -12,25 +12,22 @@ or be used in a another Condition Set
 -->
 
 <template>
-	<div class="simple-border max-height">
+	<div class="simple-border max-height paper">
 		<!-- Input Types -->
 		<div class="row border-bottom border-top title-3">
-      <div class="col col-4 title-s-2">Condition</div>
-      <div class="col col-4"></div>
-    </div>
-		<section class="input-type-section">
-			<!-- Flag Inputs  -->
-			<div class="row">
-				<div class="col-12 col">
-					<ImprovedCondition
-						v-model="value"
-						:referenceList="referenceWorld.flagList"
-					/>
+			<div class="col col-4 title-s-2">Condition</div>
+				<div class="col-4 col">
+					<input
+						class="small-s-width" type="string"
+						v-model="name" placeholder="Name of Complex"
+					>
+				</div>
+				<div class="col-4 col">
+					<button v-on:click="saveComplex" class="btn-secondary small-s-width
+						btn-block "> Save As Complex
+					</button>
 				</div>
 			</div>
-		</section>
-
-		<section class="top-section" v-if="true">
 			<!-- Condition Sets -->
 			<div class="row">
 				<div class="col-12 col">
@@ -76,28 +73,14 @@ or be used in a another Condition Set
 					</div>
 				</div>
 			</div>
-		</section>
-		<section class="confirm-section">
-			<!-- Confirms  -->
+		<section class="input-type-section">
+			<!-- Flag Inputs  -->
 			<div class="row">
-				<!--
-				<div class="col-3 col">
-					<button v-on:click="insertConditionOr()" class="btn-warning nice-small-fit
-						btn-block "> Set OR
-					</button>
-				</div>
-				-->
-				<div class="col-3 col"></div>
-				<div class="col-5 col">
-					<input
-						class="small-s-width" type="string"
-						v-model="name" placeholder="Name of Complex"
-					>
-				</div>
-				<div class="col-4 col">
-					<button v-on:click="saveComplex" class="btn-secondary small-s-width
-						btn-block "> Save As Complex
-					</button>
+				<div class="col-12 col">
+					<ImprovedCondition
+						v-model="value"
+						:referenceList="referenceWorld.flagList"
+					/>
 				</div>
 			</div>
 		</section>
@@ -187,12 +170,15 @@ export default {
 			if(this.$root.world.complexConditionMap[this.name]){
 				if(!confirm("Complex Name Is Used \n do you wish to override")) return;
 			}
+			if(this.conditionSet.complexList){
+				if(!confirm("Nested Complex Will Be Removed, Continue?")) return;
+			}
+			this.conditionSet.complexlist = [];
 
 			this.$root.world.complexConditionMap[this.name] =
 				this.conditionSet;
 			console.log("SEE THE COMPLEX MAP", this.$root.world.complexConditionMap);
 		}
-
 	},
 	computed: {
 		classObject: function () {
@@ -267,7 +253,6 @@ textarea {
 }
 
 .input-type-section{
-  border: 2px solid black;
 	height: 300px;
   overflow: scroll;
 }
@@ -281,9 +266,9 @@ textarea {
 .title-3{
   font-weight: bold;
   position:relative;
-	top: -5px;
+	top: -30px;
 	text-decoration: underline;
-	height: 25px;
+	height: 20px;
 }
 
 th, td{

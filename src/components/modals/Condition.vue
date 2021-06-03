@@ -54,6 +54,7 @@ export default {
       name: "OK",
       mode: "NEW",
       conditionSet: {
+        complexList: [],
 				isList: [],
 				notList: [],
 				hasItem: [],
@@ -71,6 +72,7 @@ export default {
     show () {
       this.mode = "NEW";
       this.conditionSet = {
+        complexList: [],
 				isList: [],
 				notList: [],
 				hasItem: [],
@@ -84,6 +86,7 @@ export default {
     },
     makeNewConditionSet (){
       this.conditionSet = {
+        complexList: [],
 				name: '',
 				isList: [],
 				notList: [],
