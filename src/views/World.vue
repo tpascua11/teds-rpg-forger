@@ -102,7 +102,8 @@ export default {
     loadWorld(){
       let newWorld = JSON.parse(this.fileInfo);
       console.log("new world to be loaded", newWorld);
-      this.$parent.worldLoad(newWorld[0]);
+      this.$root.world = newWorld[0];
+      //this.$parent.worldLoad(newWorld[0]);
       //this.world = newWorld;
     }
   },

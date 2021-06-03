@@ -21,7 +21,6 @@
 				<!--
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
 				<router-link to="/"      class="routerFont" > Items     </router-link> |
-
 				-->
       </div>
     </nav>

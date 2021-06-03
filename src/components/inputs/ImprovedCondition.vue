@@ -125,11 +125,11 @@
             </tr>
             <tr>
               <td> Greater </td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.year" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.year" placeholder="Value"> </td>
 							<td>Month</td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.day" placeholder="Value"> </td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.hour" placeholder="Value"> </td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.minute" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.day" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.hour" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.minute" placeholder="Value"> </td>
             </tr>
             <tr>
               <td> Less </td>
@@ -141,12 +141,12 @@
                   </option>
                 </select>
                 -->
-                <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.year" placeholder="Value">
+                <input class="small-s-width adaptable-width" type="number"    v-model="inputDate.before.year" placeholder="Value">
               </td>
 							<td>Month</td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.day" placeholder="Value"> </td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.hour" placeholder="Value"> </td>
-              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.after.minute" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.day" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.hour" placeholder="Value"> </td>
+              <td> <input class="small-s-width adaptable-width" type="number" v-model="inputDate.before.minute" placeholder="Value"> </td>
             </tr>
           </thead>
         </table>
