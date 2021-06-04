@@ -147,7 +147,6 @@
                   >
                     <ScriptListBuilder
                     v-bind:scriptList="selectedInteraction.scriptList"
-                    v-bind:conditionList="selectedInteraction.conditionList"
                   />
                 </div>
               </section>

@@ -68,6 +68,16 @@ or be used in a another Condition Set
 									<td style="width: 70%"> {{conditionSet.complexList}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
+								<tr class="short-row">
+									<td style="width: 20%"> Area Is List </td>
+									<td style="width: 70%"> {{conditionSet.areaIsList}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
+								</tr>
+								<tr class="short-row">
+									<td style="width: 20%"> Area Not List</td>
+									<td style="width: 70%"> {{conditionSet.areaNotList}} </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -106,6 +116,9 @@ export default {
 				hasItem: [],
 				hasStat: [],
 				time: {},
+
+				areaIsList: [],
+				areaNotList: [],
 			},
 		}
 	},
@@ -139,6 +152,9 @@ export default {
 				hasItem: [],
 				hasStat: [],
 				time: {},
+
+				areaIsList: [],
+				areaNotList: [],
 			};
 			//let template = Object.assign({}, newConditionTemplate);
 

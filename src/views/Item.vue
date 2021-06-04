@@ -56,11 +56,7 @@
         </div>
 
         <div class="row script-row">
-          <ScriptListBuilder
-            v-bind:method="{addToScriptList, convergeScriptList}"
-            v-bind:scriptList="selectedItem.scriptList"
-            v-bind:name="selectedName"
-          />
+            <ScriptListBuilder v-bind:scriptList="selectedItem.scriptList"/>
         </div>
 
       </div>
@@ -79,7 +75,7 @@ export default {
     return {
       name: "",
       selectedInteraction: {},
-      selectedItem: {},
+      selectedItem: {scriptList: []},
       selectedName: "",
       nameLock: true,
     };
@@ -109,7 +105,7 @@ export default {
       };
     },
     addNewItem: function(){
-      this.selectedName = "";
+      this.selectedName = "-----------";
       this.selectedItem = {
         limit: 10,
         description: "",
@@ -132,11 +128,10 @@ export default {
       Object.assign(this.selectedItem, item);
     },
     convergeToItemList(){
+      if(!this.name) return;
       this.$root.world.itemMap[this.name] = this.selectedItem;
       console.log("update", this.$root.world);
-
       this.selectedName = this.name;
-      this.nameLock = true;
 
       this.$forceUpdate();
     },

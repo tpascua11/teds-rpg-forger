@@ -152,6 +152,7 @@
         </table>
       </div>
     </div>
+    <!-- Time Condition -->
     <div class="row move50up">
       <div class="col-2">
 				<button v-on:click="showTime = !showTime" class="small-s-width title-s">
@@ -213,7 +214,8 @@ export default {
   },
   data: function(){
     return {
-      referenceComplexList:  Object.keys(this.$root.world.complexConditionMap),
+			referenceComplexList:  Object.keys(this.$root.world.complexConditionMap),
+			referenceAreaFlagList: [],
 
       showTime: true,
       typeList: ["NOT", "IS"],
@@ -247,7 +249,8 @@ export default {
       this.referenceComplexList = Object.keys(this.$root.world.complexConditionMap);
     },
     modern(){
-      return this.$root.world.complexConditionMap;
+			//return this.$root.world.complexConditionMap;
+			console.log("--=-=--=-=-=-=-=-=-=-==-");
     },
     updateFlagSet(){
       /* Use the selected flags and option to add new flags into one of the
@@ -397,7 +400,12 @@ export default {
       return this.$root.world.timeSystem;
     }
   },
-  mounted(){},
+	mounted(){
+		if(this.$root.selectedArea != undefined){
+			this.referenceAreaFlagList = Object.keys(this.$root.selectedArea.flagMap);
+			console.log("CHECK KEYS", this.referenceAreaFlagList);
+		}
+	},
 }
 
 </script>

@@ -18,11 +18,10 @@ Priority NO FOCUS CLEAN UI
     (X) Overhaul Condition Modal Again! Smallify
     (X) Use Complex Condition on Interaction
 
-  Friday
+  Saturday
 [ ] Interaction has its own Self Flags
 [ ] Area has its own Flags
 
-  Saturday
 [ ] Interaction has the improved conditions
 [ ] Random Chance Of Event Action
 
