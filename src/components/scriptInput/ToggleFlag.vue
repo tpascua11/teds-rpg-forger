@@ -1,17 +1,19 @@
 <template>
   <div class="creator">
+
     <div class="row ">
       <div class="col col-7 title2">
         Flag: {{editMode}}
       </div>
       <div class="col col-5 title2">
-        <button v-on:click="flagFromSwap" class="btn-default btn-small btn-block ">
+        <button v-on:click="flagFromSwap" class="btn-secondary btn-small btn-block ">
           {{flagFrom}}
         </button>
       </div>
     </div>
+
     <div class="row fit1">
-      <div class="col-12 col">
+      <div class="col-12 col" v-if="flagFrom == 'WORLD'">
         <v-select
           v-model="selectedName"
           as="name::id"
@@ -19,6 +21,19 @@
           @create="test"
         />
       </div>
+
+      <div class="col-12 col" v-if="flagFrom == 'AREA'">
+        <v-select
+          v-model="selectedAreaFlagName"
+          as="name::id"
+          :from="selectedAreaFlagList"
+          @create="test"
+        />
+      </div>
+
+      <div class="col-12 col" v-if="flagFrom == 'ACTION'">
+      </div>
+
     </div>
     <div class="row fit1">
       <div class="col-12 col">
@@ -51,11 +66,13 @@ export default {
       description: "",
       selectedItem: {},
       selectedName: '',
+      selectedAreaFlagName: '',
       type: 'IS',
       flag: true,
       mode: '',
       selectedAreaFlagList: [],
       flagFrom: "WORLD",
+      selectedInteractionFlagName: '',
     }
   },
   props: {
@@ -75,8 +92,9 @@ export default {
     console.log("CHECK DID THIS WORK!");
     this.list = Object.keys(this.$root.world.flagMap);
 
-    if(this.$root.selectedArea){
-      this.selectedAreaFlagList = this.$root.selectedArea.flagList;
+    if(this.$root.selectedArea != undefined){
+      console.log("the selected area flag map", this.selectedAreaFlagList);
+      this.selectedAreaFlagList = Object.keys(this.$root.selectedArea.flagMap);
     }
   },
   methods:{
@@ -97,14 +115,29 @@ export default {
       this.$modal.hide('add-description-modal');
     },
     completeAction(){
-      console.log("what type is it", this.flag);
-      console.log("FLAG", this.selectedName);
-
-      let template = {
-        eventName: "toggleFlag",
-        name: this.selectedName,
-        flag: this.flag,
+      let template;
+      if(this.flagFrom == "WORLD"){
+        template = {
+          eventName: "toggleFlag",
+          name: this.selectedName,
+          flag: this.flag,
+        }
       }
+      if(this.flagFrom == "AREA"){
+        template = {
+          eventName: "toggleAreaFlag",
+          name: this.selectedAreaFlagName,
+          flag: this.flag,
+        }
+      }
+      if(this.flagFrom == "ACTION"){
+        template = {
+          eventName: "toggleInteractionFlag",
+          name: this.selectedInteractionFlagName,
+          flag: this.flag,
+        }
+      }
+
       this.$parent.forgeAction(template);
       this.$parent.cancel();
     },
@@ -121,8 +154,7 @@ export default {
       else{
         this.mode = '';
       }
-
-    }
+    },
   },
   computed: {
     flagMap(){

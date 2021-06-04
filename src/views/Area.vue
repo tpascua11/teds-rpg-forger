@@ -258,7 +258,7 @@ export default {
 
       this.$root.world.areaMap[value.name] = {
         interactionList: [],
-        flagList: [],
+        flagMap: {},
       };
       this.refreshKeys();
 
