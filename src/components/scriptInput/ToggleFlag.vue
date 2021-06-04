@@ -1,8 +1,13 @@
 <template>
   <div class="creator">
-    <div class="row">
-      <div class="col">
-        {{editMode}}
+    <div class="row ">
+      <div class="col col-7 title2">
+        Flag: {{editMode}}
+      </div>
+      <div class="col col-5 title2">
+        <button v-on:click="flagFromSwap" class="btn-default btn-small btn-block ">
+          {{flagFrom}}
+        </button>
       </div>
     </div>
     <div class="row fit1">
@@ -49,6 +54,8 @@ export default {
       type: 'IS',
       flag: true,
       mode: '',
+      selectedAreaFlagList: [],
+      flagFrom: "WORLD",
     }
   },
   props: {
@@ -65,12 +72,20 @@ export default {
     }
   },
   mounted(){
+    console.log("CHECK DID THIS WORK!");
     this.list = Object.keys(this.$root.world.flagMap);
-    this.getTemplateA();
 
+    if(this.$root.selectedArea){
+      this.selectedAreaFlagList = this.$root.selectedArea.flagList;
+    }
   },
   methods:{
     test(){
+    },
+    flagFromSwap (){
+      if(this.flagFrom == "WORLD") this.flagFrom = "AREA";
+      else if(this.flagFrom == "AREA") this.flagFrom = "ACTION";
+      else this.flagFrom = "WORLD";
     },
     switchType(){
       this.flag = !this.flag;
@@ -145,5 +160,10 @@ export default {
 .big{
   width: 200px;
 }
+.title2{
+  font-size: 12px;
+  font-weight: bold;
+}
+
 
 </style>

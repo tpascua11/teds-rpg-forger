@@ -174,6 +174,8 @@ export default {
       mode: "MENU",
       editMode: "NEW",
       stop: 0,
+      selectedArea: {}
+
     }
   },
   props: {
@@ -188,6 +190,7 @@ export default {
     }
   },
   mounted(){
+    //Just to make it easier to reference it
   },
   methods:{
     selectNewArea(newArea){

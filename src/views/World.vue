@@ -29,7 +29,7 @@
             <vue-blob-json-csv
               file-type="json"
               :file-name="name"
-              :data=[world]
+              :data=[referenceWorld]
             >
               Download World As JSON
             </vue-blob-json-csv>
@@ -81,7 +81,7 @@ export default {
   props: { world: Object },
 	computed: {
 		referenceWorld: function(){
-			return this.world;
+			return this.$root.world;
 		}
   },
   methods:{

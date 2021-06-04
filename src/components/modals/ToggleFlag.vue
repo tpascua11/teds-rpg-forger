@@ -7,10 +7,10 @@
 
     <modal name="flag-modal"
       :width="250"
-      :height="219"
       :shiftY="0.1"
+      :styles="'border: 2px solid black'"
     >
-      <div class="double-simple-border">
+      <div>
         <div class="row">
           <div class="col-12 col">
             <v-select
@@ -57,6 +57,7 @@ export default {
     name: String,
     selectDescription: String,
     referenceList: Array,
+    areaReferenceList: Array,
     addScript: Object,
   },
   mounted(){

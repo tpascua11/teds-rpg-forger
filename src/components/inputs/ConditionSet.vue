@@ -175,8 +175,12 @@ export default {
 			}
 			this.conditionSet.complexlist = [];
 
+			this.$root.world.complexConditionMap[this.name] =  JSON.parse(JSON.stringify(this.conditionSet));
+			/*
 			this.$root.world.complexConditionMap[this.name] =
 				this.conditionSet;
+			//let objCopy = Object.assign({}, obj);
+			 */
 			console.log("SEE THE COMPLEX MAP", this.$root.world.complexConditionMap);
 		}
 	},

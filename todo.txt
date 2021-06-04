@@ -10,21 +10,33 @@ Priority NO FOCUS CLEAN UI
 [X] Change Location
     (X) Make it work for the game
 
-[ ] Condition Set Overhaul 2
+[X] Condition Set Overhaul 2
     (X) Use Stats Condition
     (X) Use Item Condition
     (X) Use Time Condition
     (X) Complex Condition
-    ( ) Overhaul Condition Modal Again! Smallify
-    ( ) Use Complex Condition on Interaction
+    (X) Overhaul Condition Modal Again! Smallify
+    (X) Use Complex Condition on Interaction
 
+  Friday
+[ ] Interaction has its own Self Flags
+[ ] Area has its own Flags
+
+  Saturday
+[ ] Interaction has the improved conditions
+[ ] Random Chance Of Event Action
+
+  Sunday
 [ ] Case Condition
     While Condition
 
-[ ] Random Chance Of Event Action
-
+  Monday
 [ ] World Events
 [ ] Area On Visit or Time Event
+[ ] Area Events
 
 // Mobile App
+See List Of Area
+Able to Travel Between Them
+See Area Descriptions
 

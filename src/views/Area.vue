@@ -117,7 +117,13 @@
                       </table>
                       -->
                     </div>
-                    <div v-else class="col-5 col">
+                    <div v-else class="col-4 col">
+                    </div>
+                    <div class="col-1 col small5">
+                      <button v-on:click="copyInteraction(selectedInteraction)"
+                        class="btn-success btn-small open-condition">
+                        <i class="ra ra-mirror ra-lg"></i>
+                      </button>
                     </div>
                     <div class="col-1 col small4">
                       <button v-on:click="deleteInteraction(selectedInteraction)"
@@ -241,6 +247,7 @@ export default {
       this.referenceAreaInteractionList();
 
       this.selectedArea = this.$root.world.areaMap[this.selectedAreaName];
+      this.$root.selectedArea = this.selectedArea;
       this.$forceUpdate();
     },
     createNewArea({value}){
@@ -251,10 +258,12 @@ export default {
 
       this.$root.world.areaMap[value.name] = {
         interactionList: [],
+        flagList: [],
       };
       this.refreshKeys();
 
       this.selectedArea = this.$root.world.areaMap[this.selectedAreaName];
+      this.$root.selectedArea = this.selectedArea;
       this.referenceAreaInteractionList();
     },
 
@@ -280,6 +289,12 @@ export default {
           item => item !== targetInteraction);
       this.saveAreaInteractionListPosition();
       this.selectedInteraction = {};
+    },
+    copyInteraction(targetInteraction){
+      if(!confirm("Copy Interaction?"));
+      this.selectedAreaInteractionList.push(
+        JSON.parse(JSON.stringify(targetInteraction))
+      );
     },
     addToScriptList(){},
     checkMove(){console.log("CHECKING!");},
@@ -489,7 +504,13 @@ p{
   z-index: 10;
 }
 
-
+.small5{
+  font-size: 13px;
+  position:relative;
+  left: 80px;
+  top: -25px;
+  z-index: 20;
+}
 
 .test-transition{
   opacity: 1;
