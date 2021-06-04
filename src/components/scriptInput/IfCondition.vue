@@ -1,11 +1,18 @@
 <template>
   <div class="border">
+
     <div class="row">
-      <div class="col">
-        {{editMode}}
+      <div class="col col-7 title2">
+        If Set Flag
+      </div>
+      <div class="col col-5 title2">
+        <button v-on:click="flagFromSwap" class="btn-secondary btn-small btn-block ">
+          {{flagFrom}}
+        </button>
       </div>
     </div>
-    <div class="row fit1">
+
+    <div v-if="flagFrom == 'WORLD'" class="row fit1">
       <div class="col-12 col">
         <v-select
           v-model="flagName"
@@ -13,6 +20,21 @@
           :from="flagMap"
           @create="test"
         />
+      </div>
+    </div>
+    <div v-if="flagFrom == 'AREA'" class="row fit1">
+      <div class="col-12 col">
+        <v-select
+          v-model="flagAreaName"
+          as="name::id"
+          :from="selectedAreaFlagList"
+          @create="test"
+        />
+      </div>
+    </div>
+    <div v-if="flagFrom == 'ACTION'" class="row fit1">
+      <div class="col-12 col">
+        <input class="smallInput" type="string" v-model="flagInteractionName" placeholder="...">
       </div>
     </div>
     <div class="row fit2">
@@ -35,9 +57,13 @@ export default {
   name: 'IfSet',
   data: function(){
     return {
+      flagFrom: "WORLD",
+      selectedAreaFlagList: [],
       description: "",
       selectedName: '',
       flagName: '',
+      flagAreaName: '',
+      flagInteractionName: '',
       mode: '',
     }
   },
@@ -56,9 +82,13 @@ export default {
     }
   },
   mounted(){
+    if(this.$root.selectedArea != undefined){
+      console.log("the selected area flag map", this.selectedAreaFlagList);
+      this.selectedAreaFlagList = Object.keys(this.$root.selectedArea.flagMap);
+    }
+
     this.list = Object.keys(this.$root.world.flagMap);
     this.getTemplateA();
-
   },
   methods:{
     test(){
@@ -70,11 +100,27 @@ export default {
       this.$modal.hide('add-description-modal');
     },
     completeAction(){
-      this.$parent.forgeAction({
-        ifCondition: true,
-        conditionList: [{isList: [this.flagName]}]
-      });
-      this.$parent.forgeAction({endCondition: true});
+      if(this.flagFrom == "WORLD"){
+        this.$parent.forgeAction({
+          ifCondition: this.flagFrom,
+          conditionList: [{isList: [this.flagName]}]
+        });
+        this.$parent.forgeAction({endCondition: true});
+      }
+      if(this.flagFrom == "AREA"){
+        this.$parent.forgeAction({
+          ifCondition: this.flagFrom,
+          conditionList: [{isList: [this.flagAreaName]}]
+        });
+        this.$parent.forgeAction({endCondition: true});
+      }
+      if(this.flagFrom == "ACTION"){
+        this.$parent.forgeAction({
+          ifCondition: 'INTERACTION',
+          conditionList: [{isList: [this.flagInteractionName]}]
+        });
+        this.$parent.forgeAction({endCondition: true});
+      }
     },
     cancelAction(){
       this.$parent.cancel();
@@ -89,7 +135,12 @@ export default {
         this.mode = '';
       }
 
-    }
+    },
+    flagFromSwap (){
+      if(this.flagFrom == "WORLD") this.flagFrom = "AREA";
+      else if(this.flagFrom == "AREA") this.flagFrom = "ACTION";
+      else this.flagFrom = "WORLD";
+    },
   },
   computed: {
     itemMap(){
@@ -98,7 +149,7 @@ export default {
     },
     flagMap(){
       return Object.keys(this.$root.world.flagMap);
-    }
+    },
   }
 }
 

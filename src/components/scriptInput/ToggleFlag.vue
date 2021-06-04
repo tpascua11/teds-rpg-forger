@@ -32,6 +32,7 @@
       </div>
 
       <div class="col-12 col" v-if="flagFrom == 'ACTION'">
+        <input class="smallInput" type="string" v-model="flagInteractionName" placeholder="...">
       </div>
 
     </div>
@@ -73,6 +74,7 @@ export default {
       selectedAreaFlagList: [],
       flagFrom: "WORLD",
       selectedInteractionFlagName: '',
+      flagInteractionName: '',
     }
   },
   props: {
@@ -133,7 +135,7 @@ export default {
       if(this.flagFrom == "ACTION"){
         template = {
           eventName: "toggleInteractionFlag",
-          name: this.selectedInteractionFlagName,
+          name: this.flagInteractionName,
           flag: this.flag,
         }
       }
