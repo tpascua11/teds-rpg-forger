@@ -104,6 +104,7 @@ export default {
       selectedScriptList: [],
       ifConditionIndexList : [],
       endConditionIndexList: [],
+      elseConditionIndexList: [],
       error: '',
     }
   },
@@ -117,7 +118,6 @@ export default {
     currentInteraction: Object,
     method: Object,
     scriptList: Array,
-    conditionList: Array,
   },
   watch: {
     scriptList: function(newv, oldv){
@@ -199,25 +199,74 @@ export default {
       console.log("CHECK VALIDATION!");
       let ifConditionList = [];
       let endConditionList = [];
+
+      let elseConditionList = [];
+      let elseIfConditionList = [];
+
       let error = "";
+      let enclosedList = []; let startIf = [];
 
       this.selectedScriptList.forEach(function(script, index){
-        if(script.ifCondition) ifConditionList.push(index);
-        if(script.endCondition) endConditionList.push(index);
-        if(ifConditionList.length < endConditionList.length){
-          if(!error){
-            error = "If and End Statement Not Closed Correctly at index: " + index;
+        if(script.ifCondition) { ifConditionList.push(index); startIf.push(index)}
+
+        if(script.elseCondition) elseConditionList.push(index);
+        if(script.elseIfCondition) elseIfConditionList.push(index);
+
+        if(script.endCondition){
+          let enclosed = {start: startIf.pop(), end: index, else: [], elseIf: []};
+          //CHECK ELSE CONDITION
+          let test = (this.betweenList(elseConditionList, enclosed.start, enclosed.end));
+          for(let i = 0; i < test ; i++){
+            enclosed.else.push(elseConditionList.pop());
           }
+          if(!error && enclosed.else.length >= 2) error = "EXTRA ELSE STATMENT BEFORE: " + index;
+
+          //CHECK ELSE IF CONDITION
+          let test2 = (this.betweenList(elseIfConditionList, enclosed.start, enclosed.end));
+          for(let i = 0; i < test2 ; i++){
+            enclosed.elseIf.push(elseConditionList.pop());
+          }
+          if(!error && enclosed.elseIf.length >= 2) error = "EXTRA ELSE IF STATMENT BEFORE: " + index;
+
+          enclosedList.push(enclosed);
+          endConditionList.push(index);
         }
-      });
+
+        if(ifConditionList.length < endConditionList.length){
+          if(!error) error = "If and End Statement Not Closed Correctly at index: " + index;
+        }
+        if(ifConditionList.length == endConditionList.length){
+          if(elseConditionList.length >= 1) error = "ELSE OUTSIDE IF CASE!: " + index;
+        }
+      }, this);
+
       if(ifConditionList.length != endConditionList.length){
-        error = "Missing IF or END conditions to close condition!";
+        if(!error) error = "Missing IF or END conditions to close condition!";
       }
       this.ifConditionIndexList  = ifConditionList ;
       this.endConditionIndexList = endConditionList;
+
       this.error = error;
+      console.log("ENCLOSED!", enclosedList);
 
       return error;
+    },
+
+    betweenList(list, start, end){
+      console.log(list);
+      let between = [];
+      let pop = 0;
+      list.forEach(function(val){
+        if(val >= start && val <= end){
+          between.push(val);
+          pop++;
+        }
+      });
+      return pop;
+    },
+
+    syncCondition(){
+
     },
     indexPush(atIndex){
       //console.log(index);
@@ -234,6 +283,13 @@ export default {
       this.endConditionIndexList.some(function(endIndex){
         if(atIndex >= endIndex){
           push--;
+        }
+      });
+
+      this.elseConditionIndexList.some(function(elseIndex){
+        if(atIndex == elseIndex){
+          push--;
+          return true;
         }
       });
       //if(push < 0) push = 0;
