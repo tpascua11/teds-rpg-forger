@@ -1,43 +1,32 @@
 <!--
-This is a div box that contains a button to create condition for object
+This is a div box that contains a button to create condition for object 
      it will show conditions added to objects
 -->
 <template>
   <div>
-    <table class="default-thin-border">
-      <tbody>
-        <tr class="thin-table-row" v-for="(item, index) in conditionList" :key="index">
-          <td class="default-based-font"
-            colspan="2" v-on:click="editCondition(item);"
-            style="cursor: context-menu"
-            v-bind:style="[ item == selectedCondition ? styleSelected : {}]"
-          >
-            {{item}}
-          </td>
-          <td>
-            <button v-on:click="removeCondition(index)" class="btn-danger thin">
-              x
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button v-on:click="makeNewConditionSet()" class="btn-warning btn-block thin">
-      Add Condition
-    </button>
+      <button v-on:click="makeNewConditionSet()" class="btn-danger-outline btn-block thin">
+        Add Condition
+      </button>
 
-    <modal name="conditionListModal"
-      :width="600"
-      :height="800"
-      :shiftY="0.1"
-      :styles="'border: 2px solid black'"
-    >
-      <ConditionSet
-        v-model="conditionSet"
-        :world="referenceWorld"
-        @confirm="updateConditionSet()"
-      />
-    </modal>
+      <modal name="conditionSingleModal"
+        :width="600"
+        :height="780"
+        :shiftY="0.1"
+        :styles="'border: 2px solid black'"
+      >
+        <button v-on:click="confirmNewConditionSet()" class="btn-warning btn-block">
+          Insert Condition Template
+        </button>
+        <div class="modal-body">
+        <ConditionSet
+          v-model="conditionSet"
+          :world="referenceWorld"
+          @confirm="updateConditionSet()"
+        />
+      </div>
+
+
+      </modal>
   </div>
 </template>
 
@@ -71,7 +60,7 @@ export default {
       selectedCondition: {},
     }
   },
-  props: ['value'],
+  props: ['value', 'active'],
   mounted(){},
   methods:{
     test(){},
@@ -88,12 +77,13 @@ export default {
         areaIsList: [],
         areaNotList: [],
 			};
-      this.$modal.show('conditionListModal');
+      this.$modal.show('');
     },
     hide () {
-      this.$modal.hide('conditionListModal');
+      this.$modal.hide('conditionSingleModal');
     },
     makeNewConditionSet (){
+      console.log("TESTETSTETSETS");
       this.conditionSet = {
         complexList: [],
 				name: '',
@@ -106,21 +96,26 @@ export default {
         areaIsList: [],
         areaNotList: [],
       };
-      this.referenceConditionList.push(this.conditionSet);
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionSingleModal');
     },
     updateConditionSet(){
       this.hide();
     },
     confirmNewConditionSet (){
       console.log("WHAT IS THE NEW CONDOTION SET", this.conditionSet);
-      if(this.mode === "NEW") this.referenceConditionList.push(this.conditionSet);
+      let template = {
+        ifCondition: "WOLRD",
+        conditionList: [this.conditionSet]
+      };
+      this.$parent.forgeAction(template);
       this.hide();
     },
     editCondition(conditionSet){
       this.mode = "EDIT";
       this.conditionSet = conditionSet;
-      this.$modal.show('conditionListModal');
+
+
+      this.$modal.show('conditionSingleModal');
     },
     removeCondition(index){
       this.value.splice(index, 1);

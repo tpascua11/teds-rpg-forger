@@ -1,5 +1,8 @@
 <!--
-This is a div box that contains a button to create condition for object
+REMEBER YOU HAVE 2 CONDITION MODAL, THE OTHER IS CALLED modals/Condtion.vue
+THIS IS A COPY OF CONDITION MODAL
+
+This is a div box that contains a button to create condition for object 
      it will show conditions added to objects
 -->
 <template>
@@ -26,7 +29,7 @@ This is a div box that contains a button to create condition for object
       Add Condition
     </button>
 
-    <modal name="conditionListModal"
+    <modal name="conditionListModal2"
       :width="600"
       :height="800"
       :shiftY="0.1"
@@ -88,10 +91,10 @@ export default {
         areaIsList: [],
         areaNotList: [],
 			};
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionListModal2');
     },
     hide () {
-      this.$modal.hide('conditionListModal');
+      this.$modal.hide('conditionListModal2');
     },
     makeNewConditionSet (){
       this.conditionSet = {
@@ -107,7 +110,7 @@ export default {
         areaNotList: [],
       };
       this.referenceConditionList.push(this.conditionSet);
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionListModal2');
     },
     updateConditionSet(){
       this.hide();
@@ -120,7 +123,7 @@ export default {
     editCondition(conditionSet){
       this.mode = "EDIT";
       this.conditionSet = conditionSet;
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionListModal2');
     },
     removeCondition(index){
       this.value.splice(index, 1);

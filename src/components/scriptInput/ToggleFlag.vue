@@ -17,8 +17,8 @@
         <v-select
           v-model="selectedName"
           as="name::id"
-          :from="flagMap"
-          @create="test"
+          :from="flagList"
+          @create="createWorldFlag"
         />
       </div>
 
@@ -27,7 +27,7 @@
           v-model="selectedAreaFlagName"
           as="name::id"
           :from="selectedAreaFlagList"
-          @create="test"
+          @create="createNewAreaFlag"
         />
       </div>
 
@@ -75,6 +75,7 @@ export default {
       flagFrom: "WORLD",
       selectedInteractionFlagName: '',
       flagInteractionName: '',
+      flagList: Object.keys(this.$root.world.flagMap),
     }
   },
   props: {
@@ -155,6 +156,29 @@ export default {
       }
       else{
         this.mode = '';
+      }
+    },
+    createWorldFlag({value}){
+      console.log("CREATE NEW AREA FLAG", value.name);
+      this.$root.world.flagMap[value.name] = false;
+      this.selectedName = value.name;
+
+      this.flagList = Object.keys(this.$root.world.flagMap);
+      //console.log("check", this.$root.world.flagMap);
+      //this.$forceUpdate();
+
+    },
+
+    createNewAreaFlag({value}){
+      console.log("CREATE NEW AREA FLAG", value.name);
+      if(this.$root.selectedArea){
+        this.$root.selectedArea.flagMap[value.name] = false;
+        this.selectedAreaFlagName = value.name;
+      }
+
+      if(this.$root.selectedArea != undefined){
+        console.log("the selected area flag map", this.selectedAreaFlagList);
+        this.selectedAreaFlagList = Object.keys(this.$root.selectedArea.flagMap);
       }
     },
   },

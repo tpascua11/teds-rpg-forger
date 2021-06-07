@@ -1,18 +1,18 @@
 <template>
   <section class="basedHeight">
     <div class="row">
+      {{error}}
     </div>
     <div class="row">
-      {{error}}
       <div class="col-8 col">
         <table class="table" style="width: 100%; table-layout: fixed;">
           <thead>
             <tr>
               <th style="width: 5%;"> ID </th>
-              <th scope="col" style="width: 85%;">
+              <th scope="col" style="width: 80%;">
                 - Script List -
               </th>
-              <th scope="col" style="width: 10%;"> Edit </th>
+              <th scope="col" colspan="2" style="width: 15%;"> Edit </th>
             </tr>
           </thead>
 
@@ -40,9 +40,13 @@
                 </div>
               </td>
               <td>
-                <button v-on:click="removeAction(index)" class="btn-danger
-                  btn-small smalltext">
-                  x
+                <button v-on:click="removeAction(index)" class="btn-danger btn-small btn-block smalltext">
+                  X
+                </button>
+              </td>
+              <td>
+                <button v-on:click="selectAction(item)" class="btn-secondary btn-small btn-block smalltext">
+                  EDIT
                 </button>
               </td>
             </tr>
@@ -150,7 +154,10 @@ export default {
       this.atIndex = index;
     },
     selectAction(script){
+      console.log("SELECTED WTf", script);
+      this.editMode = "EDITED";
       this.selectedAction = script;
+      console.log("CHECK", this.selectedAction);
       //console.log("check script", this.selectedAction);
     },
     convertSelectedAction(script){
@@ -219,7 +226,8 @@ export default {
           for(let i = 0; i < test ; i++){
             enclosed.else.push(elseConditionList.pop());
           }
-          if(!error && enclosed.else.length >= 2) error = "EXTRA ELSE STATMENT BEFORE: " + index;
+          if(!error && enclosed.else.length >= 2)
+            error = "EXTRA ELSE STATMENT BEFORE: " + index;
 
           //CHECK ELSE IF CONDITION
           let test2 = (this.betweenList(elseIfConditionList, enclosed.start, enclosed.end));

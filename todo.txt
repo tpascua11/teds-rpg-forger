@@ -18,21 +18,28 @@ Priority NO FOCUS CLEAN UI
     (X) Overhaul Condition Modal Again! Smallify
     (X) Use Complex Condition on Interaction
 
-  Saturday
+[X] Area has its own Flags
+
+[T] Interaction has the improved conditions
+
+[ ] Choice Condition tip: choice('choice 1', 'choice 2', 'choice 3')
+[ ] While Condition  tip: (Go Back Index, if condition)
+[T] Else If
 [ ] Interaction has its own Self Flags
-[ ] Area has its own Flags
 
-[ ] Interaction has the improved conditions
-[ ] Random Chance Of Event Action
-
-  Sunday
-[ ] Case Condition
-    While Condition
-
-  Monday
 [ ] World Events
 [ ] Area On Visit or Time Event
 [ ] Area Events
+
+[ ] Random Chance If Condition
+
+Can Do Later
+  [ ]Improved The Coding of script list builder script types.
+
+RPG SYSTEM
+  [ ] Stat View
+  [ ] Basic Combat View
+
 
 // Mobile App
 See List Of Area

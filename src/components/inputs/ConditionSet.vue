@@ -29,51 +29,51 @@ or be used in a another Condition Set
 				</div>
 			</div>
 			<!-- Condition Sets -->
-			<div class="row">
+			<div class="row condition-list-section">
 				<div class="col-12 col">
 					<div class="condition-list-table">
 						<table class=''>
 							<thead>
 							</thead>
 							<tbody class="condition-list-table">
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.isList)">
 									<td style="width: 20%"> Is Flag </td>
 									<td style="width: 70%"> {{conditionSet.isList}} </td>
 									<td style="width: 10%">
 										<button v-on:click="conditionSet.isList = []" class="btn-danger nice-small-fit btn-block "> X </button>
 									</td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.notList)">
 									<td style="width: 20%"> Not Flag </td>
 									<td style="width: 70%"> {{conditionSet.notList}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.notList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.hasItem)">
 									<td style="width: 20%"> Has Item</td>
 									<td style="width: 70%"> {{conditionSet.hasItem}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.hasItem = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.hasStat)">
 									<td style="width: 20%"> Has Stat</td>
 									<td style="width: 70%"> {{conditionSet.hasStat}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.hasStat = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="!emptyObj(conditionSet.time)">
 									<td style="width: 20%"> Time </td>
 									<td style="width: 70%"> {{conditionSet.time}} </td>
-									<td style="width: 10%"> <button v-on:click="conditionSet.time = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
+									<td style="width: 10%"> <button v-on:click="conditionSet.time = {} " class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.complexList)">
 									<td style="width: 20%"> Complex </td>
 									<td style="width: 70%"> {{conditionSet.complexList}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.areaIsList)">
 									<td style="width: 20%"> Area Is List </td>
 									<td style="width: 70%"> {{conditionSet.areaIsList}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
 								</tr>
-								<tr class="short-row">
+								<tr class="short-row" v-if="emptyList(conditionSet.areaNotList)">
 									<td style="width: 20%"> Area Not List</td>
 									<td style="width: 70%"> {{conditionSet.areaNotList}} </td>
 									<td style="width: 10%"> <button v-on:click="conditionSet.complexList = []" class="btn-danger nice-small-fit btn-block "> X </button> </td>
@@ -198,7 +198,14 @@ export default {
 			//let objCopy = Object.assign({}, obj);
 			 */
 			console.log("SEE THE COMPLEX MAP", this.$root.world.complexConditionMap);
-		}
+		},
+    emptyList(list){
+      if(!list) return false;
+      return list.length;
+    },
+    emptyObj(obj){
+      return Object.keys(obj).length === 0;
+    }
 	},
 	computed: {
 		classObject: function () {
@@ -273,6 +280,11 @@ textarea {
 }
 
 .input-type-section{
+	height: 325px;
+  overflow: scroll;
+}
+
+.condition-list-section{
 	height: 300px;
   overflow: scroll;
 }

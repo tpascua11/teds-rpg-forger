@@ -1,5 +1,5 @@
 <!--
-This is a div box that contains a button to create condition for object
+This is a div box that contains a button to create condition for object 
      it will show conditions added to objects
 -->
 <template>
@@ -26,7 +26,7 @@ This is a div box that contains a button to create condition for object
       Add Condition
     </button>
 
-    <modal name="conditionListModal"
+    <modal name="conditionSingleModal"
       :width="600"
       :height="800"
       :shiftY="0.1"
@@ -88,10 +88,10 @@ export default {
         areaIsList: [],
         areaNotList: [],
 			};
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionSingleModal');
     },
     hide () {
-      this.$modal.hide('conditionListModal');
+      this.$modal.hide('conditionSingleModal');
     },
     makeNewConditionSet (){
       this.conditionSet = {
@@ -107,7 +107,7 @@ export default {
         areaNotList: [],
       };
       this.referenceConditionList.push(this.conditionSet);
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionSingleModal');
     },
     updateConditionSet(){
       this.hide();
@@ -120,7 +120,7 @@ export default {
     editCondition(conditionSet){
       this.mode = "EDIT";
       this.conditionSet = conditionSet;
-      this.$modal.show('conditionListModal');
+      this.$modal.show('conditionSingleModal');
     },
     removeCondition(index){
       this.value.splice(index, 1);

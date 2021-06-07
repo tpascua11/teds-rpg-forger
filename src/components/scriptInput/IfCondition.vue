@@ -105,22 +105,22 @@ export default {
           ifCondition: this.flagFrom,
           conditionList: [{isList: [this.flagName]}]
         });
-        this.$parent.forgeAction({endCondition: true});
       }
       if(this.flagFrom == "AREA"){
         this.$parent.forgeAction({
           ifCondition: this.flagFrom,
           conditionList: [{isList: [this.flagAreaName]}]
         });
-        this.$parent.forgeAction({endCondition: true});
       }
       if(this.flagFrom == "ACTION"){
         this.$parent.forgeAction({
           ifCondition: 'INTERACTION',
           conditionList: [{isList: [this.flagInteractionName]}]
         });
-        this.$parent.forgeAction({endCondition: true});
       }
+      //this.$parent.forgeAction({elseIfCondition: true});
+      this.$parent.forgeAction({elseCondition: true});
+      this.$parent.forgeAction({endCondition: true});
     },
     cancelAction(){
       this.$parent.cancel();

@@ -1,4 +1,5 @@
 <template>
+
   <div class="row">
     <section v-if="false">{{mode}} </section>
 
@@ -23,13 +24,6 @@
           />
         </section>
 
-        <!--
-        <section>
-          <button v-on:click="mode = 'ADD_ITEM'" class="btn-success-outline btn-small btn-block smallfit">
-            Add Item
-					</button>
-        </section>
-        -->
         <section>
           <button v-on:click="selectNewActionTemplate('addItem', 'NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
             Add Item
@@ -46,6 +40,10 @@
           <button v-on:click="ifTemplate('NEW_ITEM')" class="btn-success-outline btn-small btn-block smallfit">
             If Set
 					</button>
+        </section>
+
+        <section>
+          <ConditionSingle />
         </section>
     </div>
 
@@ -81,6 +79,12 @@
       />
     </div>
 
+    <div class="col-12 col" v-else-if="(
+           editedAction.ifCondition
+        && selectedAction.ifCondition
+      )">
+      <ConditionAlt v-model="editedAction.conditionList"/>
+    </div>
 
     <div class="col-12 col" v-else>
       <table class="table" style="width: 100%;">
@@ -137,6 +141,14 @@
         </tbody>
       </table>
     </div>
+
+    <div class="row">
+      <div class="col col-12">
+      <button v-on:click="cancel()" class="btn-danger-outline btn-small btn-block">
+        Back
+      </button>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -149,6 +161,8 @@ import ToggleFlag from '@/components/modals/ToggleFlag.vue'
 import ToggleFlag2 from '@/components/scriptInput/ToggleFlag.vue'
 import AddItem from '@/components/scriptInput/AddItem.vue'
 import IfCondition from '@/components/scriptInput/IfCondition.vue'
+import ConditionSingle from '@/components/scriptInput/ConditionSingle.vue'
+import ConditionAlt from '@/components/modals/Condition_Alt.vue'
 
 export default {
   name: 'ActionBuilder',
@@ -158,6 +172,8 @@ export default {
     ToggleFlag2,
     AddItem,
     IfCondition,
+    ConditionSingle,
+    ConditionAlt,
   },
   data: function(){
     return {
@@ -230,10 +246,6 @@ export default {
       this.selectedAction = {ifSet: true};
     },
     cancel(){
-      //this.selectedAction = {};
-      //this.editedAction = {};
-      //this.$parent.deselectAction();
-      //this.selectedAction = {};
       this.mode = "MENU";
       this.editMode = "NEW";
     },

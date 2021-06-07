@@ -1,5 +1,38 @@
 <template>
-  <section>
+	<section>
+   <!-- Add Area Flag Condition -->
+    <div class="row border-bottom border-top close-up">
+      <div class="col-2 small-s title-s mini-down">
+        Area Flag
+      </div>
+      <div class="col-1">
+        <button v-if="areaFlagType == 'IS'"  v-on:click="areaFlagType = 'NOT'"
+          class="btn-success small-s mini-down"> IS </button>
+        <button v-if="areaFlagType == 'NOT'" v-on:click="areaFlagType = 'IS'"
+          class="btn-danger small-s mini-down"> NOT </button>
+      </div>
+      <div class="col-6">
+        <v-select v-model="areaFlagList" :from="aflist" class="f-size mini-down" placeholder="Add Flag">
+          <template v-slot:selected="{option}">
+            <div class="f-size">
+              <p> {{option.raw}}</p>
+            </div>
+          </template>
+
+          <template v-slot:option="{option}">
+            <div class="f-size">
+              {{option.raw}}
+            </div>
+          </template>
+        </v-select>
+      </div>
+      <div class="col-1"></div>
+      <div class="col-2">
+        <button v-on:click="updateAreaFlagSet()"
+          class="small-s-width btn-secondary"> Add
+        </button>
+      </div>
+    </div>
    <!-- Add Flag Condition -->
     <div class="row border-bottom border-top close-up">
       <div class="col-2 small-s title-s mini-down">
@@ -215,13 +248,20 @@ export default {
   data: function(){
     return {
 			referenceComplexList:  Object.keys(this.$root.world.complexConditionMap),
-			referenceAreaFlagList: [],
+			//referenceAreaFlagList: [],
+			referenceAreaFlagList: Object.keys(this.$root.selectedArea.flagMap),
 
-      showTime: true,
+			showTime: true,
+
+      areaTypeList: ["NOT", "IS"],
+			areaFlagType: "IS",
+      areaFlagList: [],
+
       typeList: ["NOT", "IS"],
-      flagType: "IS",
+			flagType: "IS",
       flagList: [],
-      complexList: [],
+			complexList: [],
+
       putBackList: [],
 
 
@@ -267,6 +307,22 @@ export default {
         this.$emit('input', newSet);
       }
       this.flagList = [];
+		},
+    updateAreaFlagSet(){
+      /* Use the area selected flags and option to add new flags into one of the
+       * flagSet lists */
+
+      let newSet = this.value;
+      console.log("-----", newSet);
+      if(this.areaFlagType == 'IS'){
+        newSet.areaIsList = [...newSet.areaIsList, ...this.areaFlagList]
+        this.$emit('input', newSet);
+      }
+      else if (this.areaFlagType == "NOT"){
+        newSet.areaNotList = [...newSet.areaNotList, ...this.areaFlagList]
+        this.$emit('input', newSet);
+      }
+      this.areaFlagList = [];
     },
     updateComplexSet(){
       //this.value.complexList = this.complexList;
@@ -354,6 +410,22 @@ export default {
       );
       console.log("filtered", filtered);
       return filtered;
+		},
+		aflist: function(){
+			let tmp = Object.keys(this.$root.selectedArea.flagMap);
+			console.log(tmp);
+			//return tmp;
+
+			console.log("see tmp", tmp);
+			console.log("see value", this.value);
+      let filtered = tmp.filter(
+        function(e) {
+          return this.indexOf(e) < 0;
+        },
+        [...this.value.areaIsList, ...this.value.areaNotList, ...this.putBackList]
+      );
+      console.log("filtered", filtered);
+			return filtered;
     },
     dlist: function(){
       let tmp = Object.keys(this.$root.world.flagMap);
