@@ -131,6 +131,10 @@ export default {
   text-decoration: underline;
 }
 
+.cool-scroll{
+  overflow: scroll;
+}
+
 /* Based Stuff*/
 .move25up{
   position: relative;

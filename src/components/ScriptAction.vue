@@ -26,7 +26,7 @@
           <button v-on:click="simpleScriptFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Script Flag </button>
           <button v-on:click="simpleAreaFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Area Flag</button>
           <button v-on:click="simpleFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If World Flag</button>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Stat </button>
+          <button v-on:click="showModal('flagStat')" class="btn-danger-outline btn-small btn-block smallfit">  If Stat </button>
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Item </button>
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Time </button>
           <section class="default-title-sm2"> Tools </section>
@@ -87,6 +87,7 @@ export default {
       this.$parent.addToScriptList(template);
     },
     deselect(){ this.$parent.deselectAction(); },
+
     //-----------------------------------------------------------------
     // Conditions
     //-----------------------------------------------------------------
@@ -101,6 +102,12 @@ export default {
     simpleScriptFlag(){
       let template = {ifCondition: "SCRIPT", conditionList: [{scriptIsList: []}]};
       this.$parent.addToScriptList(template);
+    },
+    //-----------------------------------------------------------------
+    // Modal Conditions
+    //-----------------------------------------------------------------
+    showModal(name){
+      this.$modal.show(name);
     },
 
   },
