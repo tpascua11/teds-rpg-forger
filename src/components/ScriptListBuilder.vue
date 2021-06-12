@@ -9,32 +9,18 @@
           <thead>
             <tr>
               <th style="width: 5%;"> ID </th>
-              <th scope="col" style="width: 80%;">
-                - Script List -
-              </th>
+              <th scope="col" style="width: 80%;"> - Script List - </th>
               <th scope="col" colspan="2" style="width: 15%;"> Edit </th>
             </tr>
           </thead>
 
-          <draggable v-model="selectedScriptList"
-            tag="tbody"
-            :move="checkMove"
-            @end="saveScript"
-          >
-            <tr v-for="(item, index) in selectedScriptList" :key="index"
-              v-bind:style="[ item.isMoved ? moved : {}]"
-            >
+          <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove" @end="saveScript">
+            <tr v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
 
-              <td
-                v-on:click="targetIndex(index);"
-                v-bind:style="[ atIndex == index ? targeted : {}]">
+              <td v-on:click="targetIndex(index);" v-bind:style="[ atIndex == index ? targeted : {}]">
                 {{index}}
               </td>
-              <td v-on:click="selectAction(item)" style="cursor: move;"
-                v-bind:style="[
-                  selectedAction == item ? selected : {},
-                ]"
-              >
+              <td v-on:click="selectAction(item)" style="cursor: move;" v-bind:style="[ selectedAction == item ? selected : {},]">
                 <div v-bind:style=[indexPush(index)]>
                   {{item}}
                 </div>
@@ -52,20 +38,20 @@
             </tr>
           </draggable>
           <tr>
-            <td colspan=3 v-on:click="targetIndex(-1)"
-              v-bind:style="[ atIndex == -1 ? targeted : {}]"
-              style="height: 25px;"
-            >
+            <td colspan=3 v-on:click="targetIndex(-1)" v-bind:style="[ atIndex == -1 ? targeted : {}]" style="height: 25px;" >
               <hr>
             </td>
           </tr>
         </table>
       </div>
       <div class="col-4 col script-match-height">
-      <Script
-        v-bind:method="{addToScriptList, hardModifyScript}"
-        v-bind:editedAction="selectedAction"
-      />
+        <section v-if="false">
+        <Script
+          v-bind:method="{addToScriptList, hardModifyScript}"
+          v-bind:editedAction="selectedAction"
+        />
+        </section>
+        <ScriptAction v-model="selectedAction" />
       </div>
     </div>
   </section>
@@ -75,6 +61,7 @@
 //import ActionBuilder from '@/components/ActionBuilder.vue'
 import draggable from 'vuedraggable'
 import Script from '@/components/Script.vue'
+import ScriptAction from '@/components/ScriptAction.vue'
 
 export default {
   name: 'InteractionBuilder',
@@ -86,15 +73,9 @@ export default {
         color: 'red',
         fontSize: '13px'
       },
-      moved: {
-        'background-color': '#FFFFE0'
-      },
-      selected: {
-        'background-color': 'peachpuff'
-      },
-      targeted: {
-        'background-color': 'lightblue'
-      },
+      moved:    { 'background-color': '#FFFFE0'   },
+      selected: { 'background-color': 'peachpuff' },
+      targeted: { 'background-color': 'lightblue' },
       action: {},
       selectedActionName: '',
       selectedAction: {},
@@ -116,6 +97,7 @@ export default {
     //ActionBuilder,
     draggable,
     Script,
+    ScriptAction,
   },
   props: {
     name: String,
@@ -166,8 +148,10 @@ export default {
     },
     addToScriptList(script){
       //this.method.addToScriptList(script);
+
       if(this.atIndex < 0) this.selectedScriptList.push(script);
       else this.selectedScriptList.splice(this.atIndex, 0, script);
+      //this.selectAction(script);
 
       this.validScriptList();
       this.saveScript();
@@ -185,7 +169,7 @@ export default {
     },
     deselectAction(){
       //console.log("ACTION DESELECTED!");
-      this.selectedAction = {};
+      this.selectedAction = {empty:true};
     },
     saveScript(){
       console.log("Script Overwritten!");

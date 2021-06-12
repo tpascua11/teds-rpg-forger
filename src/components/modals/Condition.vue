@@ -1,4 +1,5 @@
 <!--
+REMEBER YOU HAVE 2 CONDITION MODAL, THE OTHER IS CALLED Condtion_Alt.vue
 This is a div box that contains a button to create condition for object
      it will show conditions added to objects
 -->

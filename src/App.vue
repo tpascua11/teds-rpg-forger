@@ -119,6 +119,18 @@ export default {
 	border: 1px solid black;
 }
 
+.default-title-sm1{
+	font-size: 14px;
+	font-weight: bold;
+  text-decoration: underline;
+}
+
+.default-title-sm2{
+	font-size: 20px;
+	font-weight: bold;
+  text-decoration: underline;
+}
+
 /* Based Stuff*/
 .move25up{
   position: relative;
