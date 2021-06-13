@@ -11,19 +11,20 @@
       <div class="row this-title">
         Stat Condition
       </div>
-      <section class="default-thin-border" v-for="(item1, index) in templateObj" :key="index">
+      <section class="default-thin-border" v-for="(item1, index) in
+        value.conditionList" :key="index">
         <div class="row">
           <div class="list-title col col-4">
             List {{index}}
           </div>
           <div class="col col-5 smallc">
-            <button v-on:click="additionalAnd(item1.hasStat)"
+            <button v-on:click="additionalAnd(item1)"
               class="btn-secondary btn-small smallt btn-block">
               <section class="smalltin"> And...</section>
             </button>
           </div>
           <div class="col col-3 smallc">
-            <button v-on:click="cutConfirm(templateObj, index)"
+            <button v-on:click="cutConfirm(value.conditionList, index)"
               class="btn-danger btn-small smallt btn-block">
               <section class="smalltin"> X </section>
             </button>
@@ -32,7 +33,7 @@
         <section class="" v-for="(item2, index2) in item1.hasStat" :key="index2">
           <div class="closer row">
             <div class="col-3">
-              <v-select v-model="item2.stat" :from="flagList" class="adaptable-width" placeholder="Add Flag"> </v-select> 
+              <v-select @input="updateNow" v-model="item2.stat" :from="flagList" class="adaptable-width" placeholder="Add Flag"> </v-select> 
             </div>
             <div class="col-3">
               <button
@@ -95,21 +96,24 @@ export default {
   },
   props: ['value'],
   watch: {},
-  mounted(){
-  },
+  mounted(){},
   methods:{
     additionalAnd(list){
-      console.log('test', list);
-      list.push({operator: ">"});
+      if(!list.hasStat){
+        list.hasStat = [];
+      }
+      list.hasStat.push({operator: ">"});
+      this.$forceUpdate();
     },
     additionalOr(){
-      this.templateObj.push({hasStat: [{operator: ">"}]});
+      this.value.conditionList.push({hasStat: [{operator: ">"}]});
     },
     additionalList(){
-      this.templateObj.push({operator: ">"});
+      this.value.conditionList.push({operator: ">"});
     },
     cut(list, index){
       list.splice(index, 1);
+      this.$forceUpdate();
     },
     cutConfirm(list, index){
       if(!confirm("DELETE" + JSON.stringify(list))) return true;
@@ -117,6 +121,9 @@ export default {
     },
     closeModal(){
       this.$modal.hide('flagStatModal');
+    },
+    updateNow(){
+      this.$forceUpdate();
     }
   },
   computed: {
@@ -168,17 +175,14 @@ export default {
   width: 100%;
   height: 40px;
 }
-
 .small{
   height: 10px;
 }
-
 .closer{
   position:relative;
   top: 0px;
   margin-top: -20px;
   /*margin-bottom: 10px;*/
 }
-
 
 </style>

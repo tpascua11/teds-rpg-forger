@@ -1,6 +1,8 @@
 <template>
+  <!-- Main -->
   <section>
     <div v-if="false" class="row"> {{value}} </div>
+    <!-- Script: Menu 1 -->
     <div class="row default-thin-border" v-if="value.empty">
       <div class="col col-6 debugblue">
         <div class="row">
@@ -36,17 +38,29 @@
         </div>
       </div>
     </div>
+    <!-- Script: If Condition -->
+    <div class="row" v-if="value.ifCondition">
+      <div class="col col-6 debugpink">
+        <button v-on:click="showModal('flagStat')" class="btn-danger-outline btn-small btn-block smallfit">
+          Stat Condition
+        </button>
+        <br><br>
+      </div>
+    </div>
+    <!-- Back -->
     <div class="row">
       <button v-on:click="deselect()" class="btn-danger-outline btn-small btn-block ">  Back </button>
     </div>
-      <br><br>
-    <section v-if="true">
+    <br><br>
+      <!-- Script Imports Additions -->
+    <section>
+      <Description v-model="value"/>
+      <WorldFlag v-model="value"/>
+      <AreaFlag v-model="value"/>
+      <ScriptFlag v-model="value"/>
+      <FlagStat v-model="value"/>
     </section>
-    <Description v-model="value"/>
-    <WorldFlag v-model="value"/>
-    <AreaFlag v-model="value"/>
-    <ScriptFlag v-model="value"/>
-    <FlagStat v-model="value"/>
+
   </section>
 </template>
 
@@ -87,7 +101,6 @@ export default {
       this.$parent.addToScriptList(template);
     },
     deselect(){ this.$parent.deselectAction(); },
-
     //-----------------------------------------------------------------
     // Conditions
     //-----------------------------------------------------------------
@@ -104,12 +117,15 @@ export default {
       this.$parent.addToScriptList(template);
     },
     //-----------------------------------------------------------------
+
+    //-----------------------------------------------------------------
     // Modal Conditions
     //-----------------------------------------------------------------
     showModal(name){
       this.$modal.show(name);
     },
 
+    //-----------------------------------------------------------------
   },
   computed: {
     classObject: function () {
