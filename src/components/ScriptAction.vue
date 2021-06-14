@@ -24,6 +24,7 @@
           <section class="default-title-sm2"> Conditions </section>
         </div>
         <div class="row">
+          <!--
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Condition</button>
           <button v-on:click="simpleScriptFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Script Flag </button>
           <button v-on:click="simpleAreaFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Area Flag</button>
@@ -32,17 +33,38 @@
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Item </button>
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Time </button>
           <section class="default-title-sm2"> Tools </section>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE </button>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE IF </button>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  END</button>
+          -->
+          <button v-on:click="addIf()" class="btn-danger-outline btn-small btn-block smallfit">  IF      </button>
+          <button v-on:click="addElse()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE    </button>
+          <button v-on:click="addElseIf()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE IF </button>
+          <button v-on:click="addEnd()" class="btn-danger-outline btn-small btn-block smallfit">  END     </button>
         </div>
       </div>
     </div>
     <!-- Script: If Condition -->
-    <div class="row" v-if="value.ifCondition">
+    <div class="row" v-if="value.ifCondition || value.elseIfCondition">
       <div class="col col-6 debugpink">
-        <button v-on:click="showModal('flagStat')" class="btn-danger-outline btn-small btn-block smallfit">
-          Stat Condition
+        <div class="row">
+          <section class="default-title-sm2"> Conditions </section>
+        </div>
+
+        <button v-on:click="showModal('FlagStat')" class="btn-danger-outline btn-small btn-block smallfit">
+          Stat Flags
+        </button>
+        <button v-on:click="showModal('ItemFlag')" class="btn-danger-outline btn-small btn-block smallfit">
+          Item Flags
+        </button>
+        <button v-on:click="showModal('WorldFlag')" class="btn-danger-outline btn-small btn-block smallfit">
+         World Flags
+        </button>
+        <button v-on:click="showModal('AreaFlag')" class="btn-danger-outline btn-small btn-block smallfit">
+          Area Flags
+        </button>
+        <button v-on:click="showModal('ScriptFlag')" class="btn-danger-outline btn-small btn-block smallfit">
+          Script Flags
+        </button>
+        <button v-on:click="showModal('TimeFlag')" class="btn-danger-outline btn-small btn-block smallfit">
+          Time Flags
         </button>
         <br><br>
       </div>
@@ -59,6 +81,8 @@
       <AreaFlag v-model="value"/>
       <ScriptFlag v-model="value"/>
       <FlagStat v-model="value"/>
+      <ItemFlag v-model="value"/>
+      <TimeFlag v-model="value"/>
     </section>
 
   </section>
@@ -66,11 +90,13 @@
 
 <script>
 import Description from '@/components/scriptInput/Description.vue'
-import WorldFlag   from '@/components/scriptInput/WorldFlag.vue'
-import AreaFlag    from '@/components/scriptInput/AreaFlag.vue'
-import ScriptFlag  from '@/components/scriptInput/ScriptFlag.vue'
-import FlagStat    from '@/components/scriptInput/FlagStat.vue'
 
+import AreaFlag    from '@/components/scriptCondition/AreaFlag.vue'
+import WorldFlag   from '@/components/scriptCondition/WorldFlag.vue'
+import ScriptFlag  from '@/components/scriptCondition/ScriptFlag.vue'
+import ItemFlag    from '@/components/scriptCondition/ItemFlag.vue'
+import FlagStat    from '@/components/scriptCondition/FlagStat.vue'
+import TimeFlag    from '@/components/scriptCondition/TimeFlag.vue'
 
 export default {
   name: 'AreaList',
@@ -89,6 +115,8 @@ export default {
     AreaFlag,
     ScriptFlag,
     FlagStat,
+    ItemFlag,
+    TimeFlag,
   },
   props: ['value'],
   mounted(){
@@ -115,6 +143,19 @@ export default {
     simpleScriptFlag(){
       let template = {ifCondition: "SCRIPT", conditionList: [{scriptIsList: []}]};
       this.$parent.addToScriptList(template);
+    },
+    addIf(){
+      this.$parent.addToScriptList({ifCondition: "ADVANCED", conditionList: []});
+      this.$parent.addToScriptList({endCondition: "ADVANCED"});
+    },
+    addElse(){
+      this.$parent.addToScriptList({elseCondition: "ADVANCED"});
+    },
+    addElseIf(){
+      this.$parent.addToScriptList({elseIfCondition: "ADVANCED", conditionList: []});
+    },
+    addEnd(){
+      this.$parent.addToScriptList({endCondition: "ADVANCED"});
     },
     //-----------------------------------------------------------------
 

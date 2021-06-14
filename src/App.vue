@@ -111,6 +111,7 @@ export default {
 	padding:0.5em;
 }
 
+/* default */
 .default-based-font{
 	font-size: 14px;
 }
@@ -134,6 +135,29 @@ export default {
 .cool-scroll{
   overflow: scroll;
 }
+
+.default-modal-total-height{
+  height: 750px;
+}
+.default-modal-body-height{
+  height: 500px;
+  overflow: scroll;
+}
+.default-modal-bottom-height{
+  height: 100px;
+}
+
+.default-modal-total-height-sm{
+  height: 750px;
+}
+.default-modal-body-height-sm{
+  height: 500px;
+  overflow: scroll;
+}
+.default-modal-bottom-height-sm{
+  height: 100px;
+}
+
 
 /* Based Stuff*/
 .move25up{

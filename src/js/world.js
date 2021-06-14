@@ -25,6 +25,8 @@ export class World {
 		this.complexConditionList = [{}];
 		this.complexConditionMap  = {};
 
+		this.statMap = {'health': {}, 'mana': {}, 'stamina': {}};
+
 		this.timeSystem = {
 			minutes: 60, hour: 24, daysInMonth: 28, month:['Spring','Summer','Fall','Winter'], year: 1000,
 		};
