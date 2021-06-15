@@ -10,13 +10,14 @@
         </div>
         <div class="row">
           <button v-on:click="newDescription()" class="btn-success-outline btn-small btn-block smallfit"> Description </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Stat </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Item </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Time </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Move </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Toggle Flag </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Script Flag </button>
-          <button v-on:click="test()" class="btn-success-outline btn-small btn-block smallfit"> Set Index At </button>
+          <button v-on:click="newStat()" class="btn-success-outline btn-small btn-block smallfit"> Stat </button>
+          <button v-on:click="newItem()" class="btn-success-outline btn-small btn-block smallfit"> Item </button>
+          <button v-on:click="newTime()" class="btn-success-outline btn-small btn-block smallfit"> Time </button>
+          <button v-on:click="newMove()" class="btn-success-outline btn-small btn-block smallfit"> Move </button>
+          <button v-on:click="toggleWorldFlag()" class="btn-success-outline btn-small btn-block smallfit"> Toggle Flag </button>
+          <button v-on:click="toggleAreaFlag()" class="btn-success-outline btn-small btn-block smallfit">  Area Flag </button>
+          <button v-on:click="toggleScriptFlag()" class="btn-success-outline btn-small btn-block smallfit"> Script Flag </button>
+          <button v-on:click="newMoveIndex()" class="btn-success-outline btn-small btn-block smallfit"> Set Index At </button>
         </div>
       </div>
       <div class="col col-6 debugpink">
@@ -66,6 +67,11 @@
         <button v-on:click="showModal('TimeFlag')" class="btn-danger-outline btn-small btn-block smallfit">
           Time Flags
         </button>
+
+        <button v-on:click="addIf()" class="btn-danger-outline btn-small btn-block smallfit">    	IF      </button>
+        <button v-on:click="addElse()" class="btn-danger-outline btn-small btn-block smallfit">  	ELSE    </button>
+        <button v-on:click="addElseIf()" class="btn-danger-outline btn-small btn-block smallfit"> ELSE IF </button>
+        <button v-on:click="addEnd()" class="btn-danger-outline btn-small btn-block smallfit">  	END     </button>
         <br><br>
       </div>
     </div>
@@ -77,6 +83,16 @@
       <!-- Script Imports Additions -->
     <section>
       <Description v-model="value"/>
+      <ToggleWorldFlag v-model="value"/>
+      <ToggleScriptFlag v-model="value"/>
+      <ToggleAreaFlag v-model="value"/>
+      <MoveIndex v-model="value"/>
+
+      <ModifierItem v-model="value"/>
+      <ModifierStat v-model="value"/>
+      <Time v-model="value"/>
+      <MoveToArea v-model="value"/>
+
       <WorldFlag v-model="value"/>
       <AreaFlag v-model="value"/>
       <ScriptFlag v-model="value"/>
@@ -89,7 +105,16 @@
 </template>
 
 <script>
-import Description from '@/components/scriptInput/Description.vue'
+import Description from '@/components/scriptModifier/Description.vue'
+import ToggleWorldFlag from '@/components/scriptModifier/ToggleWorldFlag.vue'
+import ToggleAreaFlag from '@/components/scriptModifier/ToggleAreaFlag.vue'
+import ToggleScriptFlag from '@/components/scriptModifier/ToggleScriptFlag.vue'
+import MoveIndex from '@/components/scriptModifier/MoveIndex.vue'
+
+import MoveToArea from '@/components/scriptModifier/MoveToArea.vue'
+import ModifierItem from '@/components/scriptModifier/Item.vue'
+import ModifierStat from '@/components/scriptModifier/Stat.vue'
+import Time from '@/components/scriptModifier/Time.vue'
 
 import AreaFlag    from '@/components/scriptCondition/AreaFlag.vue'
 import WorldFlag   from '@/components/scriptCondition/WorldFlag.vue'
@@ -111,6 +136,16 @@ export default {
   },
   components: {
     Description,
+    ToggleWorldFlag,
+    ToggleAreaFlag,
+    ToggleScriptFlag,
+    MoveIndex,
+
+    MoveToArea,
+    ModifierItem,
+    ModifierStat,
+    Time,
+
     WorldFlag,
     AreaFlag,
     ScriptFlag,
@@ -124,11 +159,44 @@ export default {
   methods:{
     test(){ console.log("------");},
     newAction(){},
+    deselect(){ this.$parent.deselectAction(); },
+
     newDescription(){
       let template = {eventName: "addDescription"};
       this.$parent.addToScriptList(template);
     },
-    deselect(){ this.$parent.deselectAction(); },
+    toggleWorldFlag(){
+      let template = {eventName: "toggleFlag", flag: true, name: ''};
+      this.$parent.addToScriptList(template);
+    },
+    toggleAreaFlag(){
+      let template = {eventName: "toggleAreaFlag", flag: true, name: ''};
+      this.$parent.addToScriptList(template);
+    },
+    toggleScriptFlag(){
+      let template = {eventName: "toggleScriptFlag", flag: true, name: ''};
+      this.$parent.addToScriptList(template);
+    },
+    newMoveIndex(){
+      let template = {eventName: "moveIndex",  name: ''};
+      this.$parent.addToScriptList(template);
+    },
+    newItem(){
+      let template = {eventName: "itemModifier",  name: '', amount: 0};
+      this.$parent.addToScriptList(template);
+    },
+    newStat(){
+      let template = {eventName: "statModifier",  name: '', number: 0};
+      this.$parent.addToScriptList(template);
+    },
+    newTime(){
+      let template = {eventName: "timePass", time: {years: 0, months: 0, days: 0, hours: 0, minutes: 0 }};
+      this.$parent.addToScriptList(template);
+      },
+    newMove(){
+      let template = {eventName: "moveToArea",  name: ''};
+      this.$parent.addToScriptList(template);
+    },
     //-----------------------------------------------------------------
     // Conditions
     //-----------------------------------------------------------------

@@ -117,7 +117,8 @@ export default {
     },
     trueList(set){
       console.log("what is set", set);
-      let tmp = Object.keys(this.$root.world.flagMap);
+      let tmp = [];
+      //Object.keys(this.$root.world.flagMap);
 
       let filtered = tmp.filter(
         function(e) {

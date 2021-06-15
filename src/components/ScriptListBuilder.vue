@@ -131,6 +131,7 @@ export default {
       //console.log(index);
       this.scriptList.splice(index, 1);
       this.validScriptList();
+      this.deselectAction();
     },
     targetIndex(index){
       this.atIndex = index;
