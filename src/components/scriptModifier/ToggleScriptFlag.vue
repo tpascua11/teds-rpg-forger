@@ -36,7 +36,6 @@ export default {
   data: function(){
     return {
       template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.selectedArea.flagMap),
     }
   },
   props: ['value'],
@@ -50,7 +49,6 @@ export default {
       console.log("test", this.$root.world.flagMap);
       //this.$root.world.flapMap[value] = this.value.flag;
       this.$root.world.flagMap[value] = false;
-      this.flagList = Object.keys(this.$root.selectedArea.flagMap);
       this.value.name = value;
     }
   },

@@ -20,8 +20,6 @@ export default {
   name: 'Basic',
   data: function(){
     return {
-      template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.selectedArea.flagMap),
     }
   },
   props: ['value'],

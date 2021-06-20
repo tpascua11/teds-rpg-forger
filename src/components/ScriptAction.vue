@@ -18,6 +18,7 @@
           <button v-on:click="toggleAreaFlag()" class="btn-success-outline btn-small btn-block smallfit">  Area Flag </button>
           <button v-on:click="toggleScriptFlag()" class="btn-success-outline btn-small btn-block smallfit"> Script Flag </button>
           <button v-on:click="newMoveIndex()" class="btn-success-outline btn-small btn-block smallfit"> Set Index At </button>
+          <button v-on:click="newChoiceList()" class="btn-success-outline btn-small btn-block smallfit"> Choice List </button>
         </div>
       </div>
       <div class="col col-6 debugpink">
@@ -92,6 +93,7 @@
       <ModifierStat v-model="value"/>
       <Time v-model="value"/>
       <MoveToArea v-model="value"/>
+      <ChoiceList v-model="value"/>
 
       <WorldFlag v-model="value"/>
       <AreaFlag v-model="value"/>
@@ -115,6 +117,8 @@ import MoveToArea from '@/components/scriptModifier/MoveToArea.vue'
 import ModifierItem from '@/components/scriptModifier/Item.vue'
 import ModifierStat from '@/components/scriptModifier/Stat.vue'
 import Time from '@/components/scriptModifier/Time.vue'
+
+import ChoiceList from '@/components/scriptModifier/Choice.vue'
 
 import AreaFlag    from '@/components/scriptCondition/AreaFlag.vue'
 import WorldFlag   from '@/components/scriptCondition/WorldFlag.vue'
@@ -145,6 +149,7 @@ export default {
     ModifierItem,
     ModifierStat,
     Time,
+    ChoiceList,
 
     WorldFlag,
     AreaFlag,
@@ -195,6 +200,10 @@ export default {
       },
     newMove(){
       let template = {eventName: "moveToArea",  name: ''};
+      this.$parent.addToScriptList(template);
+    },
+    newChoiceList(){
+      let template = {eventName: "choiceList",  choiceList: []};
       this.$parent.addToScriptList(template);
     },
     //-----------------------------------------------------------------

@@ -3,10 +3,9 @@ export class World {
 		this.name = "cool";
 		this.areaList = [{"name":"Home","description":"","connectedAreaList":[],"interactionList":[{"name":"Wolf!","scriptList":[{"eventName":"addDescription","description":"Bark!"},{"eventName":"restore","stat":"health","number":"20"},{"eventName":"addDescription","description":"The Wolf Licks Your Face!"}],"tags":[],"conditionList":[]}]}];
 		this.areaMap = {
-			'area1': {name: 'cool', interactionList:[], connectedAreaList: [], flagMap: {'d1': true}},
-			'area2': {name: 'cool', interactionList:[], connectedAreaList: [], flagMap: {'d1': false}},
-			'area3': {name: 'cool', interactionList:[], connectedAreaList: [], flagMap: {'d1': true}},
-			'area4': {name: 'cool', interactionList:[], connectedAreaList: [], flagMap: {'d1': false}},
+			'area1': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+			'area2': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
+			'area3': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
 		};
 		//this.areaList = [];
     this.worldItemList = [];
@@ -29,7 +28,15 @@ export class World {
 
 		this.timeSystem = {
 			minutes: 60, hour: 24, daysInMonth: 28, month:['Spring','Summer','Fall','Winter'], year: 1000,
-		};
+    };
+
+    this.globalEventMap = {};
+    this.commonEventMap = {};
+
+    this.globalEventList = [];
+    this.commonEventList = [];
+
+    this.selectedArea = {flagMap: []};
   }
 }
 /*

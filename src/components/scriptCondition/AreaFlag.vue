@@ -66,7 +66,8 @@ export default {
       selectedName: '',
       type: 'IS',
       flag: true,
-      flagList: Object.keys(this.$root.selectedArea.flagMap),
+      flagList: this.setFlagMap(),
+      //Object.keys(this.$root.selectedArea.flagMap),
     }
   },
   props: ['value'],
@@ -81,7 +82,8 @@ export default {
       console.log("CREATE NEW AREA FLAG", value.name);
       this.$root.world.flagMap[value.name] = false;
       this.selectedName = value.name;
-      this.flagList = Object.keys(this.$root.selectedArea.flagMap);
+      //this.flagList = Object.keys(this.$root.selectedArea.flagMap);
+      this.setFlagMap();
     },
     checkIfAndNot(isList, notList){
       return isList.some( ai => notList.includes(ai) );
@@ -107,6 +109,15 @@ export default {
         [...set.areaIsList, ...set.areaNotList]
       );
       return filtered;
+    },
+    setFlagMap(){
+      if(this.$root.selectedArea && this.$root.selectedArea.flagMap){
+        this.flagList = Object.keys(this.$root.selectedArea.flagMap);
+        return this.flagList;
+      } else {
+        this.flagList = [];
+        return [];
+      }
     },
   },
   computed: {

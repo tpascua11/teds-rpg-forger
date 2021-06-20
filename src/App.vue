@@ -17,6 +17,10 @@
 				<router-link to="/item"  class="routerFont" > Items </router-link> |
 				<router-link to="/world" class="routerFont" > World </router-link> |
 
+				<router-link to="/common" class="routerFont" > Common</router-link> |
+				<router-link to="/global" class="routerFont" > Global </router-link> |
+
+
 				<router-link to="/testing" class="routerFont" > Testing Zone </router-link> |
 				<!--
         <router-link to="/"      class="routerFont" > Status Effects </router-link> |
@@ -129,7 +133,7 @@ export default {
 .default-title-sm2{
 	font-size: 20px;
 	font-weight: bold;
-  text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 
 .cool-scroll{

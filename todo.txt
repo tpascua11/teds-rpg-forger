@@ -22,16 +22,17 @@ Priority NO FOCUS CLEAN UI
 
 [T] Interaction has the improved conditions
 
-[ ] Choice Condition tip: choice('choice 1', 'choice 2', 'choice 3')
-[ ] While Condition  tip: (Go Back Index, if condition)
+[T] Choice Condition tip: choice('choice 1', 'choice 2', 'choice 3')
+[T] While Condition  tip: (Go Back Index, if condition)
 [T] Else If
-[ ] Interaction has its own Self Flags
+[T] Interaction has its own Self Flags
 
-[ ] World Events
-[ ] Area On Visit or Time Event
-[ ] Area Events
+[T] World Events
+[T] Area On Visit or Time Event
+[T] Area Events
 
 [ ] Random Chance If Condition
+  ( ) Modifier Based On Stats
 
 Can Do Later
   [ ]Improved The Coding of script list builder script types.

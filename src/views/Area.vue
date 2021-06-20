@@ -28,13 +28,13 @@
               class="btn-secondary btn-small btn-block">
               Area Network
             </button>
-            <button :disabled="true" v-on:click="selectMode('TEST')"
+            <button :disabled="lock" v-on:click="selectMode('ON_VISIT')"
               class="btn-default btn-small btn-block lightorange">
               On Visit Events
             </button>
-            <button :disabled="true" v-on:click="selectMode('')"
+            <button :disabled="lock" v-on:click="selectMode('ON_TRIGGER_EVENT')"
               class="btn-danger btn-small btn-block">
-              Hard Modify
+              Trigger Events
             </button>
             </div>
           </div>
@@ -97,25 +97,6 @@
                       </div>
                     </div>
                     <div v-if="!showCondition" class="col-5 col small3">
-                      <!--
-                      IF {{selectedInteraction.conditionList[0].isList}}
-                      AND IF NOT {{selectedInteraction.conditionList[0].isList}}
-
-                      <table class="nice-border">
-                        <tbody>
-                          <tr class="thin-table-row" v-for="(item, index) in selectedInteraction.conditionList" :key="index">
-                            <td>
-                              OR {{item.isList}}
-                            </td>
-                          </tr>
-                          <tr class="thin-table-row">
-                            <td>
-                              <Condition v-model="selectedInteraction.conditionList"/>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      -->
                     </div>
                     <div v-else class="col-4 col">
                     </div>
@@ -143,8 +124,7 @@
                       </div>
                     </div>
                   </transition>
-                  <div class="row move100up"
-                  >
+                  <div class="row move100up">
                     <ScriptListBuilder
                     v-bind:scriptList="selectedInteraction.scriptList"
                   />
@@ -180,6 +160,194 @@
               </div>
             </div>
           </section>
+          <!-- -->
+          <section v-if="mode === 'ON_VISIT'">
+            <div class="row match-2">
+              <!-- Area's Interaction List -->
+              <div class="col-2 col">
+                <p class="title2"> On Visit</p>
+                      <button v-on:click="addNewOnVisitEvent()"
+                        class="btn-warning btn-small btn-block">
+                        On Visit Events
+                      </button>
+                      <hr>
+                <section class="interaction-list-scroll">
+                  <table class="table " style="width: 100%; table-layout: fixed;">
+                    <draggable
+                      tag="tbody"
+                      v-model="selectedAreaInteractionList"
+                    >
+                      <tr class="thin-table-row" v-for="(item, index) in
+                        selectedAreaInteractionList" :key="index"
+                        v-on:click="selectInteraction(item)"
+                        v-bind:style="[ item == selectedInteraction ?
+                        styleSelected : {}]"
+                      >
+                        <td class="thin-table-row moveable"> {{item.name}}</td>
+                      </tr>
+
+                    </draggable>
+                  </table>
+                </section>
+                <hr>
+              </div>
+              <!-- Area's Selected Interaction -->
+              <div class="col-10 col paper">
+                <section v-if="selectedInteractionEmpty">
+                  <div class="row">
+                    <div class="col-4 col">
+                      <div class="row title3">
+                        <div class="col-1 col">
+                          <i class="ra ra-quill-ink ra-lg"></i>
+                        </div>
+                        <div class="col-6 col">
+                          <input class="smallInput input3" type="string"
+                            v-model="selectedInteraction.name" placeholder="write interaction name..."
+                            ref="set_interaction_name"
+                          >
+                        </div>
+                        <div class="col-1 col">
+                          <button v-on:click="popShowCondition"
+                            class="btn-default btn-small open-condition">
+                            <i v-if="!showCondition" class="ra ra-key-basic ra-lg"></i>
+                            <i v-else class="ra ra-key ra-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-if="!showCondition" class="col-5 col small3">
+                    </div>
+                    <div v-else class="col-4 col">
+                    </div>
+                    <div class="col-1 col small5">
+                      <button v-on:click="copyInteraction(selectedInteraction)"
+                        class="btn-success btn-small open-condition">
+                        <i class="ra ra-mirror ra-lg"></i>
+                      </button>
+                    </div>
+                    <div class="col-1 col small4">
+                      <button v-on:click="deleteInteraction(selectedInteraction)"
+                        class="btn-danger btn-small open-condition">
+                        <i class="ra ra-crossed-bones ra-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <transition name="slide">
+                    <div class="row move75up" v-if="showCondition">
+                      <div class="col col-6 pink">
+                        <textarea class="area-nice" v-model="selectedInteraction.description"
+                          placeholder="interaction description"></textarea>
+                      </div>
+                      <div class="col col-6">
+                          <Condition v-model="selectedInteraction.conditionList" />
+                      </div>
+                    </div>
+                  </transition>
+                  <div class="row move100up">
+                    <ScriptListBuilder
+                    v-bind:scriptList="selectedInteraction.scriptList"
+                  />
+                </div>
+              </section>
+            </div>
+            </div>
+          </section>
+
+          <!-- -->
+          <section v-if="mode === 'ON_TRIGGER_EVENT'">
+            <div class="row match-2">
+              <!-- Area's Interaction List -->
+              <div class="col-2 col">
+                <p class="title2"> On Trigger Event </p>
+                      <button v-on:click="addNewTriggerEvent()"
+                        class="btn-warning btn-small btn-block">
+                        Trigger Event
+                      </button>
+                      <hr>
+                <section class="interaction-list-scroll">
+                  <table class="table " style="width: 100%; table-layout: fixed;">
+                    <draggable
+                      tag="tbody"
+                      v-model="selectedAreaInteractionList"
+                      @end="saveAreaInteractionListPosition"
+                    >
+                      <tr class="thin-table-row" v-for="(item, index) in
+                        selectedAreaInteractionList" :key="index"
+                        v-on:click="selectInteraction(item)"
+                        v-bind:style="[ item == selectedInteraction ?
+                        styleSelected : {}]"
+                      >
+                        <td class="thin-table-row moveable"> {{item.name}}</td>
+                      </tr>
+
+                    </draggable>
+                  </table>
+                </section>
+                <hr>
+              </div>
+              <!-- Area's Selected Interaction -->
+              <div class="col-10 col paper">
+                <section v-if="selectedInteractionEmpty">
+                  <div class="row">
+                    <div class="col-4 col">
+                      <div class="row title3">
+                        <div class="col-1 col">
+                          <i class="ra ra-quill-ink ra-lg"></i>
+                        </div>
+                        <div class="col-6 col">
+                          <input class="smallInput input3" type="string"
+                            v-model="selectedInteraction.name" placeholder="write interaction name..."
+                            ref="set_interaction_name"
+                          >
+                        </div>
+                        <div class="col-1 col">
+                          <button v-on:click="popShowCondition"
+                            class="btn-default btn-small open-condition">
+                            <i v-if="!showCondition" class="ra ra-key-basic ra-lg"></i>
+                            <i v-else class="ra ra-key ra-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-if="!showCondition" class="col-5 col small3">
+                    </div>
+                    <div v-else class="col-4 col">
+                    </div>
+                    <div class="col-1 col small5">
+                      <button v-on:click="copyInteraction(selectedInteraction)"
+                        class="btn-success btn-small open-condition">
+                        <i class="ra ra-mirror ra-lg"></i>
+                      </button>
+                    </div>
+                    <div class="col-1 col small4">
+                      <button v-on:click="deleteInteraction(selectedInteraction)"
+                        class="btn-danger btn-small open-condition">
+                        <i class="ra ra-crossed-bones ra-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <transition name="slide">
+                    <div class="row move75up" v-if="showCondition">
+                      <div class="col col-6 pink">
+                        <textarea class="area-nice" v-model="selectedInteraction.description"
+                          placeholder="interaction description"></textarea>
+                      </div>
+                      <div class="col col-6">
+                          <Condition v-model="selectedInteraction.conditionList" />
+                      </div>
+                    </div>
+                  </transition>
+                  <div class="row move100up">
+                    <ScriptListBuilder
+                    v-bind:scriptList="selectedInteraction.scriptList"
+                  />
+                </div>
+              </section>
+            </div>
+            </div>
+          </section>
+
+          <!-- -->
         </div>
       </div>
     </div>
@@ -231,7 +399,10 @@ export default {
   },
   methods:{
     test(){console.log("test");},
-    selectMode(mode){this.mode = mode;},
+    selectMode(mode){
+      this.mode = mode;
+      this.referenceAreaInteractionList();
+    },
     refreshKeys(){
       this.areaMap = Object.keys(this.$root.world.areaMap);
       this.$forceUpdate();
@@ -258,6 +429,8 @@ export default {
       this.$root.world.areaMap[value.name] = {
         interactionList: [],
         flagMap: {},
+        onVisitEventList: [],
+        onTriggerEventList: [],
       };
       this.refreshKeys();
 
@@ -265,7 +438,26 @@ export default {
       this.$root.selectedArea = this.selectedArea;
       this.referenceAreaInteractionList();
     },
+    addNewTriggerEvent(){
+      let newInteraction = {
+        name: "",
+        scriptList: [],
+        conditionList:[]
+      };
+      this.selectedInteraction = newInteraction;
 
+      this.$root.world.areaMap[this.selectedAreaName].triggerEventList.push(newInteraction);
+    },
+    addNewOnVisitEvent(){
+      let newInteraction = {
+        name: "",
+        scriptList: [],
+        conditionList:[]
+      };
+      this.selectedInteraction = newInteraction;
+
+      this.$root.world.areaMap[this.selectedAreaName].onVisitEventList.push(newInteraction);
+    },
     addNewInteraction(){
       let newInteraction = {
         name: "",
@@ -282,7 +474,7 @@ export default {
       //console.log("SEE SELCTED INTERACTION", this.selectedInteraction);
     },
     deleteInteraction(targetInteraction){
-      if(!confirm("Do You Wish to Delete Interaction!"));
+      if(!confirm("Do You Wish to Delete Interaction!")) return;
       this.selectedAreaInteractionList =
         this.selectedAreaInteractionList.filter(
           item => item !== targetInteraction);
@@ -308,8 +500,15 @@ export default {
       });
     },
     referenceAreaInteractionList(){
-      this.selectedAreaInteractionList =
-        this.$root.world.areaMap[this.selectedAreaName].interactionList;
+      if(this.mode == "ON_VISIT"){
+        this.selectedAreaInteractionList = this.$root.world.areaMap[this.selectedAreaName].onVisitEventList;
+      }
+      else if(this.mode == "ON_TRIGGER_EVENT"){
+        this.selectedAreaInteractionList = this.$root.world.areaMap[this.selectedAreaName].triggerEventList;
+      }
+      else{
+        this.selectedAreaInteractionList = this.$root.world.areaMap[this.selectedAreaName].interactionList;
+      }
     },
     saveAreaInteractionListPosition(){
       this.$root.world.areaMap[this.selectedAreaName].interactionList

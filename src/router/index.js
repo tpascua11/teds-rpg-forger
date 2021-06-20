@@ -64,6 +64,24 @@ const routes = [
   },
 
   {
+    path: '/global',
+    name: 'Global',
+    component: () => import ('../views/Global.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+  {
+    path: '/common',
+    name: 'Common',
+    component: () => import ('../views/CommonEvent.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

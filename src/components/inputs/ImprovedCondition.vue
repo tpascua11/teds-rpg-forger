@@ -136,7 +136,7 @@
 
       </div>
 
-    <!-- Add Stat Condition -->
+    <!-- Add Time Condition -->
     <div class="row move50up" v-if="false">
 			<div class="col-2 small-s title-s">
 				<button v-on:click="showTime = !showTime" class="small-s-width title-s">
@@ -249,7 +249,8 @@ export default {
     return {
 			referenceComplexList:  Object.keys(this.$root.world.complexConditionMap),
 			//referenceAreaFlagList: [],
-			referenceAreaFlagList: Object.keys(this.$root.selectedArea.flagMap),
+			referenceAreaFlagList: this.areaFlagKeys(),
+			//Object.keys(this.$root.selectedArea.flagMap),
 
 			showTime: true,
 
@@ -284,7 +285,11 @@ export default {
       clearList: [],
     }
   },
-  methods:{
+	methods:{
+		areaFlagKeys(){
+			if(this.$root.selectedArea && this.$root.selectedArea.flagMap) return Object.keys(this.$root.selectedArea.flagMap);
+			else return [];
+		},
     refresh(){
       this.referenceComplexList = Object.keys(this.$root.world.complexConditionMap);
     },
@@ -412,7 +417,10 @@ export default {
       return filtered;
 		},
 		aflist: function(){
-			let tmp = Object.keys(this.$root.selectedArea.flagMap);
+			let tmp;
+			if(this.$root.selectedArea && this.$root.selectedArea.flagMap){
+				tmp = Object.keys(this.$root.selectedArea.flagMap);
+			} else tmp = [];
 			console.log(tmp);
 			//return tmp;
 

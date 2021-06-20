@@ -78,7 +78,7 @@ export default {
       targeted: { 'background-color': 'lightblue' },
       action: {},
       selectedActionName: '',
-      selectedAction: {},
+      selectedAction: {empty: true},
       targetedAction: {},
       atIndex: -1,
       person: {
@@ -89,7 +89,8 @@ export default {
       selectedScriptList: [],
       ifConditionIndexList : [],
       endConditionIndexList: [],
-      elseConditionIndexList: [],
+			elseConditionIndexList: [],
+			currentScriptFlags: [],
       error: '',
     }
   },
@@ -174,7 +175,8 @@ export default {
     },
     saveScript(){
       console.log("Script Overwritten!");
-      this.validScriptList();
+			this.validScriptList();
+			console.log("secret...");
       this.$parent.convergeScriptList(this.selectedScriptList);
       this.$forceUpdate();
     },
@@ -196,11 +198,11 @@ export default {
       let elseIfConditionList = [];
 
       let error = "";
-      let enclosedList = []; let startIf = [];
+			let enclosedList = []; let startIf = [];
+			this.checkScriptFlags(this.selectedScriptList);
 
-      this.selectedScriptList.forEach(function(script, index){
+			this.selectedScriptList.forEach(function(script, index){
         if(script.ifCondition) { ifConditionList.push(index); startIf.push(index)}
-
         if(script.elseCondition) elseConditionList.push(index);
         if(script.elseIfCondition) elseIfConditionList.push(index);
 
@@ -256,7 +258,32 @@ export default {
         }
       });
       return pop;
-    },
+		},
+
+		checkScriptFlags(list){
+			console.log("----------------------------------");
+			console.log("----------------------------------");
+			console.log("LIST", list);
+			let flagList = [];
+			if(list) list.forEach(function(script){
+				console.log("script", script);
+				if(script.conditionList){
+					script.conditionList.forEach(function(condition){
+						if(condition.isScriptList){
+							flagList = [...flagList, ...condition.isScriptList];
+						}
+					});
+				}
+				if(script.eventName == "toggleScriptList"){
+					console.log("SHOUD HAPPEN!!");
+					console.log("SHOUD HAPPEN!!");
+					console.log("SHOUD HAPPEN!!");
+					console.log("SHOUD HAPPEN!!");
+					flagList.push(name);
+				}
+			});
+			console.log("SCRIPT FLAGS", flagList);
+		},
 
     syncCondition(){
 
