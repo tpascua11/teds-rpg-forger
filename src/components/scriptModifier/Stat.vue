@@ -16,21 +16,20 @@
           @create="createFlag($event)">
         </v-select>
       </div>
-    </div>
+		</div>
     <div class="row closer2">
       <div class="col col-6">
         <button
           class="btn-secondary btn-small btn-block"
-          :disabled="true"
+          :disabled="false"
         >
-          <section class="smalltin"> Modifier </section>
+          <section class="smalltin"> Value </section>
         </button>
-
       </div>
       <div class="col col-6">
         <input style="width: 100%" class="" type="string" v-model="value.number" placeholder="..."> 
       </div>
-    </div>
+		</div>
   </section>
 </template>
 
@@ -40,7 +39,20 @@ export default {
   data: function(){
     return {
       template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.world.statMap),
+			flagList: Object.keys(this.$root.world.statMap),
+			t2: {
+				value: 0,
+				statMin: 10,
+				statDivideInfluence: 1,
+				multiplier: 1,
+				minValue: 0,
+				maxValue: 20,
+				/*
+					let totalValue = value + ( (stat - statMin) / statDivideInfluence ) * multiplier;
+					if(totalValue < minValue) Heal = minValue;
+					if(totalValue > maxValue) Heal = maxValue;
+				 */
+			},
     }
   },
   props: ['value'],
@@ -109,8 +121,14 @@ export default {
     top: 0px;
     margin-top: -40px;
     /*margin-bottom: 10px;*/
-  }
+	}
 
+  .mox{
+    position:relative;
+    top: 0px;
+    margin-top: -20px;
+    /*margin-bottom: 10px;*/
+  }
   .closer2{
     position:relative;
     top: 0px;
@@ -118,7 +136,22 @@ export default {
     /*margin-bottom: 10px;*/
   }
 
+  .closer3{
+    position:relative;
+    top: 0px;
+    margin-top: 0px;
+    /*margin-bottom: 10px;*/
+  }
 
+	.time-fit{
+		width: 100%;
+		height: 30px;
+	}
+
+	.supersmall{
+		font-size: 13px;
+		font-color: green;
+	}
 
 
 

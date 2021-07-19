@@ -9,8 +9,11 @@
           <section class="default-title-sm2"> Actions </section>
         </div>
         <div class="row">
-          <button v-on:click="newDescription()" class="btn-success-outline btn-small btn-block smallfit"> Description </button>
+          <button v-on:click="newDescription()" class="btn-success-outline
+            btn-small btn-block smallfit"> Description Z </button>
           <button v-on:click="newStat()" class="btn-success-outline btn-small btn-block smallfit"> Stat </button>
+          <button v-on:click="newStatWithInfluence()" class="btn-success-outline
+            btn-small btn-block smallfit"> Stat Influence</button>
           <button v-on:click="newItem()" class="btn-success-outline btn-small btn-block smallfit"> Item </button>
           <button v-on:click="newTime()" class="btn-success-outline btn-small btn-block smallfit"> Time </button>
           <button v-on:click="newMove()" class="btn-success-outline btn-small btn-block smallfit"> Move </button>
@@ -81,7 +84,7 @@
       <button v-on:click="deselect()" class="btn-danger-outline btn-small btn-block ">  Back </button>
     </div>
     <br><br>
-      <!-- Script Imports Additions -->
+    <!-- Script Imports Additions -->
     <section>
       <Description v-model="value"/>
       <ToggleWorldFlag v-model="value"/>
@@ -91,6 +94,7 @@
 
       <ModifierItem v-model="value"/>
       <ModifierStat v-model="value"/>
+      <ModifierStatWithInfluence v-model="value"/>
       <Time v-model="value"/>
       <MoveToArea v-model="value"/>
       <ChoiceList v-model="value"/>
@@ -116,6 +120,7 @@ import MoveIndex from '@/components/scriptModifier/MoveIndex.vue'
 import MoveToArea from '@/components/scriptModifier/MoveToArea.vue'
 import ModifierItem from '@/components/scriptModifier/Item.vue'
 import ModifierStat from '@/components/scriptModifier/Stat.vue'
+import ModifierStatWithInfluence from '@/components/scriptModifier/StatWithInfluence.vue'
 import Time from '@/components/scriptModifier/Time.vue'
 
 import ChoiceList from '@/components/scriptModifier/Choice.vue'
@@ -148,6 +153,7 @@ export default {
     MoveToArea,
     ModifierItem,
     ModifierStat,
+    ModifierStatWithInfluence,
     Time,
     ChoiceList,
 
@@ -192,6 +198,15 @@ export default {
     },
     newStat(){
       let template = {eventName: "statModifier",  name: '', number: 0};
+      this.$parent.addToScriptList(template);
+    },
+    newStatWithInfluence(){
+      let template = {
+        eventName: "statModifierWithInfluence",
+        stat: '', influence_stat: 0,
+        default_value: 0, min_stat: 10, stat_per_influence: 1, multiplier: 1,
+        min_total: 0, max_total: 100,
+      };
       this.$parent.addToScriptList(template);
     },
     newTime(){
