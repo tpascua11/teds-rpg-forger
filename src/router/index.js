@@ -5,33 +5,10 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  /*
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  */
-  {
-    path: '',
-    name: 'Area',
-    component: () => import ('../views/Area.vue'),
-    prop: {
-      world: Object
-    }
-  },
   {
     path: '/betterArea',
     name: 'Area',
     component: () => import ('../views/Area.vue'),
-    prop: {
-      world: Object
-    }
-  },
-  {
-    path: '/area',
-    name: 'AreaBuilder',
-    component: () => import ('../views/AreaBuilder.vue'),
     prop: {
       world: Object
     }

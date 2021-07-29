@@ -31,8 +31,8 @@ Priority NO FOCUS CLEAN UI
 [T] Area On Visit or Time Event
 [T] Area Events
 
-[ ] Random Chance If Condition
-  ( ) Modifier Based On Stats
+[T] Random Chance If Condition
+  (T)) Modifier Based On Stats
 
 Can Do Later
   [ ]Improved The Coding of script list builder script types.

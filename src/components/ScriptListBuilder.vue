@@ -4,8 +4,8 @@
       {{error}}
     </div>
     <div class="row">
-      <div class="col-8 col">
-        <table class="table" style="width: 100%; table-layout: fixed;">
+      <div class="col-8 col tablescroll">
+				<table class="table" style="width: 100%; table-layout: fixed; overflow: scroll;">
           <thead>
             <tr>
               <th style="width: 5%;"> ID </th>
@@ -13,9 +13,9 @@
               <th scope="col" colspan="2" style="width: 15%;"> Edit </th>
             </tr>
           </thead>
-
           <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove" @end="saveScript">
-            <tr v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
+						<tr v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]"
+						>
 
               <td v-on:click="targetIndex(index);" v-bind:style="[ atIndex == index ? targeted : {}]">
                 {{index}}
@@ -41,10 +41,10 @@
             <td colspan=3 v-on:click="targetIndex(-1)" v-bind:style="[ atIndex == -1 ? targeted : {}]" style="height: 25px;" >
               <hr>
             </td>
-          </tr>
+					</tr>
         </table>
       </div>
-      <div class="col-4 col script-match-height">
+      <div class="col-4 col script-match-height tablescroll">
         <section v-if="false">
         <Script
           v-bind:method="{addToScriptList, hardModifyScript}"
@@ -385,7 +385,12 @@ export default {
 }
 
 .basedHeight{
-  height:77vh;
+	height:77vh;
+}
+
+.tablescroll{
+	max-height: 650px;
+	overflow: scroll;
 }
 
 .bitright{

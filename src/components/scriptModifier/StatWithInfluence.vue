@@ -8,11 +8,12 @@
         Stat With Influence
       </div>
     </div>
+
     <div class="row closer">
-      <div class="col col-4">
-       Set_Stat
-      </div>
-      <div class="col col-8">
+      <div class="col col-12"> Modifier Stat </div>
+    </div>
+    <div class="row closer">
+      <div class="col col-12">
         <v-select
           v-model="value.stat" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
@@ -21,10 +22,10 @@
       </div>
     </div>
     <div class="row closer">
-      <div class="col col-4">
-        Influence
-      </div>
-      <div class="col col-8">
+      <div class="col col-12"> Influence By </div>
+    </div>
+    <div class="row closer">
+      <div class="col col-12">
         <v-select
           v-model="value.influence_stat" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
@@ -39,7 +40,9 @@
 		</div>
 		<div class="row closer2">
       <div class="col col-10">
-				<div class="row mox"> Default           <input class="time-fit" type="number" v-model="value.default_value" 			placeholder="default value..."> <br> </div>
+        <div class="row mox"> Default
+          <input class="time-fit" type="number" v-model="value.default_value" 			placeholder="default value..."> <br> 
+          </div>
 				<div class="row mox"> Min Stat 		  		<input class="time-fit" type="number" v-model="value.min_stat"           	placeholder="min stat.."> <br> </div>
 				<div class="row mox"> Stat Per Increase <input class="time-fit" type="number" v-model="value.stat_per_influence" 	placeholder="per influence"> <br> </div>
 				<div class="row mox"> Multiplier    		<input class="time-fit" type="number" v-model="value.multiplier" 					placeholder="multiplier"> <br> </div>

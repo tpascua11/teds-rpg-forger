@@ -56,6 +56,9 @@
         <button v-on:click="showModal('FlagStat')" class="btn-danger-outline btn-small btn-block smallfit">
           Stat Flags
         </button>
+        <button v-on:click="showModal('FlagChanceOnStat')" class="btn-danger-outline btn-small btn-block smallfit">
+          Chance Stat Flags
+        </button>
         <button v-on:click="showModal('ItemFlag')" class="btn-danger-outline btn-small btn-block smallfit">
           Item Flags
         </button>
@@ -103,6 +106,7 @@
       <AreaFlag v-model="value"/>
       <ScriptFlag v-model="value"/>
       <FlagStat v-model="value"/>
+      <FlagChanceOnStat v-model="value"/>
       <ItemFlag v-model="value"/>
       <TimeFlag v-model="value"/>
     </section>
@@ -131,6 +135,8 @@ import ScriptFlag  from '@/components/scriptCondition/ScriptFlag.vue'
 import ItemFlag    from '@/components/scriptCondition/ItemFlag.vue'
 import FlagStat    from '@/components/scriptCondition/FlagStat.vue'
 import TimeFlag    from '@/components/scriptCondition/TimeFlag.vue'
+
+import FlagChanceOnStat from '@/components/scriptCondition/FlagChanceOnStat.vue'
 
 export default {
   name: 'AreaList',
@@ -161,6 +167,7 @@ export default {
     AreaFlag,
     ScriptFlag,
     FlagStat,
+    FlagChanceOnStat,
     ItemFlag,
     TimeFlag,
   },
