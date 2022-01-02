@@ -3,14 +3,12 @@
   <section>
     <div v-if="false" class="row"> {{value}} </div>
     <!-- Script: Menu 1 -->
-    <div class="row default-thin-border" v-if="value.empty">
-      <div class="col col-6 debugblue">
-        <div class="row">
-          <section class="default-title-sm2 input-type-name"> Actions </section>
-        </div>
+    <div class="row" v-if="value.empty">
+      <div class="row">
+      <div class="col col-6 ">
         <div class="row">
           <button v-on:click="newDescription()" class="btn-success-outline
-            btn-small btn-block smallfit"> Description Z </button>
+            btn-small btn-block smallfit"> Description </button>
           <button v-on:click="newStat()" class="btn-success-outline btn-small btn-block smallfit"> Stat </button>
           <button v-on:click="newStatWithInfluence()" class="btn-success-outline
             btn-small btn-block smallfit"> Stat Influence</button>
@@ -24,10 +22,7 @@
           <button v-on:click="newChoiceList()" class="btn-success-outline btn-small btn-block smallfit"> Choice List </button>
         </div>
       </div>
-      <div class="col col-6 debugpink">
-        <div class="row">
-          <section class="default-title-sm2 input-type-name"> Conditions </section>
-        </div>
+      <div class="col col-6 ">
         <div class="row">
           <!--
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Condition</button>
@@ -46,18 +41,15 @@
         </div>
       </div>
     </div>
+    </div>
     <!-- Script: If Condition -->
     <div class="row" v-if="value.ifCondition || value.elseIfCondition">
-      <div class="col col-6 debugpink">
-        <div class="row">
-          <section class="default-title-sm2"> Conditions </section>
-        </div>
-
+      <div class="col col-6">
         <button v-on:click="showModal('FlagStat')" class="btn-danger-outline btn-small btn-block smallfit">
           Stat Flags
         </button>
         <button v-on:click="showModal('FlagChanceOnStat')" class="btn-danger-outline btn-small btn-block smallfit">
-          Chance Stat Flags
+          Chance Flags
         </button>
         <button v-on:click="showModal('ItemFlag')" class="btn-danger-outline btn-small btn-block smallfit">
           Item Flags
@@ -83,10 +75,6 @@
       </div>
     </div>
     <!-- Back -->
-    <div class="row">
-      <button v-on:click="deselect()" class="btn-danger-outline btn-small btn-block ">  Back </button>
-    </div>
-    <br><br>
     <!-- Script Imports Additions -->
     <section>
       <Description v-model="value"/>
@@ -292,7 +280,7 @@ textarea {
 }
 
 .input-type-name{
-  font-size: 20px;
+  font-size: 17px;
 }
 
 </style>

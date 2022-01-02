@@ -1,17 +1,12 @@
 <template>
-  <section v-if="value.eventName == 'addDescription'" class="default-thin-border">
-    <div class="row">
-      <div class="col col-12">
-        <i class="ra ra-book ra-1x"></i>
-        Description
-      </div>
+  <section v-if="value.eventName == 'addDescription'" class="">
+    <div class="row script-select-title">
+      <i class="ra ra-book ra-1x"></i> Description
     </div>
-    <div class="row closer">
-      <div class="col col-12">
-        <textarea class="descriptionTextArea" rows="4" type="string"
-          v-model="value.description" placeholder="...">
-        </textarea>
-      </div>
+    <div class="row">
+      <textarea class="descriptionTextArea" rows="20" type="string"
+        v-model="value.description" placeholder="...">
+      </textarea>
     </div>
   </section>
 </template>
@@ -55,14 +50,15 @@ export default {
 
   .descriptionTextArea{
     font-size: 14px;
+    border-style: none;
+    background-color: #F8F8F8;
   }
-
-.closer{
-  position:relative;
-  top: 0px;
-  margin-top: -40px;
-  /*margin-bottom: 10px;*/
-}
+  .closer{
+    position:relative;
+    top: 0px;
+    margin-top: -40px;
+    /*margin-bottom: 10px;*/
+  }
 
 
 

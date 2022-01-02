@@ -1,21 +1,15 @@
 <template>
-  <section
-    v-if="(value.eventName == 'moveToArea')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
+  <section v-if="(value.eventName == 'moveToArea')" class="">
+    <div class="row  script-select-title">
 				<i class="ra ra-flower ra-1x"></i>
         Move To Area
-      </div>
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           >
         </v-select>
-      </div>
     </div>
   </section>
 </template>

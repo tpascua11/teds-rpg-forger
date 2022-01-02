@@ -1,24 +1,19 @@
 <template>
-  <section
-    v-if="    (value.eventName == 'timePass')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
-        <i class="ra ra-player-lift ra-1x"></i>
-        Stat
-      </div>
+	<section v-if="(value.eventName == 'timePass')" class="">
+    <div class="row script-select-title">
+			<i class="ra ra-player-lift ra-1x"></i> Time
+		</div>
+		<div class="row">
+			<br>
+		</div>
+		<div class="row">
+        <span class="closer"> Minutes <input class="time-fit" type="number" v-model="value.time.minutes" placeholder="Value"> <br> </span>
+        <span class="closer"> Hours   <input class="time-fit" type="number" v-model="value.time.hours"   placeholder="Value"> <br> </span>
+        <span class="closer"> Days    <input class="time-fit" type="number" v-model="value.time.days"    placeholder="Value"> <br> </span>
+        <span class="closer"> Months  <input class="time-fit" type="number" v-model="value.time.months"  placeholder="Value"> <br> </span>
+        <span class="closer"> Years   <input class="time-fit" type="number" v-model="value.time.years"   placeholder="Value"> <br> </span>
     </div>
     <div class="row">
-      <div class="col col-6">
-        <div class="row closer"> Minutes <input class="time-fit" type="number" v-model="value.time.minutes" placeholder="Value"> <br> </div>
-        <div class="row closer"> Hours   <input class="time-fit" type="number" v-model="value.time.hours"   placeholder="Value"> <br> </div>
-        <div class="row closer"> Days    <input class="time-fit" type="number" v-model="value.time.days"    placeholder="Value"> <br> </div>
-        <div class="row closer"> Months  <input class="time-fit" type="number" v-model="value.time.months"  placeholder="Value"> <br> </div>
-        <div class="row closer"> Years   <input class="time-fit" type="number" v-model="value.time.years"   placeholder="Value"> <br> </div>
-
-      </div>
-    </div>
-    <div class="row closer2">
     </div>
   </section>
 </template>

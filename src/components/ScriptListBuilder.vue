@@ -4,7 +4,7 @@
       {{error}}
     </div>
     <div class="row">
-      <div class="col-8 col tablescroll">
+      <div class="col-8 col tablescroll script-match-height-left">
 				<table class="table" style="width: 100%; table-layout: fixed; overflow: scroll;">
           <thead>
             <tr>
@@ -43,16 +43,14 @@
             </td>
 					</tr>
         </table>
-      </div>
-      <div class="col-4 col script-match-height tablescroll">
-        <section v-if="false">
-        <Script
-          v-bind:method="{addToScriptList, hardModifyScript}"
-          v-bind:editedAction="selectedAction"
-        />
-        </section>
-        <ScriptAction v-model="selectedAction" />
-      </div>
+			</div>
+			<div class="col-4 col script-match-height tablescroll default-thin-border script-list-height">
+				<section v-if="false"> <Script v-bind:method="{addToScriptList, hardModifyScript}" v-bind:editedAction="selectedAction" /> </section>
+				<ScriptAction v-model="selectedAction" />
+				<div class="row">
+					<button v-on:click="deselectAction()" class="btn-warning btn-small btn-block action-script-back">  Scripts </button>
+				</div>
+			</div>
     </div>
   </section>
 </template>
@@ -391,6 +389,7 @@ export default {
 .tablescroll{
 	max-height: 650px;
 	overflow: scroll;
+	position: relative;
 }
 
 .bitright{
@@ -404,6 +403,10 @@ export default {
 }
 
 .script-match-height{
+  position:relative;
+  top: 0px;
+}
+.script-match-height-left{
   position:relative;
   top: -20px;
 }
@@ -446,6 +449,16 @@ p {
   font-size: 15px;
 }
 
+.script-list-height {
+	height: 500px;
+	resize: both;
+}
+
+.action-script-back {
+	position: absolute;
+	width: 100px;
+	bottom: 10px;
+}
 
 
 </style>

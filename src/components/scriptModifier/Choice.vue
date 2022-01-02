@@ -1,28 +1,25 @@
 <template>
-  <section v-if="value.eventName == 'choiceList'" class="default-thin-border">
-    <div class="row">
-      <div class="col col-12">
-        <i class="ra ra-book ra-1x"></i>
-        Choice List
-      </div>
+  <section v-if="value.eventName == 'choiceList'" class="">
+    <div class="row script-select-title">
+      <i class="ra ra-book ra-1x"> </i> Choice List
     </div>
-    <div class="row closer">
-      <div class="col col-12">
-        <v-select v-model="value.choiceList"
-          :from="value.choiceList" class=" " placeholder="Add Flag"
-          @create="createChoice($event)">
+    <div class="row">
+      <v-select
+          v-model="value.choiceList"
+          :from="value.choiceList" 
+          class="fire"
+          placeholder="Add Flag"
+          @create="createChoice($event)"
+        >
         </v-select>
-      </div>
     </div>
     <div class="row">
-      <div class="col col-12">
         <p>
           Choice List is a list of Script Names, the user in the game
          will select one of the choices and it will set a Script Flag of
          that name to be true.
           This is to mimic CASE statments
        </p>
-      </div>
     </div>
   </section>
 </template>
@@ -52,6 +49,10 @@ export default {
 </script>
 
 <style scoped>
+p {
+  font-size: 15px;
+  }
+
   textarea {
     box-sizing:border-box;
     height: 100%;
@@ -78,6 +79,8 @@ export default {
   /*margin-bottom: 10px;*/
 }
 
-
+.fire {
+  background: #FFD580;
+}
 
 </style>

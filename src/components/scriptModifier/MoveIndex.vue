@@ -1,13 +1,10 @@
 <template>
-  <section
-    v-if="    (value.eventName == 'moveIndex')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
-        Move Index
-      </div>
+  <section v-if="(value.eventName == 'moveIndex')" class="">
+    <div class="row script-select-title">
+      <i class="ra  ra-broadhead-arrow ra-1x"></i> Description
+      Move Index
     </div>
-    <div class="row closer">
+    <div class="row">
       <div class="col col-12">
         <input style="width: 100%" class="" type="number" v-model="value.index" placeholder="...">
       </div>

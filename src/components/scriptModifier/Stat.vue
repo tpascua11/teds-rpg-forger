@@ -1,23 +1,16 @@
 <template>
-  <section
-    v-if="    (value.eventName == 'statModifier')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
-        <i class="ra ra-player-lift ra-1x"></i>
-        Stat
-      </div>
+  <section v-if="(value.eventName == 'statModifier')">
+    <div class="row script-select-title">
+			<i class="ra ra-player-lift ra-1x"></i> Stat
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-      </div>
 		</div>
-    <div class="row closer2">
+    <div class="row">
       <div class="col col-6">
         <button
           class="btn-secondary btn-small btn-block"

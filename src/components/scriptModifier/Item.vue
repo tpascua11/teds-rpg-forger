@@ -1,23 +1,17 @@
 <template>
-  <section
-    v-if="    (value.eventName == 'itemModifier')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
+  <section v-if="(value.eventName == 'itemModifier')">
+    <div class="row  script-select-title">
         <i class="ra ra-ship-emblem ra-1x"></i>
         Item
-      </div>
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-      </div>
     </div>
-    <div class="row closer2">
+    <div class="row">
       <div class="col col-6">
         <button
           class="btn-secondary btn-small btn-block"
@@ -25,7 +19,6 @@
         >
           <section class="smalltin"> Modifier </section>
         </button>
-
       </div>
       <div class="col col-6">
         <input style="width: 100%" class="" type="string" v-model="value.amount" placeholder="..."> 

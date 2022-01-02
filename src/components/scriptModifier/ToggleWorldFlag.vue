@@ -2,23 +2,19 @@
   <section
     v-if="    (value.eventName == 'toggleWorldFlag')
            || (value.eventName == 'toggleFlag')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
+    class="">
+    <div class="row script-select-title">
 				<i class="ra ra-round-shield ra-1x"></i>
         World Flag
-      </div>
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-      </div>
     </div>
-    <div class="row closer2">
+    <div class="row ">
       <div class="col col-12">
         <button v-on:click="toggleFlag()"
           v-if="value.flag"

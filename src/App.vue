@@ -136,7 +136,11 @@ export default {
 	font-weight: bold;
 	/*text-decoration: underline;*/
 }
-
+.script-action-title{
+	font-size: 18px;
+	font-weight: bold;
+  text-decoration: underline;
+}
 .cool-scroll{
   overflow: scroll;
 }
@@ -162,7 +166,6 @@ export default {
 .default-modal-bottom-height-sm{
   height: 100px;
 }
-
 
 /* Based Stuff*/
 .move25up{
@@ -194,9 +197,14 @@ export default {
   background-color: #dbd1b4;
 }
 
+.default-font{
+  font-family: Neucha;
+}
 
-
-
+.script-select-title{
+	font-family: Neucha;
+	font-size: 23px;
+}
 
 
 </style>

@@ -2,30 +2,26 @@
   <section
     v-if="    (value.eventName == 'toggleScriptFlag')
            || (value.eventName == 'scriptFlag')"
-    class="default-thin-border">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
+    class="">
+    <div class="row script-select-title">
         <i class="ra  ra-spikeball ra-1x"></i>
         Script Flag
-      </div>
     </div>
-    <div class="row closer">
+    <div class="row ">
       <div class="col col-12">
         <input style="width: 100%" class="" type="string" v-model="value.name" placeholder="..."> 
       </div>
     </div>
-    <div class="row closer2">
-      <div class="col col-12">
-        <button v-on:click="toggleFlag()" v-if="value.flag"
-          class="btn-success btn-small btn-block">
-          <section class="smalltin"> True </section>
-        </button>
+    <div class="row ">
+      <button v-on:click="toggleFlag()" v-if="value.flag"
+        class="btn-success btn-small btn-block">
+        <section class="smalltin"> True </section>
+      </button>
 
-        <button v-on:click="toggleFlag()" v-if="!value.flag"
-          class="btn-danger btn-small btn-block">
-          <section class="smalltin"> False </section>
-        </button>
-      </div>
+      <button v-on:click="toggleFlag()" v-if="!value.flag"
+        class="btn-danger btn-small btn-block">
+        <section class="smalltin"> False </section>
+      </button>
     </div>
   </section>
 </template>

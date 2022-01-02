@@ -1,45 +1,33 @@
 <template>
-  <section
-    v-if="    (value.eventName == 'statModifierWithInfluence')"
-    class="default-thin-border ">
-    <div class="row default-title-sm2">
-      <div class="col col-12">
+  <section v-if="(value.eventName == 'statModifierWithInfluence')" class="">
+    <div class="row script-select-title">
         <i class="ra ra-player-lift ra-1x"></i>
         Stat With Influence
-      </div>
     </div>
-
-    <div class="row closer">
-      <div class="col col-12"> Modifier Stat </div>
+    <div class="row">
+				Modifier Stat
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.stat" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-      </div>
     </div>
-    <div class="row closer">
-      <div class="col col-12"> Influence By </div>
+    <div class="row">
+				Influence By
     </div>
-    <div class="row closer">
-      <div class="col col-12">
+    <div class="row">
         <v-select
           v-model="value.influence_stat" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-      </div>
 		</div>
-		<div class="row closer2">
-			<div class="col col-12">
+		<div class="row">
 				<p class="supersmall"> Value + ( (Stat - Minimal Stat) / (Stat Per Increase) ) * Multiplier </p>
-			</div>
 		</div>
-		<div class="row closer2">
-      <div class="col col-10">
+		<div class="row">
         <div class="row mox"> Default
           <input class="time-fit" type="number" v-model="value.default_value" 			placeholder="default value..."> <br> 
           </div>
@@ -48,21 +36,14 @@
 				<div class="row mox"> Multiplier    		<input class="time-fit" type="number" v-model="value.multiplier" 					placeholder="multiplier"> <br> </div>
         <div class="row mox"> Min Total 				<input class="time-fit" type="number" v-model="value.min_total" 					placeholder="min total"> <br> </div>
         <div class="row mox"> Max Total 				<input class="time-fit" type="number" v-model="value.max_total" 					placeholder="max total"> <br> </div>
-			</div>
 		</div>
-    <div class="row closer2">
-      <div class="col col-12 default-title-sm2">
-        Test Result
+    <div class="row">
+        Test Result Stat
+        <div class="row"> <input class="time-fit" type="number" v-model="testStat" placeholder="default value..."> <br> 
       </div>
     </div>
-    <div class="row closer">
-      <div class="col col-12">
-        <div class="row mox"> Stat <input class="time-fit" type="number" v-model="testStat" placeholder="default value..."> <br> 
-        </div>
-      </div>
-    </div>
-    <div class="row closer">
-      <div class="col col-12 supersmall">
+    <div class="row">
+      <div class="supersmall">
         <p> stat: {{testStat - value.min_stat}} = ({{testStat}} - {{value.min_stat}}) </p>
         <p> influnece: {{(testStat - value.min_stat)/value.stat_per_influence}}
           = {{testStat- value.min_stat}} / {{value.stat_per_influence}}
@@ -196,6 +177,11 @@ export default {
 	.supersmall{
 		font-size: 13px;
 		font-color: green;
+	}
+
+	.tablescroll{
+		overflow: scroll;
+		height: 100%;
 	}
 
 
