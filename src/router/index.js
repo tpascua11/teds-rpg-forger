@@ -13,10 +13,11 @@ const routes = [
       world: Object
     }
   },
+
   {
-    path: '/testing',
-    name: 'TestingZone',
-    component: () => import ('../views/TestingZone.vue'),
+    path: '/stat',
+    name: 'Stat',
+    component: () => import ('../views/Stat.vue'),
     prop: {
       world: Object
     }

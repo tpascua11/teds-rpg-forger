@@ -16,6 +16,7 @@
         <router-link to="/betterArea"  class="routerFont" > Area </router-link> |
 				<router-link to="/item"  class="routerFont" > Items </router-link> |
 				<router-link to="/world" class="routerFont" > World </router-link> |
+				<router-link to="/stat" class="routerFont" > Stats </router-link> |
 
 				<router-link to="/common" class="routerFont" > Common</router-link> |
 				<router-link to="/global" class="routerFont" > Global </router-link> |

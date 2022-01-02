@@ -6,7 +6,7 @@
     <div class="row default-thin-border" v-if="value.empty">
       <div class="col col-6 debugblue">
         <div class="row">
-          <section class="default-title-sm2"> Actions </section>
+          <section class="default-title-sm2 input-type-name"> Actions </section>
         </div>
         <div class="row">
           <button v-on:click="newDescription()" class="btn-success-outline
@@ -26,7 +26,7 @@
       </div>
       <div class="col col-6 debugpink">
         <div class="row">
-          <section class="default-title-sm2"> Conditions </section>
+          <section class="default-title-sm2 input-type-name"> Conditions </section>
         </div>
         <div class="row">
           <!--
@@ -289,6 +289,10 @@ textarea {
   left: -10%;
   position: relative;
   padding:0.1em;
+}
+
+.input-type-name{
+  font-size: 20px;
 }
 
 </style>

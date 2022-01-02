@@ -34,15 +34,19 @@ Priority NO FOCUS CLEAN UI
 [T] Random Chance If Condition
   (T)) Modifier Based On Stats
 
-Can Do Later
-  [ ]Improved The Coding of script list builder script types.
+[ ] Clean World State Button
+[ ] Template World Button
 
-RPG SYSTEM
-  [ ] Stat View
+RPG SYSTEM (1 week)
+  [ ] Change it to Combat Actions
+  [ ] Stat View Modal
+  [ ] Current Stat Modifier (target stat.current)
+  [ ] Max Stat Modifier (target stat.max)
   [ ] Basic Combat View
 
+Simple RPG game using your own editor...
 
-// Mobile App
+// Mobile App (1 week)
 See List Of Area
 Able to Travel Between Them
 See Area Descriptions
