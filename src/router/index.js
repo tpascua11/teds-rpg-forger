@@ -51,6 +51,16 @@ const routes = [
   },
 
   {
+    path: '/testing',
+    name: 'Global',
+    component: () => import ('../views/TestingZone.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+
+  {
     path: '/common',
     name: 'Common',
     component: () => import ('../views/CommonEvent.vue'),

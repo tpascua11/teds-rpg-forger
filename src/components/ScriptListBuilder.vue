@@ -1,7 +1,39 @@
 <template>
-  <section class="basedHeight">
+	<div>
+		<div v-if="true" class="basedHeight">
+			<div class="pure-u-16-24 default-thin-border">
+				<div class="border-down" style="height: 25px;">
+					<div class="pure-u-1-24 right"> </div>
+					<div class="pure-u-1-24 this-title"> {{name}} </div>
+				</div>
+				<div class="script-row" v-if="error" style="font-size: 20px; background-color: pink;">
+					{{error}}
+				</div>
+				<div style="height: 80vh; ;overflow:auto;">
+
+					<draggable v-model="selectedScriptList" tag="div" :move="checkMove" @end="saveScript">
+						<div class="script-row" v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
+								<div class="pure-u-1-24 script-row-index center"> {{index}}: </div>
+								<div class="pure-u-23-24" v-bind:style=[indexPush(index)]>
+									<div class="script-row-text" v-on:click="selectAction(item)">{{item}}</div>
+								</div>
+						</div>
+					</draggable>
+				</div>
+			</div>
+			<div class="pure-u-1-24">
+			</div>
+			<div class="pure-u-6-24">
+				<br>
+				<ScriptAction v-model="selectedAction" />
+				<div class="row">
+					<button v-on:click="deselectAction()" class="btn-warning btn-small btn-block action-script-back">  Scripts </button>
+				</div>
+			</div>
+		</div>
+  <section v-if="false" class="basedHeight">
     <div class="row">
-      {{error}}
+			{{error}}
     </div>
     <div class="row">
       <div class="col-8 col tablescroll script-match-height-left">
@@ -52,7 +84,8 @@
 				</div>
 			</div>
     </div>
-  </section>
+	</section>
+	</div>
 </template>
 
 <script>
@@ -84,12 +117,13 @@ export default {
         lastName: 'Andersen',
         age: 27
       },
-      selectedScriptList: [],
+			selectedScriptList: [1,2,3],
+			testList: [{name: 'red'}, {name: 'blue'}, {name: 'gold'}],
       ifConditionIndexList : [],
       endConditionIndexList: [],
 			elseConditionIndexList: [],
 			currentScriptFlags: [],
-      error: '',
+			error: '',
     }
   },
   components: {
@@ -102,7 +136,8 @@ export default {
     name: String,
     currentInteraction: Object,
     method: Object,
-    scriptList: Array,
+		scriptList: Array,
+		properties: Object,
   },
   watch: {
     scriptList: function(newv, oldv){
@@ -459,6 +494,41 @@ p {
 	width: 100px;
 	bottom: 10px;
 }
+
+.this-title{
+  font-size: 25px;
+	font-weight: bold;
+}
+
+.border-down{
+	border-bottom-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+
+.script-row{
+	font-size: 13px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	min-height: 18px;
+}
+.script-row-text{
+	position: relative;
+	top: 3px;
+}
+.script-row-index{
+	position: relative;
+	top: 3px;
+  font-weight: bold;
+}
+.script-row:hover{
+	background-color: #ededed;
+	cursor: grab;
+}
+
 
 
 </style>

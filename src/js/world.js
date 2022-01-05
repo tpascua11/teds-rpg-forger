@@ -1,6 +1,6 @@
 export class World {
   constructor() {
-		this.name = "cool";
+    this.name = "cool";
 		this.areaList = [{"name":"Home","description":"","connectedAreaList":[],"interactionList":[{"name":"Wolf!","scriptList":[{"eventName":"addDescription","description":"Bark!"},{"eventName":"restore","stat":"health","number":"20"},{"eventName":"addDescription","description":"The Wolf Licks Your Face!"}],"tags":[],"conditionList":[]}]}];
 		this.areaMap = {
 			'area1': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
@@ -14,11 +14,18 @@ export class World {
 		this.conditionList =  ['debug1', 'debug2'];
 		this.flagList =  ['test', 'fire', 'cool'];
 
-		this.flagMap =  {'debug1': true, 'debug2': false, 'debug3': true};
+    this.flagMap =  {'debug1': true, 'debug2': false, 'debug3': true};
+
+    this.itemList = [
+			{name: 'Gold'   , description: "currency", carry_limit: 9001, scriptList:[]},
+      {name: 'Silver' , description: "currency", carry_limit: 9001, scriptList:[]},
+    ];
 		this.itemMap = {
-			'Gold'  : {description: "currency", limit: 9001, scriptList:[]},
-			'Silver': {description: "currency", limit: 9001, scriptList:[]},
-		};
+			'Gold'    : {name: 'Gold'   ,description: "currency", limit: 9001, scriptList:[]},
+      'Silver'  : {name: 'Silver' ,description: "currency", limit: 9001, scriptList:[]},
+    };
+
+
 		this.startingItemList = [{name: 'Gold', total: 10}, {name: 'Silver', total: 20}];
 
 		this.complexConditionList = [{}];

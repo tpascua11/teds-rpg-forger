@@ -3,44 +3,44 @@
   <section>
     <div v-if="false" class="row"> {{value}} </div>
     <!-- Script: Menu 1 -->
-    <div class="row" v-if="value.empty">
-      <div class="row">
-      <div class="col col-6 ">
-        <div class="row">
-          <button v-on:click="newDescription()" class="btn-success-outline
-            btn-small btn-block smallfit"> Description </button>
-          <button v-on:click="newStat()" class="btn-success-outline btn-small btn-block smallfit"> Stat </button>
-          <button v-on:click="newStatWithInfluence()" class="btn-success-outline
-            btn-small btn-block smallfit"> Stat Influence</button>
-          <button v-on:click="newItem()" class="btn-success-outline btn-small btn-block smallfit"> Item </button>
-          <button v-on:click="newTime()" class="btn-success-outline btn-small btn-block smallfit"> Time </button>
-          <button v-on:click="newMove()" class="btn-success-outline btn-small btn-block smallfit"> Move </button>
-          <button v-on:click="toggleWorldFlag()" class="btn-success-outline btn-small btn-block smallfit"> Toggle Flag </button>
-          <button v-on:click="toggleAreaFlag()" class="btn-success-outline btn-small btn-block smallfit">  Area Flag </button>
-          <button v-on:click="toggleScriptFlag()" class="btn-success-outline btn-small btn-block smallfit"> Script Flag </button>
-          <button v-on:click="newMoveIndex()" class="btn-success-outline btn-small btn-block smallfit"> Set Index At </button>
-          <button v-on:click="newChoiceList()" class="btn-success-outline btn-small btn-block smallfit"> Choice List </button>
-        </div>
+    <div v-if="value.empty">
+
+      <div v-if="false" class="pure-u-1-1 border-down" style="height: 20px;">
+        <div class="center this-title"> Actions </div>
       </div>
-      <div class="col col-6 ">
-        <div class="row">
-          <!--
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Condition</button>
-          <button v-on:click="simpleScriptFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Script Flag </button>
-          <button v-on:click="simpleAreaFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Area Flag</button>
-          <button v-on:click="simpleFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If World Flag</button>
-          <button v-on:click="showModal('flagStat')" class="btn-danger-outline btn-small btn-block smallfit">  If Stat </button>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Item </button>
-          <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Time </button>
-          <section class="default-title-sm2"> Tools </section>
-          -->
-          <button v-on:click="addIf()" class="btn-danger-outline btn-small btn-block smallfit">  IF      </button>
-          <button v-on:click="addElse()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE    </button>
-          <button v-on:click="addElseIf()" class="btn-danger-outline btn-small btn-block smallfit">  ELSE IF </button>
-          <button v-on:click="addEnd()" class="btn-danger-outline btn-small btn-block smallfit">  END     </button>
+
+      <div>
+        <br>
+        <div class="pure-u-1-2">
+            <button class="action-button" v-on:click="newDescription()"       > Description </button>
+            <button class="action-button" v-on:click="newStat()"              > Stat </button>
+            <button class="action-button" v-on:click="newStatWithInfluence()" > Stat Influence</button>
+            <button class="action-button" v-on:click="newItem()"              > Item </button>
+            <button class="action-button" v-on:click="newTime()"              > Time </button>
+            <button class="action-button" v-on:click="newMove()"              > Move </button>
+            <button class="action-button" v-on:click="toggleWorldFlag()"      > Toggle Flag </button>
+            <button class="action-button" v-on:click="toggleAreaFlag()"       >  Area Flag </button>
+            <button class="action-button" v-on:click="toggleScriptFlag()"     > Script Flag </button>
+            <button class="action-button" v-on:click="newMoveIndex()"         > Set Index At </button>
+            <button class="action-button" v-on:click="newChoiceList()"        > Choice List </button>
         </div>
-      </div>
-    </div>
+        <div class="pure-u-1-2">
+            <!--
+            <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Condition</button>
+            <button v-on:click="simpleScriptFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Script Flag </button>
+            <button v-on:click="simpleAreaFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If Area Flag</button>
+            <button v-on:click="simpleFlag()" class="btn-danger-outline btn-small btn-block smallfit">  If World Flag</button>
+            <button v-on:click="showModal('flagStat')" class="btn-danger-outline btn-small btn-block smallfit">  If Stat </button>
+            <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Item </button>
+            <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Time </button>
+            <section class="default-title-sm2"> Tools </section>
+            -->
+            <button class="action-button" v-on:click="addIf()"      >  IF      </button>
+            <button class="action-button" v-on:click="addElse()"    >  ELSE    </button>
+            <button class="action-button" v-on:click="addElseIf()"  >  ELSE IF </button>
+            <button class="action-button" v-on:click="addEnd()"     >  END     </button>
+          </div>
+        </div>
     </div>
     <!-- Script: If Condition -->
     <div class="row" v-if="value.ifCondition || value.elseIfCondition">
@@ -282,5 +282,25 @@ textarea {
 .input-type-name{
   font-size: 17px;
 }
+
+.action-button{
+  width: 100%;
+}
+
+
+.this-title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.border-down{
+	border-bottom-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+
 
 </style>

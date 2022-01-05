@@ -1,37 +1,29 @@
 <template>
-  <div class="areaList card" style="width: 10rem; height: 650px">
-    <div class="card-body">
-      {{name}}
-      <br>
-      <br>
+  <div class="container default-thin-border">
+    <div class="border-down" style="height: 25px;">
+			<div class="pure-u-1-24 right"> </div>
+      <div class="pure-u-23-24 this-title">{{name}}</div>
+    </div>
 
-      <div style="overflow: scroll; height: 500px;">
-        <table>
-          <!--
-          <thead>
-            <tr style="height: 10px;">
-              <th> <h5>{{name}}</h5> </th>
-            </tr>
-          </thead>
-          -->
-          <tbody>
-            <tr v-for="(value, name) in itemMap" :key="name">
-              <div v-bind:style="[ name == selectedName ? styleObject : {}]">
-                <td
-                  v-on:click="method.selectItem(value, name)"
-                  v-bind:class="classObject"
-                 >
-                   {{name}}
-                </td>
-              </div>
-            </tr>
-          </tbody>
-        </table>
+    <div id="item-list" class="cool-scroll" style="height: 300px;">
+      <div v-for="(value, name, index) in itemMap" :key="name"
+           class="border-down row clickable"
+           v-bind:style="[ name == selectedName ? styleObject : {}]"
+           v-on:click="method.selectItem(value, name)"
+         >
+          <div v-if="false"> {{index}} </div>
+          <div class="text-position" v-bind:class="classObject">
+            {{name}}
+          </div>
       </div>
-      <button v-on:click="method.addNewItem()" class="btn-success-outline btn-small btn-block">
+    </div>
+
+    <div class="border-down">
+      <button v-on:click="method.addNewItem(); scrollToEnd();" class="pure-button full-width">
         Add Item
       </button>
     </div>
+
   </div>
 </template>
 
@@ -44,9 +36,10 @@ export default {
       isActive: true,
       error: null,
       styleObject: {
-        'text-decoration': 'underline',
+        //'text-decoration': 'underline',
         'font-weight': 'bold',
-        //color: 'red',
+        //'color': 'red',
+        'background-color': 'pink',
         //fontSize: '13px'
       }
     }
@@ -71,10 +64,15 @@ export default {
       return this.selectedItem == area;
     },
     addNewItem: function(){
-      //this.itemMap['template'] = {};
-      //this.selectedItem = {};
+      this.itemMap['template'] = {};
+      this.selectedItem = {};
+
       this.$forceUpdate();
-    }
+    },
+    scrollToEnd: function() {
+      var container = this.$el.querySelector("#item-list");
+      container.scrollTop = container.scrollHeight;
+    },
   },
   computed: {
     classObject: function () {
@@ -94,5 +92,39 @@ export default {
 </script>
 
 <style scoped>
+.border-up{
+  /*border-top-style: solid;*/
+  border-right-style: solid;
+  border-left-style: solid;
+}
+.border-down{
+  border-bottom-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+.row{
+  height: 20px;
+  font-size: 15px;
+  position:relative;
+  text-align: left;
+  overflow: hidden;
+}
+.row:hover{
+  background-color: #99cfe0;
+}
+.text-position{
+  font-size: 17px;
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+.this-title{
+  font-size: 25px;
+  font-weight: bold;
+}
 
 </style>

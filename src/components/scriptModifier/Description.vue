@@ -1,13 +1,13 @@
 <template>
   <section v-if="value.eventName == 'addDescription'" class="">
-    <div class="row script-select-title">
+    <div class="pure-u-3-3">
       <i class="ra ra-book ra-1x"></i> Description
     </div>
-    <div class="row">
+    <div class="pure-u-3-3">
       <textarea class="descriptionTextArea" rows="20" type="string"
         v-model="value.description" placeholder="...">
       </textarea>
-    </div>
+     </div>
   </section>
 </template>
 

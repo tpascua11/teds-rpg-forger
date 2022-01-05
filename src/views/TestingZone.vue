@@ -1,6 +1,6 @@
 <template>
   <div class="TestingZone">
-    <div class="row">
+    <div v-if="false" class="row">
       <div class="col-2 col"> --- </div>
       <div class="col-2 col"> --- </div>
       <div class="col-6 col">

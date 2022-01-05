@@ -1,37 +1,24 @@
 <template>
-  <div id="app">
-    <nav class="border fixed split-nav">
-      <div class="nav-brand">
-				<h5>
-				<button class="btn-default btn-small  btn-warning top-bar-height"
-					v-on:click="saveToLocalStorage">
-
-					Drago Book Maker
-				</button>
-				</h5>
-
-      </div>
-			<div class="nav-brand">
-				<i class="ra ra-burning-book ra-1x"></i>
-        <router-link to="/betterArea"  class="routerFont" > Area </router-link> |
-				<router-link to="/item"  class="routerFont" > Items </router-link> |
-				<router-link to="/world" class="routerFont" > World </router-link> |
-				<router-link to="/stat" class="routerFont" > Stats </router-link> |
-
-				<router-link to="/common" class="routerFont" > Common</router-link> |
-				<router-link to="/global" class="routerFont" > Global </router-link> |
-
-
-				<router-link to="/testing" class="routerFont" > Testing Zone </router-link> |
-				<!--
-        <router-link to="/"      class="routerFont" > Status Effects </router-link> |
-				<router-link to="/"      class="routerFont" > Items     </router-link> |
-				-->
-      </div>
-    </nav>
-    <div id="nav">
-    </div>
-    <router-view :world="world"/>
+	<div id="app">
+		<div>
+			<nav class="default-thin-border fixed bolded">
+				<div>
+					|
+					<i class="ra ra-burning-book ra-1x"> </i> Dracoforge
+					|
+					<router-link to="/betterArea"  	class="routerFont" > Area  	 </router-link> |
+					<router-link to="/item"  				class="routerFont" > Items 	 </router-link> |
+					<router-link to="/world" 				class="routerFont" > World 	 </router-link> |
+					<router-link to="/stat" 				class="routerFont" > Stats 	 </router-link> |
+					<router-link to="/common" 			class="routerFont" > Common  </router-link> |
+					<router-link to="/global" 			class="routerFont" > Global  </router-link> |
+					<router-link to="/testing" 			class="routerFont" > Testing </router-link> |
+				</div>
+			</nav>
+			<div id="nav">
+			</div>
+			<router-view :world="world"/>
+		</div>
   </div>
 </template>
 
@@ -79,10 +66,13 @@ export default {
 
 <style>
 
-@import './css/paper.min.css';
+@font-face {
+  font-family: "Neucha";
+	src: local("Neucha"),  url(./css/Neucha-Regular.ttf) format("truetype");
+}
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Neucha, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 	/* text-align: center; */
@@ -123,6 +113,14 @@ export default {
 
 .default-thin-border{
 	border: 1px solid black;
+}
+
+.double-border{
+	border: 2px solid black;
+}
+
+.no-border{
+	border: 5px;
 }
 
 .default-title-sm1{
@@ -198,13 +196,53 @@ export default {
 }
 
 .default-font{
-  font-family: Neucha;
+  font-family: 'Neucha';
 }
 
 .script-select-title{
-	font-family: Neucha;
+	font-family: 'Neucha';
 	font-size: 23px;
 }
 
+.button{
+	font-family: 'Neucha';
+}
+
+.fixed{
+	position: fixed;
+	z-index: 4;
+	background-color:white;
+	width: 100%;
+}
+
+.center{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+
+.bolded{
+  font-weight: bold;
+}
+
+.full-width{
+	width: 100%;
+}
+
+.quater-width{
+	width: 25%;
+}
+.width-33{
+	width: 25%;
+}
+.half-width{
+	width: 25%;
+}
+
+.clickable{
+	cursor: pointer;
+}
 
 </style>
