@@ -120,7 +120,13 @@ export default {
 }
 
 .no-border{
-	border: 5px;
+	border-style: hidden;
+	overflow: visible;
+}
+
+.borderless-gray{
+	border-style: hidden;
+	z-index: 10;
 }
 
 .default-title-sm1{

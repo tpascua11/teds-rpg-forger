@@ -1,20 +1,21 @@
 <template>
   <div class="container default-thin-border">
-    <div class="border-down" style="height: 25px;">
+    <div class="border-down" style="height: 23px;">
 			<div class="pure-u-1-24 right"> </div>
       <div class="pure-u-23-24 this-title">{{name}}</div>
     </div>
 
     <div id="item-list" class="cool-scroll" style="height: 300px;">
-      <div v-for="(value, name, index) in itemMap" :key="name"
+      <div v-for="(value, index) in list" :key="index"
            class="border-down row clickable"
-           v-bind:style="[ name == selectedName ? styleObject : {}]"
-           v-on:click="method.selectItem(value, name)"
+           v-bind:style="[ value == selectedItem ? styleObject : {}]"
+           v-on:click="method.selectItem(value)"
          >
-          <div v-if="false"> {{index}} </div>
-          <div class="text-position" v-bind:class="classObject">
-            {{name}}
-          </div>
+           <div class="pure-u-2-24 index-position"> {{index}}.  </div>
+           <div class="pure-u-1-24 text-position "> </div>
+           <div class="pure-u-21-24 text-position" v-bind:class="classObject">
+             {{value.name}}
+           </div>
       </div>
     </div>
 
@@ -29,7 +30,7 @@
 
 <script>
 export default {
-  name: 'AreaList',
+  name: 'ITEM List',
   data: function(){
     return {
       itemMap: this.$root.world.itemMap,
@@ -46,13 +47,12 @@ export default {
   },
   props: {
     name: String,
-    areaList: Array,
+    list: Array,
     selectedItem: Object,
-    method: Object,
     selectedName: String,
+    method: Object,
   },
   mounted(){
-			console.log("SEE THE AreaList", this.areaList);
   },
   methods:{
     selectNewArea(newArea){
@@ -122,8 +122,16 @@ export default {
   left: 3px;
 }
 
+.index-position{
+  font-size: 14px;
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+
 .this-title{
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
 }
 

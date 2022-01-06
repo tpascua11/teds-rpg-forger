@@ -3,7 +3,8 @@
     <div class="pure-u-1-24" > </div>
     <div class="pure-u-3-24" style="right: 10">
       <ItemList
-        v-bind:name="'Item List'"
+        v-bind:name="'Item_List'"
+        v-bind:list="world.itemList"
         v-bind:selectedItem="selectedItem"
         v-bind:selectedName="selectedName"
         v-bind:method="{addNewItem, selectItem}"
@@ -15,6 +16,7 @@
         <ScriptListBuilder
             v-bind:scriptList="selectedItem.scriptList"
             v-bind:name="selectedName"
+            v-bind:script="selectedItem"
           />
             <button v-if="false" v-on:click="convergeToItemList()" class="btn-success btn-small btn-block">
               Converge
@@ -161,6 +163,7 @@ export default {
         description: "",
         scriptList: []
       };
+      this.world.itemList.push(this.selectedItem);
       console.log("see item", this.selectedItem);
       this.name = "";
       this.nameLock = false;
@@ -168,14 +171,8 @@ export default {
       //this.itemMap['template'] = {};
       //console.log("----?", this.rworld);
     },
-    selectItem: function(item, name){
-      console.log("what is item", item);
-      this.selectedName = name;
-      this.name = name;
-      this.nameLock = true;
-
-      this.selectedItem = {};
-      Object.assign(this.selectedItem, item);
+    selectItem: function(item){
+      this.selectedItem = item;
     },
     convergeToItemList(){
       console.log("SELCETED ITEM", this.selectedItem);

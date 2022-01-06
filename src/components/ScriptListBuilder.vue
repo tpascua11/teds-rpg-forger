@@ -2,9 +2,38 @@
 	<div>
 		<div v-if="true" class="basedHeight">
 			<div class="pure-u-16-24 default-thin-border">
+				<!--
 				<div class="border-down" style="height: 25px;">
 					<div class="pure-u-1-24 right"> </div>
-					<div class="pure-u-1-24 this-title"> {{name}} </div>
+					<div class="pure-u-23-24 this-title">
+						<input class="borderless-gray" v-model="script.name" type="text" style="box-sizing:border-box; line-height: 25px; overflow: visible; z-index: -5">
+					</div>
+				</div>
+				-->
+				<div class="border-down" style="height: 20px; overflow: hidden; ">
+					<!--
+					<div class="pure-u-4-24 right" style="position:relative; top:0px; font-weight:900; font-size: 20px;">
+						Item/
+					</div>
+					<div class="pure-u-20-24">
+						<input class="borderless-gray" placeholder="name..." v-model="script.name" type="text" style="font-weight: 900; font-size: 20px; height: 20px; width: 100%">
+					</div>
+					-->
+					<span>
+						<input class="borderless-gray" placeholder="name..." v-model="script.name" type="text" style="font-weight: 900; font-size: 20px; height: 20px; width: 100%">
+					</span>
+				</div>
+				<div class="script-row" style="font-size: 15px;">
+					<div class="pure-u-1-24 script-row-index center"> </div>
+					<div class="pure-u-23-24">
+							Type: Item
+					</div>
+				</div>
+				<div class="script-row" style="font-size: 15px;">
+					<div class="pure-u-1-24 script-row-index center"> </div>
+					<div class="pure-u-23-24">
+						Description: 'test fire of hearth'
+					</div>
 				</div>
 				<div class="script-row" v-if="error" style="font-size: 20px; background-color: pink;">
 					{{error}}
@@ -133,7 +162,8 @@ export default {
     ScriptAction,
   },
   props: {
-    name: String,
+		name: String,
+		script: Object,
     currentInteraction: Object,
     method: Object,
 		scriptList: Array,
@@ -496,11 +526,17 @@ p {
 }
 
 .this-title{
-  font-size: 25px;
-	font-weight: bold;
+  font-size: 12px;
+	font-weight: 900;
+	text-color: gray;
+	line-height: 1.6;
+
+	position:relative;
+	top:5px;
 }
 
 .border-down{
+	border-color: black;
 	border-bottom-style: solid;
   /*
   border-right-style: solid;
@@ -528,6 +564,16 @@ p {
 	background-color: #ededed;
 	cursor: grab;
 }
+.no-border{
+	border-style: hidden;
+	overflow: visible;
+}
+
+input:focus {
+	outline: none;
+	background: #e5e4e2;
+}
+
 
 
 
