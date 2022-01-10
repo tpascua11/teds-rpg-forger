@@ -3,34 +3,42 @@
     v-if="    (value.eventName == 'toggleAreaFlag')
            || (value.eventName == 'areaFlag')"
     class="">
-    <div class="row  script-select-title">
+    <div class="script-select-title">
 				<i class="ra ra-flower ra-1x"></i>
         Area Flag
     </div>
-    <div class="row ">
+    <br>
+    <div class="">
+      Area Flag List
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
     </div>
-    <div class="row ">
+    <br>
+    <div class="">
       <div class="col col-12">
         <button v-on:click="toggleFlag()"
           v-if="value.flag"
-          class="btn-success btn-small btn-block"
+          class="pure-button full-width button-green"
         >
           <section class="smalltin"> True </section>
         </button>
 
         <button v-on:click="toggleFlag()"
           v-if="!value.flag"
-          class="btn-danger btn-small btn-block"
+          class="pure-button full-width button-red"
         >
           <section class="smalltin"> False </section>
         </button>
       </div>
     </div>
+    <br>
+    <p>
+      Area Flags Is flag specific to the area.
+      It will only affect the selected area flag.
+    </p>
   </section>
 </template>
 
@@ -110,8 +118,7 @@ export default {
   }
 
   .smalltin{
-    position:relative;
-    font-weight: bold;
+    text-align: left;
   }
 
   .closer{
@@ -126,6 +133,15 @@ export default {
     top: 0px;
     margin-top: -50px;
     /*margin-bottom: 10px;*/
+  }
+
+
+  .button-green{
+    background-color: lightgreen;
+  }
+
+  .button-red {
+    background-color: pink;
   }
 
 

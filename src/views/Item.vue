@@ -1,131 +1,93 @@
 <template>
   <div class="container container-lg">
     <div class="pure-u-1-24" > </div>
+
     <div class="pure-u-3-24" style="right: 10">
       <ItemList
-        v-bind:name="'Item_List'"
+        v-bind:name="'Item List'"
         v-bind:list="world.itemList"
         v-bind:selectedItem="selectedItem"
         v-bind:selectedName="selectedName"
         v-bind:method="{addNewItem, selectItem}"
       />
     </div>
-    <div class="pure-u-1-24" > </div>
 
-    <div v-if="true" class="pure-u-18-24">
+    <div class="pure-u-1-24" >
+    </div>
+
+    <div class="pure-u-12-24" v-if="selectedIndex < 0">
+      <h3> Select or Add New Item... </h3>
+    </div>
+    <div class="pure-u-12-24" v-if="selectedIndex >= 0">
+      <div class="dt-border">
+        <div class="">
+          <div class="pure-u-1-24" >
+            <i class="ra  ra-barrier  ra-2x"
+               style="position: relative; top: 5px; left: 5px;"></i> 
+          </div>
+          <div class="pure-u-23-24"
+            style="height: 50px; position:relative; top: 5px;
+            positon: relative; left: 12px;">
+            <div>
+              <div class="" style="height: 25px; overflow: hidden; ">
+                <!-- <input v-model="name" placeholder="edit me"> -->
+                <input
+                  class="borderless-gray" placeholder="name..."
+                  v-model="selectedItem.name"
+                  type="text" style="font-weight: 900; font-size: 25px; height:
+                  25px; width: 95%; text-decoration: underline; ">
+              </div>
+            </div>
+            <div class="pure-u-20-24" style="font-weight: 900;">
+              Type: Item
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="" v-if="true">
         <ScriptListBuilder
-            v-bind:scriptList="selectedItem.scriptList"
-            v-bind:name="selectedName"
-            v-bind:script="selectedItem"
-          />
-            <button v-if="false" v-on:click="convergeToItemList()" class="btn-success btn-small btn-block">
-              Converge
-            </button>
-    </div>
-
-    <div v-if="false" class="pure-u-18-24 default-thin-border">
-      <div>
-        <div class="pure-u-1-24"> </div>
-        <div class="pure-u-9-24">
-          <div class="form-group">
-            <label for="paperInputs1"> Name: </label>
-            <input class="" v-model="name" type="text"
-              placeholder="name of item..." id="paperInputs1"
-              style="width: 80%;"
-              :disabled="nameLock"
-            >
-          </div>
-        </div>
-        <div class="pure-u-5-24">
-          <label for="paperInputs1"> Carry Limit</label>
-          <input
-            v-model="selectedItem.limit" type="number" placeholder="Limit" id="paperInputs1"
-            style="width: 50%;"
-          >
-        </div>
-
-        <div class="pure-u-8-24" style=" ">
-          <button class=".button-success pure-button save-button default-thin-border" 
-                  style="width: 100%" v-on:click="convergeToItemList()">
-            Save Changes
-          </button>
-        </div>
-      </div>
-      <div>
-        <br>
+          v-bind:scriptList="selectedItem.scriptList"
+          v-bind:name="selectedName"
+          v-bind:script="selectedItem"
+          v-bind:selectedAction="selectedAction"
+        />
       </div>
     </div>
 
-
-    <div class="row" v-if="false">
-      <div class="pure-u-1-24" > </div>
-      <div class="pure-u-22-24"> </div>
-      <div class="pure-u-1-3"> </div>
-      <div class="col-9 col paper">
-        <div class="row">
-          <div class="col sm-5">
-            <div class="form-group">
-              <label for="paperInputs1"> Name </label>
-              <input class="input-block" v-model="name" type="text"
-                placeholder="name of item..." id="paperInputs1"
-                :disabled="nameLock">
-            </div>
-          </div>
-
-          <div class="col sm-3">
-            <div class="form-group">
-              <label for="paperInputs1"> Limit </label>
-              <input
-                class="input-block"
-                v-model="selectedItem.limit" type="number" placeholder="Limit" id="paperInputs1">
-            </div>
-          </div>
-
-          <div class="col sm-4">
-            <div class="form-group">
-            <label for="paperInputs1"> ---  </label>
-            <button v-on:click="convergeToItemList()" class="btn-success btn-small btn-block">
-              Converge
-            </button>
-          </div>
-          </div>
-        </div>
-
-        <div class="row description-row">
-          <div class="col sm-12">
-            <div class="form-group">
-              <label for="large-input">Description</label>
-              <textarea v-model="selectedItem.description" id="large-input"
-                placeholder="describe item usage"></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="row description-row">
-          <div class="col sm-12">
-          </div>
-        </div>
-
-        <div class="row script-row">
-            <ScriptListBuilder v-bind:scriptList="selectedItem.scriptList"/>
-        </div>
-
+    <div class="pure-u-1-24"></div>
+    <div class="pure-u-5-24 dt-border" v-if="selectedIndex >= 0">
+      <section class="margin1">
+      <div class="">
+        <ScriptAction v-model="selectedAction" v-bind:index="selectedIndex"/> 
       </div>
-
+      <div v-if="!selectedAction.empty">
+        <div class="pure-u-3-5">
+          <button class="button-warning pure-button full-width"
+            v-on:click="deselectAction()"       > Back </button>
+        </div>
+        <div class="pure-u-2-5">
+          <button class="button-error pure-button full-width"
+              v-on:click="removeAction()"       > Remove </button>
+        </div>
+      </div>
+      </section>
     </div>
   </div>
-</template>
+  </template>
 
 <script>
 
 import ItemList from '@/components/list/ItemList.vue'
 import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
+import ScriptAction from '@/components/ScriptAction.vue'
 
 export default {
   name: 'Items',
   data: function() {
     return {
       name: "",
+      selectedAction: {empty: true},
+      selectedIndex: -1,
       selectedInteraction: {},
       selectedItem: {scriptList: []},
       selectedName: "",
@@ -135,6 +97,7 @@ export default {
   components: {
     ItemList,
     ScriptListBuilder,
+    ScriptAction,
   },
   props: {
     world: Object,
@@ -167,12 +130,16 @@ export default {
       console.log("see item", this.selectedItem);
       this.name = "";
       this.nameLock = false;
+      this.selectedIndex = 0;
+      this.selectedAction = {empty:true};
 
       //this.itemMap['template'] = {};
       //console.log("----?", this.rworld);
     },
     selectItem: function(item){
       this.selectedItem = item;
+      this.selectedIndex = 0;
+      this.selectedAction = {empty:true};
     },
     convergeToItemList(){
       console.log("SELCETED ITEM", this.selectedItem);
@@ -184,7 +151,10 @@ export default {
       this.$forceUpdate();
     },
     addToScriptList(script){
+      console.log('add new script', script);
       this.selectedItem.scriptList.push(script);
+      console.log("the selected script list",
+        this.selectedItem.scriptList.length);
     },
     convergeScriptList(scriptList){
       this.refreshList(scriptList);
@@ -196,6 +166,14 @@ export default {
       scriptList.forEach(function(script){
         delete script.isMoved;
       });
+    },
+    deselectAction(){
+      //console.log("ACTION DESELECTED!");
+      this.selectedAction = {empty:true};
+    },
+    removeAction(){
+      this.selectedItem.scriptList.splice(this.selectedIndex, 1);
+      this.selectedAction = {empty:true};
     }
   },
   mounted(){
@@ -255,11 +233,28 @@ p{
   width: 190vh;
 }
 
-.save-button {
-  padding:0.3em;
-  height: 25px;
-  background-color: palegreen;
-  border: 1px solid black;
+input:focus {
+  outline: none;
+  background: #e5e4e2;
 }
+
+.border-down{
+	border-color: black;
+	border-bottom-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+
+.button-error {
+	background-color: #E9967A;
+}
+
+.button-warning {
+  background-color: #f2f28d;
+}
+
 
 </style>

@@ -1,28 +1,30 @@
 <template>
   <section v-if="(value.eventName == 'statModifier')">
-    <div class="row script-select-title">
+    <div class="script-select-title border-down">
 			<i class="ra ra-player-lift ra-1x"></i> Stat
-    </div>
-    <div class="row">
-        <v-select
-          v-model="value.name" :from="flagList"
-          class="adaptable-width" placeholder="Add Flag"
-          @create="createFlag($event)">
-        </v-select>
 		</div>
-    <div class="row">
-      <div class="col col-6">
-        <button
-          class="btn-secondary btn-small btn-block"
-          :disabled="false"
-        >
-          <section class="smalltin"> Value </section>
-        </button>
-      </div>
-      <div class="col col-6">
-        <input style="width: 100%" class="" type="string" v-model="value.number" placeholder="..."> 
-      </div>
+		<br>
+		<div class="pure-u-3-3">
+			Stat List
+			<v-select
+				v-model="value.name" :from="flagList"
+				class="adaptable-width" placeholder="Add Flag"
+				@create="createFlag($event)">
+			</v-select>
 		</div>
+    <br>
+    <div class="pure-u-3-3">
+			Modifier
+			<input style="width: 96%" class="" type="string" v-model="value.number" placeholder="..."> 
+		</div>
+		<div class="pure-u-3-3">
+			<br>
+			<div v-if="value.amount > 0"> Add {{value.amount}} {{value.name}}</div>
+			<div v-if="value.amount < 0"> Remove {{value.amount}} {{value.name}}</div>
+		</div>
+		<p>
+			Increase or Decrease a selected amount of a stat.
+		</p>
   </section>
 </template>
 

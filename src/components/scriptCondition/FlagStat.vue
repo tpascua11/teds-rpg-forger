@@ -7,23 +7,46 @@
       :styles="'border: 2px solid black'"
       :scrollable="true"
     >
-    <section class="modal-total-height">
-      <div class="row this-title">
+    <section class="modal-total-height margin1">
+      <div class="this-title">
         Stat Condition
-      </div>
-      <section class="modal-body-height">
+			</div>
+			<div v-for="(item1, index) in value.conditionList" :key="index">
+				<div v-if="false"> {{index}} {{item1}}</div>
+				<section class="dt-border">
+					<div class="pure-u-2-24 list-title">
+						<div v-if="index > 0"> OR </div>
+					</div>
+					<div class="pure-u-2-24 list-title">
+						List {{index}}
+					</div>
+					<div class="pure-u-3-24">
+						<button v-on:click="additionalAnd(index)"
+							class="pure-button">
+							And
+						</button>
+					</div>
+					<div class="pure-u-1-24"></div>
+					<div class="pure-u-15-24">
+						<section class="" v-for="(item2, index2) in item1.hasStat" :key="index2">
+							{{index2}} {{item2}}
+						</section>
+					</div>
+				</section>
+			</div>
+      <section v-if="false" class="modal-body-height">
         <section class="default-thin-border" v-for="(item1, index) in value.conditionList" :key="index">
-          <div class="row">
-            <div class="list-title col col-4">
+					<div>
+            <div class="list-title pure-u-1-5">
               List {{index}}
             </div>
-            <div class="col col-5 smallc">
+            <div class="pure-u-2-5 smallc">
               <button v-on:click="additionalAnd(index)"
                 class="btn-secondary btn-small smallt btn-block">
                 <section class="smalltin"> And...</section>
               </button>
             </div>
-            <div class="col col-3 smallc">
+            <div class="pure-u-2-5 smallc">
               <button v-on:click="cutConfirm(value.conditionList, index)"
                 class="btn-danger btn-small smallt btn-block">
                 <section class="smalltin"> X </section>
@@ -67,9 +90,8 @@
         <section style="height: 100px"> </section>
       </section>
 
-      <div class="row">
-        <button v-on:click="additionalOr()" class="btn--outline
-          btn-success btn-small smallx btn-block">
+      <div class="">
+        <button v-on:click="additionalOr()" class="pure-button full-width">
           <section class="smallxtext"> Or... </section>
         </button>
       </div>
@@ -154,7 +176,9 @@ export default {
 }
 .list-title{
   font-size: 18px;
-  font-weight: bold;
+	font-weight: bold;
+	position:relative;
+  top: 7px;
 }
 .smallxtext{
   font-size: 16px;

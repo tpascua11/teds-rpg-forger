@@ -1,65 +1,29 @@
 <template>
 	<div>
-		<div v-if="true" class="basedHeight">
-			<div class="pure-u-16-24 default-thin-border">
-				<!--
-				<div class="border-down" style="height: 25px;">
-					<div class="pure-u-1-24 right"> </div>
-					<div class="pure-u-23-24 this-title">
-						<input class="borderless-gray" v-model="script.name" type="text" style="box-sizing:border-box; line-height: 25px; overflow: visible; z-index: -5">
-					</div>
-				</div>
-				-->
-				<div class="border-down" style="height: 20px; overflow: hidden; ">
-					<!--
-					<div class="pure-u-4-24 right" style="position:relative; top:0px; font-weight:900; font-size: 20px;">
-						Item/
-					</div>
-					<div class="pure-u-20-24">
-						<input class="borderless-gray" placeholder="name..." v-model="script.name" type="text" style="font-weight: 900; font-size: 20px; height: 20px; width: 100%">
-					</div>
-					-->
-					<span>
-						<input class="borderless-gray" placeholder="name..." v-model="script.name" type="text" style="font-weight: 900; font-size: 20px; height: 20px; width: 100%">
-					</span>
-				</div>
-				<div class="script-row" style="font-size: 15px;">
-					<div class="pure-u-1-24 script-row-index center"> </div>
-					<div class="pure-u-23-24">
-							Type: Item
-					</div>
-				</div>
-				<div class="script-row" style="font-size: 15px;">
-					<div class="pure-u-1-24 script-row-index center"> </div>
-					<div class="pure-u-23-24">
-						Description: 'test fire of hearth'
-					</div>
-				</div>
+		<div v-if="true" class="default-thin-border">
+			<div>
 				<div class="script-row" v-if="error" style="font-size: 20px; background-color: pink;">
 					{{error}}
 				</div>
-				<div style="height: 80vh; ;overflow:auto;">
 
+				<div style="height: 75vh; overflow:auto;">
 					<draggable v-model="selectedScriptList" tag="div" :move="checkMove" @end="saveScript">
 						<div class="script-row" v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
-								<div class="pure-u-1-24 script-row-index center"> {{index}}: </div>
-								<div class="pure-u-23-24" v-bind:style=[indexPush(index)]>
-									<div class="script-row-text" v-on:click="selectAction(item)">{{item}}</div>
+							<div class="pure-u-1-24 script-row-index center"> {{index}}: </div>
+							<div class="pure-u-23-24" v-bind:style=[indexPush(index)]>
+								<div class="script-row-text" v-on:click="selectAction(item, index)"
+									v-bind:style="[ selectedAction == item ? selected : {},]">
+									{{item}}
 								</div>
+							</div>
 						</div>
 					</draggable>
 				</div>
 			</div>
-			<div class="pure-u-1-24">
-			</div>
-			<div class="pure-u-6-24">
-				<br>
-				<ScriptAction v-model="selectedAction" />
-				<div class="row">
-					<button v-on:click="deselectAction()" class="btn-warning btn-small btn-block action-script-back">  Scripts </button>
-				</div>
-			</div>
+
 		</div>
+
+
   <section v-if="false" class="basedHeight">
     <div class="row">
 			{{error}}
@@ -126,7 +90,7 @@ import ScriptAction from '@/components/ScriptAction.vue'
 export default {
   name: 'InteractionBuilder',
   data: function(){
-    return {
+		return {
       isActive: true,
       //error: null,
       styleObject: {
@@ -138,7 +102,7 @@ export default {
       targeted: { 'background-color': 'lightblue' },
       action: {},
       selectedActionName: '',
-      selectedAction: {empty: true},
+			//selectedAction: {empty: true},
       targetedAction: {},
       atIndex: -1,
       person: {
@@ -168,6 +132,7 @@ export default {
     method: Object,
 		scriptList: Array,
 		properties: Object,
+		selectedAction: Object,
   },
   watch: {
     scriptList: function(newv, oldv){
@@ -200,12 +165,10 @@ export default {
     targetIndex(index){
       this.atIndex = index;
     },
-    selectAction(script){
-      console.log("SELECTED WTf", script);
-      this.editMode = "EDITED";
-      this.selectedAction = script;
-      console.log("CHECK", this.selectedAction);
-      //console.log("check script", this.selectedAction);
+    selectAction(script, index){
+			console.log("CHECK", script);
+			this.$parent.selectedAction = script;
+			this.$parent.selectedIndex = index;
     },
     convertSelectedAction(script){
       this.selectedAction = script;

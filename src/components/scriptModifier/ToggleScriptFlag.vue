@@ -3,26 +3,41 @@
     v-if="    (value.eventName == 'toggleScriptFlag')
            || (value.eventName == 'scriptFlag')"
     class="">
-    <div class="row script-select-title">
-        <i class="ra  ra-spikeball ra-1x"></i>
-        Script Flag
+    <div class="script-select-title">
+      <i class="ra  ra-spikeball ra-1x"></i>
+      Script Flag
     </div>
-    <div class="row ">
+    <br>
+    <div class="">
+      Set Script Flag
       <div class="col col-12">
-        <input style="width: 100%" class="" type="string" v-model="value.name" placeholder="..."> 
+        <input style="width: 95%" class="" type="string" v-model="value.name" placeholder="..."> 
       </div>
     </div>
-    <div class="row ">
-      <button v-on:click="toggleFlag()" v-if="value.flag"
-        class="btn-success btn-small btn-block">
-        <section class="smalltin"> True </section>
-      </button>
+    <br>
+    <div class="">
+      <div class="col col-12">
+        <button v-on:click="toggleFlag()"
+          v-if="value.flag"
+          class="pure-button full-width button-green"
+        >
+          <section class="smalltin"> True </section>
+        </button>
 
-      <button v-on:click="toggleFlag()" v-if="!value.flag"
-        class="btn-danger btn-small btn-block">
-        <section class="smalltin"> False </section>
-      </button>
+        <button v-on:click="toggleFlag()"
+          v-if="!value.flag"
+          class="pure-button full-width button-red"
+        >
+          <section class="smalltin"> False </section>
+        </button>
+      </div>
     </div>
+    <br>
+    <p>
+      A script flag only exist while the script is running,
+      the flag becomes non-existance when the script ends.
+    </p>
+
   </section>
 </template>
 
@@ -108,8 +123,13 @@ textarea {
   /*margin-bottom: 10px;*/
 }
 
+.button-green{
+  background-color: lightgreen;
+}
 
-
+.button-red {
+  background-color: pink;
+}
 
 
 </style>

@@ -1,12 +1,13 @@
 <template>
-  <section v-if="value.eventName == 'choiceList'" class="">
-    <div class="row script-select-title">
+  <section v-if="value.eventName == 'choiceList'" class="good-height-r ofs">
+    <div class="action-title border-down">
       <i class="ra ra-book ra-1x"> </i> Choice List
     </div>
-    <div class="row">
+    <div>
+      <br>
       <v-select
           v-model="value.choiceList"
-          :from="value.choiceList" 
+          :from="value.choiceList"
           class="fire"
           placeholder="Add Flag"
           @create="createChoice($event)"
@@ -14,13 +15,12 @@
         </v-select>
     </div>
     <div class="row">
-        <p>
-          Choice List is a list of Script Names, the user in the game
-         will select one of the choices and it will set a Script Flag of
-         that name to be true.
-          This is to mimic CASE statments
+      <p>
+        A selection of multiple choices.
+        A game can select a choice and mark that name of a flag true.
+        This is used to mimic case statements.
        </p>
-    </div>
+     </div>
   </section>
 </template>
 

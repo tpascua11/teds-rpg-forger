@@ -79,6 +79,12 @@ export default {
   color: #2c3e50;
 }
 
+p{
+  font-weight: bold;
+	font-size: 13px;
+	font-style: italic;
+}
+
 #nav {
   padding: 20px;
 }
@@ -112,6 +118,9 @@ export default {
 }
 
 .default-thin-border{
+	border: 1px solid black;
+}
+.dt-border{
 	border: 1px solid black;
 }
 
@@ -206,8 +215,11 @@ export default {
 }
 
 .script-select-title{
-	font-family: 'Neucha';
-	font-size: 23px;
+	font-size: 18px;
+	font-weight: bold;
+	border-color: black;
+	border-bottom-style: solid;
+	border-width: thin;
 }
 
 .button{
@@ -219,6 +231,14 @@ export default {
 	z-index: 4;
 	background-color:white;
 	width: 100%;
+}
+
+.good-height{
+	height: 75vh;
+}
+
+.good-height-r{
+	height: 55vh;
 }
 
 .center{
@@ -249,6 +269,38 @@ export default {
 
 .clickable{
 	cursor: pointer;
+}
+
+.ofs{
+	/* over flow scroll */
+	overflow: scroll;
+}
+.border-down{
+	border-color: black;
+	border-bottom-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+.border-top{
+	border-color: black;
+	border-top-style: solid;
+  /*
+  border-right-style: solid;
+  border-left-style: solid;
+   */
+  border-width: 1px;
+}
+
+.action-title{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.margin1{
+	margin: 5px;
 }
 
 </style>

@@ -1,36 +1,41 @@
 <template>
   <div class="container default-thin-border">
-    <div class="border-down" style="height: 23px;">
-			<div class="pure-u-1-24 right"> </div>
-      <div class="pure-u-23-24 this-title">{{name}}</div>
-    </div>
-
-    <div id="item-list" class="cool-scroll" style="height: 300px;">
-      <div v-for="(value, index) in list" :key="index"
-           class="border-down row clickable"
-           v-bind:style="[ value == selectedItem ? styleObject : {}]"
-           v-on:click="method.selectItem(value)"
-         >
-           <div class="pure-u-2-24 index-position"> {{index}}.  </div>
-           <div class="pure-u-1-24 text-position "> </div>
-           <div class="pure-u-21-24 text-position" v-bind:class="classObject">
-             {{value.name}}
-           </div>
+    <section class="margin1">
+      <div class="border-down" style="height: 25px;">
+        <div class="pure-u-1-24 right">
+        </div>
+        <div class="pure-u-23-24 this-title">
+          <i class="ra ra-rune-stone "></i>
+          {{name}}
+        </div>
       </div>
-    </div>
 
-    <div class="border-down">
-      <button v-on:click="method.addNewItem(); scrollToEnd();" class="pure-button full-width">
-        Add Item
-      </button>
-    </div>
+      <div id="item-list" class="cool-scroll" style="height: 300px;">
+        <div v-for="(value, index) in list" :key="index"
+          class="border-down row clickable"
+          v-bind:style="[ value == selectedItem ? styleObject : {}]"
+          v-on:click="method.selectItem(value)"
+        >
+          <div class="pure-u-2-24 index-position"> {{index}}.  </div>
+          <div class="pure-u-1-24 text-position "> </div>
+          <div class="pure-u-21-24 text-position" v-bind:class="classObject">
+            {{value.name}}
+          </div>
+        </div>
+      </div>
 
+      <div class="border-down">
+        <button v-on:click="method.addNewItem(); scrollToEnd();" class="pure-button full-width">
+          Add Item
+        </button>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ITEM List',
+  name: 'ITEM_List',
   data: function(){
     return {
       itemMap: this.$root.world.itemMap,
@@ -81,12 +86,12 @@ export default {
         'text-danger': this.error && this.error.type === 'fatal'
       }
     },
-		rworld: function(){
-			return this.$root.world;
+    rworld: function(){
+      return this.$root.world;
     },
-		ritemMap: function(){
-			return this.$root.world.itemMap;
-		}
+    ritemMap: function(){
+      return this.$root.world.itemMap;
+    }
   }
 }
 </script>

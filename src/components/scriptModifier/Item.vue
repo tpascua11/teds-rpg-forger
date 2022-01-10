@@ -1,29 +1,33 @@
 <template>
   <section v-if="(value.eventName == 'itemModifier')">
-    <div class="row  script-select-title">
+    <div class="script-select-title border-down">
         <i class="ra ra-ship-emblem ra-1x"></i>
         Item
     </div>
-    <div class="row">
+    <br>
+    <div>
+      <div class="pure-u-3-3">
+        Item List
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
-    </div>
-    <div class="row">
-      <div class="col col-6">
-        <button
-          class="btn-secondary btn-small btn-block"
-          :disabled="true"
-        >
-          <section class="smalltin"> Modifier </section>
-        </button>
       </div>
-      <div class="col col-6">
-        <input style="width: 100%" class="" type="string" v-model="value.amount" placeholder="..."> 
+      <br>
+      <div class="pure-u-3-3">
+        Modifier <input class="" style="width: 96%" type="string" v-model="value.amount" placeholder="..."> 
       </div>
+      <div class="pure-u-3-3">
+        <br>
+        <div v-if="value.amount > 0"> Add {{value.amount}} {{value.name}}</div>
+        <div v-if="value.amount < 0"> Remove {{value.amount}} {{value.name}}</div>
+      </div>
+      <p>
+        Add or Subtract a selected amount of selected item.
+      </p>
     </div>
+      <br>
   </section>
 </template>
 

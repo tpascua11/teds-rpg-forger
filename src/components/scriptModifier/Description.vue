@@ -1,13 +1,17 @@
 <template>
-  <section v-if="value.eventName == 'addDescription'" class="">
-    <div class="pure-u-3-3">
-      <i class="ra ra-book ra-1x"></i> Description
-    </div>
-    <div class="pure-u-3-3">
-      <textarea class="descriptionTextArea" rows="20" type="string"
-        v-model="value.description" placeholder="...">
-      </textarea>
-     </div>
+  <section v-if="value.eventName == 'addDescription'" class="good-height-r ofs">
+      <div class="pure-u-3-3 action-title border-down">
+        <i class="ra ra-book ra-1x"></i> Description
+      </div>
+      <div class="pure-u-3-3">
+        <br>
+        <textarea class="descriptionTextArea" rows="15" type="string"
+          v-model="value.description" placeholder="..."
+          style="width:100%;"
+        >
+        </textarea>
+        <p> Writes a log </p>
+      </div>
   </section>
 </template>
 
@@ -58,6 +62,11 @@ export default {
     top: 0px;
     margin-top: -40px;
     /*margin-bottom: 10px;*/
+  }
+
+  .this-title{
+    font-size: 18px;
+    font-weight: bold;
   }
 
 

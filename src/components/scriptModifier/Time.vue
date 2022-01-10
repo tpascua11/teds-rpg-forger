@@ -1,20 +1,32 @@
 <template>
 	<section v-if="(value.eventName == 'timePass')" class="">
-    <div class="row script-select-title">
+    <div class="script-select-title">
 			<i class="ra ra-player-lift ra-1x"></i> Time
 		</div>
 		<div class="row">
 			<br>
 		</div>
-		<div class="row">
-        <span class="closer"> Minutes <input class="time-fit" type="number" v-model="value.time.minutes" placeholder="Value"> <br> </span>
-        <span class="closer"> Hours   <input class="time-fit" type="number" v-model="value.time.hours"   placeholder="Value"> <br> </span>
-        <span class="closer"> Days    <input class="time-fit" type="number" v-model="value.time.days"    placeholder="Value"> <br> </span>
-        <span class="closer"> Months  <input class="time-fit" type="number" v-model="value.time.months"  placeholder="Value"> <br> </span>
-        <span class="closer"> Years   <input class="time-fit" type="number" v-model="value.time.years"   placeholder="Value"> <br> </span>
-    </div>
-    <div class="row">
-    </div>
+		<div class="time-font-5">
+			<div class="pure-u-1-5">
+        <span class=""> Years   <input style="width: 80%" class="" type="number" v-model="value.time.years"   placeholder="Value"> <br> </span>
+			</div>
+			<div class="pure-u-1-5">
+        <span class=""> Months  <input style="width: 80%" class="" type="number" v-model="value.time.months"  placeholder="Value"> <br> </span>
+			</div>
+			<div class="pure-u-1-5">
+        <span class=""> Days    <input style="width: 80%" class="" type="number" v-model="value.time.days"    placeholder="Value"> <br> </span>
+			</div>
+			<div class="pure-u-1-5">
+        <span class=""> Hours   <input style="width: 80%" class="" type="number" v-model="value.time.hours"   placeholder="Value"> <br> </span>
+			</div>
+			<div class="pure-u-1-5">
+				<span class=""> Minutes <input style="width: 80%" class="" type="number" v-model="value.time.minutes" placeholder="Value"> <br> </span>
+			</div>
+		</div>
+		<br>
+		<p>
+			How much time will past in game.
+		</p>
   </section>
 </template>
 
@@ -125,9 +137,7 @@ export default {
   height: 10px;
 }
 .closer{
-  position:relative;
-  top: 0px;
-  margin-top: -20px;
+	width: 5%;
   /*margin-bottom: 10px;*/
 }
 .modal-total-height{
@@ -139,6 +149,25 @@ export default {
 }
 .modal-bottom-height{
   height: 100px;
+}
+
+input{
+	font-size: 15px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.time-font-5{
+	font-size: 13px;
 }
 
 </style>

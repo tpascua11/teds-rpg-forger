@@ -7,30 +7,37 @@
 				<i class="ra ra-round-shield ra-1x"></i>
         World Flag
     </div>
+    <br>
     <div class="row">
+      Flag Lst
         <v-select
           v-model="value.name" :from="flagList"
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
     </div>
-    <div class="row ">
+    <br>
+    <div class="">
       <div class="col col-12">
         <button v-on:click="toggleFlag()"
           v-if="value.flag"
-          class="btn-success btn-small btn-block"
+          class="pure-button full-width button-green"
         >
           <section class="smalltin"> True </section>
         </button>
 
         <button v-on:click="toggleFlag()"
           v-if="!value.flag"
-          class="btn-danger btn-small btn-block"
+          class="pure-button full-width button-red"
         >
           <section class="smalltin"> False </section>
         </button>
       </div>
     </div>
+    <br>
+    <p>
+      A world flag is a global flag. This flag is used from anywhere.
+    </p>
   </section>
 </template>
 
@@ -118,8 +125,12 @@ export default {
     /*margin-bottom: 10px;*/
   }
 
+  .button-green{
+    background-color: lightgreen;
+  }
 
-
-
+  .button-red {
+    background-color: pink;
+  }
 
 </style>

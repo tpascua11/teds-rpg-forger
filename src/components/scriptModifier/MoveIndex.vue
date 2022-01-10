@@ -1,14 +1,17 @@
 <template>
   <section v-if="(value.eventName == 'moveIndex')" class="">
-    <div class="row script-select-title">
-      <i class="ra  ra-broadhead-arrow ra-1x"></i> Description
+    <div class="script-select-title">
+      <i class="ra  ra-broadhead-arrow ra-1x"></i>
       Move Index
     </div>
-    <div class="row">
-      <div class="col col-12">
-        <input style="width: 100%" class="" type="number" v-model="value.index" placeholder="...">
-      </div>
-    </div>
+    <br>
+    Set Index At
+    <input style="width: 96%" class="" type="number" v-model="value.index" placeholder="...">
+    <br>
+    <p>
+      Move back and foward by index position.
+      Best used with if statement conditions.
+    </p>
   </section>
 </template>
 
