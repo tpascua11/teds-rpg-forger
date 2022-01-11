@@ -26,10 +26,36 @@
 							And
 						</button>
 					</div>
-					<div class="pure-u-1-24"></div>
-					<div class="pure-u-15-24">
+					<div class="pure-u-16-24">
 						<section class="" v-for="(item2, index2) in item1.hasStat" :key="index2">
-							{{index2}} {{item2}}
+							<div class="pure-u-8-24">
+                <v-select @input="updateNow" v-model="item2.name" :from="flagList" :no-drop="true" placeholder="Add Flag"> </v-select> 
+							</div>
+
+							<div class="pure-u-5-24" style=" overflow-x: hidden;">
+								<!--
+								<v-select v-model="item2.operator" :from="operatorList" class="" placeholder="Add Flag"> </v-select> 
+								-->
+								<select v-model="item2.operator">
+									<option v-for="option in operatorList" v-bind:value="option" :key="option">
+										{{ option}}
+									</option>
+								</select>
+							</div>
+
+							<div class="pure-u-6-24">
+								<input class="full-width" type="number" v-model="item2.value" placeholder="num..">
+							</div>
+
+							<div class="pure-u-1-24"></div>
+
+							<div class="pure-u-1-24">
+								<!--
+                <button v-on:click="cut(item1.hasStat, index2)" class="">
+										X
+									</button>
+									-->
+							</div>
 						</section>
 					</div>
 				</section>
