@@ -31,7 +31,19 @@ export class World {
 		this.complexConditionList = [{}];
 		this.complexConditionMap  = {};
 
-		this.statMap = {'health': {}, 'mana': {}, 'stamina': {}};
+    this.statMap = {'health': {}, 'mana': {}, 'stamina': {}};
+    this.statList = [
+      {name: 'health'},
+      {name: 'mana'},
+      {name: 'stamina'},
+      {name: 'currency'},
+    ]
+    this.statKeyMap = {
+      0: {name: 'health'},
+      1: {name: 'mana'},
+      2: {name: 'stamina'},
+      3: {name: 'currency'}
+    }
 
 		this.timeSystem = {
 			minutes: 60, hour: 24, daysInMonth: 28, month:['Spring','Summer','Fall','Winter'], year: 1000,
@@ -44,6 +56,39 @@ export class World {
     this.commonEventList = [];
 
     this.selectedArea = {flagMap: []};
+
+    this.group = {
+      stat: {template: {name: '', amount: 0},
+        list: {
+          0: {name: 'health'},
+          1: {name: 'mana'},
+          2: {name: 'stamina'},
+          3: {name: 'currency'}
+        }
+      },
+      item: {template: {name: '', amount: 0, amount_max: 10000, scriptLst: []},
+        list: {
+          0: {name: 'Gold'   , description: "currency", amount_max: 9001, scriptList:[]},
+          1: {name: 'Silver' , description: "currency", amount_max: 9001, scriptList:[]},
+          2: {name: 'Copper' , description: "currency", amount_max: 9001, scriptList:[]},
+          3: {name: 'Spice'  , description: "currency", amount_max: 9001, scriptList:[]},
+        }
+      },
+      area: {template: {name: '', },
+        list: {
+          0: {name: 'DEBUG_ROOM'},
+        }
+      },
+      flag: {template: {name: '', },
+        list: {
+          0: {name: 'Flag Example', state: false},
+        }
+      },
+      complex_condition: {template: {}, list: {}},
+      common_event: {template: {}, list: {}},
+      global_event: {template: {}, list: {}},
+    }
+
   }
 }
 /*

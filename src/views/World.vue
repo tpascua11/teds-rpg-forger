@@ -5,6 +5,8 @@
         <div class="col-md-6">
           <h4> World: {{world.name}} </h4>
         </div>
+        <div>
+        </div>
         <!--
         <div class="col-md-2">-</div>
         <div class="col-md-3">

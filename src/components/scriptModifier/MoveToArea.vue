@@ -1,16 +1,13 @@
 <template>
-  <section v-if="(value.eventName == 'moveToArea')" class="">
+  <section v-if="(value.eventName == 'move_to_area')" class="">
     <div class="row  script-select-title">
-      <i class="ra ra-flower ra-1x"></i>
-      Move To Area
+      <i class="ra ra-flower ra-1x"></i> Move to Area
     </div>
     <br>
     <div>
-      <v-select
-        v-model="value.name" :from="flagList"
-        class="adaptable-width" placeholder="Add Flag"
-      >
-      </v-select>
+      Area List
+      <SelectNameAndID v-model="value" v-bind:list="flagKey"/>
+
     </div>
     <br>
     <p>
@@ -20,13 +17,18 @@
 </template>
 
 <script>
+
 export default {
   name: 'Basic',
   data: function(){
     return {
       template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.world.areaMap),
+      flagList: Object.keys(this.$root.world.group.area.list),
+      flagKey : this.$root.world.group.area.list,
+      //flagList: Object.keys(this.$root.world.areaMap),
     }
+  },
+  components: {
   },
   props: ['value'],
   mounted(){},
@@ -35,6 +37,9 @@ export default {
     toggleFlag(){
       this.value.flag = !this.value.flag;
     },
+		setName(){
+			this.value.name = this.flagKey[this.value.id].name;
+		},
     createFlag(){
     }
   },

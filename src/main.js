@@ -6,11 +6,14 @@ import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VModal from 'vue-js-modal';
 import draggable from 'vuedraggable'
 
-import '@desislavsd/vue-select/dist/vue-select.css';
 import '../node_modules/rpg-awesome/css/rpg-awesome.min.css'
 import '../node_modules/purecss/build/pure-min.css'
 
-import VueSelect from '@desislavsd/vue-select';
+/*import VueSelect from '@desislavsd/vue-select';*/
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
+import SelectNameAndID from '@/components/inputTemplate/selectNameAndID.vue'
 
 Vue.prototype.theWorld = {};
 
@@ -24,22 +27,8 @@ Vue.use(VueBlobJsonCsv);
 Vue.use(VModal);
 Vue.use(draggable);
 
-Vue.use(VueSelect, {
-    /**
-     * The name of the globally available component.
-     * defaults to <v-select>
-     */
-    name: 'vSelect',
-    /**
-     * A Vue mixin that can be used to override
-     * default options and methods of the original
-     * component. Useful to define app specific
-     * standart of the select component.
-     */
-    mixin: {}
-})
-
-
+Vue.component("v-select", vSelect);
+Vue.component("SelectNameAndID", SelectNameAndID);
 
 Vue.config.productionTip = false
 

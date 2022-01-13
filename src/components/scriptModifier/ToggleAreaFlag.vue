@@ -1,7 +1,7 @@
 <template>
   <section
-    v-if="    (value.eventName == 'toggleAreaFlag')
-           || (value.eventName == 'areaFlag')"
+    v-if="    (value.eventName == 'toggle_area_flag')
+           || (value.eventName == 'area_flag')"
     class="">
     <div class="script-select-title">
 				<i class="ra ra-flower ra-1x"></i>
@@ -15,6 +15,17 @@
           class="adaptable-width" placeholder="Add Flag"
           @create="createFlag($event)">
         </v-select>
+
+      <v-select v-model="value.id" :options="flagList" label="id"
+        @input="setName(); createFlag({value})">
+        <template #selected-option="{}">
+          {{flagKey[value.id].name}}
+        </template>
+        <template #option="{id}">
+          {{flagKey[id].name}}
+        </template>
+      </v-select>
+
     </div>
     <br>
     <div class="">
@@ -61,7 +72,7 @@ export default {
     createFlag({value}){
       console.log("test", this.$root.world.flagMap);
       //this.$root.world.flapMap[value] = this.value.flag;
-      this.$root.world.flagMap[value] = false;
+      //this.$root.world.flagMap[value] = false;
       //this.flagList = Object.keys(this.$root.selectedArea.flagMap);
       this.setFlagMap();
       this.value.name = value;

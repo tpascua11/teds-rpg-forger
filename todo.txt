@@ -20,6 +20,8 @@ Priority NO FOCUS CLEAN UI
 
 [X] Area has its own Flags
 
+[ ]
+
 [T] Interaction has the improved conditions
 
 [T] Choice Condition tip: choice('choice 1', 'choice 2', 'choice 3')
@@ -33,6 +35,20 @@ Priority NO FOCUS CLEAN UI
 
 [T] Random Chance If Condition
   (T)) Modifier Based On Stats
+
+
+ 1/10/2021 (Added)
+ -------------------------------------------------------------------------------
+[ ] Remove All Paper CSS. Use Pure CSS
+[ ]
+[ ] All Maps will be converted to List Instead.
+    Easier Development due to just being a list and easily editable.
+    Just use index to get the name easily.
+[ ] v-select replacement. Make sure it works on everything including conditions.
+[ ] Make easier conditions statments
+[ ] new placement of remove and return button of Action Script
+ -------------------------------------------------------------------------------
+
 
 [ ] Clean World State Button
 [ ] Template World Button

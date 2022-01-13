@@ -23,7 +23,9 @@
           <button class="action-button" v-on:click="newTime()"              > Time </button>
           <button class="action-button" v-on:click="newMove()"              > Move </button>
           <button class="action-button" v-on:click="toggleWorldFlag()"      > Toggle Flag </button>
+          <!-- TODO: Fix Area First
           <button class="action-button" v-on:click="toggleAreaFlag()"       >  Area Flag </button>
+          -->
           <button class="action-button" v-on:click="toggleScriptFlag()"     > Script Flag </button>
           <button class="action-button" v-on:click="newMoveIndex()"         > Set Index At </button>
           <button class="action-button" v-on:click="newChoiceList()"        > Choice List </button>
@@ -174,36 +176,36 @@ export default {
     remove(){ this.$parent.removeAction(); },
 
     newDescription(){
-      let template = {eventName: "addDescription"};
+      let template = {eventName: "add_description"};
       this.$parent.addToScriptList(template);
     },
     toggleWorldFlag(){
-      let template = {eventName: "toggleFlag", flag: true, name: ''};
+      let template = {eventName: "toggle_flag", flag: true, name: ''};
       this.$parent.addToScriptList(template);
     },
     toggleAreaFlag(){
-      let template = {eventName: "toggleAreaFlag", flag: true, name: ''};
+      let template = {eventName: "toggle_area_flag", flag: true, name: ''};
       this.$parent.addToScriptList(template);
     },
     toggleScriptFlag(){
-      let template = {eventName: "toggleScriptFlag", flag: true, name: ''};
+      let template = {eventName: "toggle_script_flag", flag: true, name: ''};
       this.$parent.addToScriptList(template);
     },
     newMoveIndex(){
-      let template = {eventName: "moveIndex",  name: ''};
+      let template = {eventName: "set_script_current_index_to",  name: ''};
       this.$parent.addToScriptList(template);
     },
     newItem(){
-      let template = {eventName: "itemModifier",  name: '', amount: 0};
+      let template = {eventName: "item_modifier",  name: '', amount: 0};
       this.$parent.addToScriptList(template);
     },
     newStat(){
-      let template = {eventName: "statModifier",  name: '', number: 0};
+      let template = {eventName: "stat_modifier",  name: '', number: 0};
       this.$parent.addToScriptList(template);
     },
     newStatWithInfluence(){
       let template = {
-        eventName: "statModifierWithInfluence",
+        eventName: "stat_modifier_formula_1",
         stat: '', influence_stat: 0,
         default_value: 0, min_stat: 10, stat_per_influence: 1, multiplier: 1,
         min_total: 0, max_total: 100,
@@ -211,15 +213,15 @@ export default {
       this.$parent.addToScriptList(template);
     },
     newTime(){
-      let template = {eventName: "timePass", time: {years: 0, months: 0, days: 0, hours: 0, minutes: 0 }};
+      let template = {eventName: "time_pass", time: {years: 0, months: 0, days: 0, hours: 0, minutes: 0 }};
       this.$parent.addToScriptList(template);
     },
     newMove(){
-      let template = {eventName: "moveToArea",  name: ''};
+      let template = {eventName: "move_to_area",  name: ''};
       this.$parent.addToScriptList(template);
     },
     newChoiceList(){
-      let template = {eventName: "choiceList",  choiceList: []};
+      let template = {eventName: "choice_list",  choiceList: []};
       this.$parent.addToScriptList(template);
     },
     //-----------------------------------------------------------------

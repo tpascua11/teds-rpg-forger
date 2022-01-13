@@ -1,18 +1,18 @@
 <template>
-  <section v-if="value.eventName == 'choiceList'" class="good-height-r ofs">
+  <section v-if="value.eventName == 'choice_list'" class="good-height-r ofs">
     <div class="action-title border-down">
       <i class="ra ra-book ra-1x"> </i> Choice List
     </div>
     <div>
       <br>
-      <v-select
-          v-model="value.choiceList"
-          :from="value.choiceList"
-          class="fire"
-          placeholder="Add Flag"
-          @create="createChoice($event)"
+        <v-select v-model="value.choiceList"
+          label="id"
+          :taggable="true"
+          :multiple="true"
         >
         </v-select>
+
+
     </div>
     <div class="row">
       <p>
@@ -34,8 +34,9 @@ export default {
   props: ['value'],
   mounted(){},
   methods:{
-    test(){},
+    test(){console.log("new option")},
     createChoice({value}){
+      console.log("CHECK");
       this.value.choiceList.push(value);
     }
   },

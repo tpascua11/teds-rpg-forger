@@ -1,11 +1,12 @@
 <template>
   <div class="container container-lg">
-    <div class="pure-u-1-24" > </div>
+    <div class="pure-u-1-24" >
+    </div>
 
     <div class="pure-u-3-24" style="right: 10">
       <ItemList
-        v-bind:name="'Item List'"
-        v-bind:list="world.itemList"
+        v-bind:name="name + ' List'"
+        v-bind:map="map"
         v-bind:selectedItem="selectedItem"
         v-bind:selectedName="selectedName"
         v-bind:method="{addNewItem, selectItem}"
@@ -30,7 +31,6 @@
             positon: relative; left: 12px;">
             <div>
               <div class="" style="height: 25px; overflow: hidden; ">
-                <!-- <input v-model="name" placeholder="edit me"> -->
                 <input
                   class="borderless-gray" placeholder="name..."
                   v-model="selectedItem.name"
@@ -85,13 +85,16 @@ export default {
   name: 'Items',
   data: function() {
     return {
-      name: "",
+      name: "Item",
+      map: this.$root.world.group.item.list,
+
       selectedAction: {empty: true},
       selectedIndex: -1,
       selectedInteraction: {},
       selectedItem: {scriptList: []},
       selectedName: "",
-      nameLock: true,
+
+
     };
   },
   components: {
@@ -111,14 +114,6 @@ export default {
     }
   },
   methods:{
-    setNewItem: function(){
-      this.selectedItem = {
-        name: '',
-        description: '',
-        limit: 10,
-        scriptList: []
-      };
-    },
     addNewItem: function(){
       this.selectedName = "-----------";
       this.selectedItem = {
@@ -126,29 +121,18 @@ export default {
         description: "",
         scriptList: []
       };
-      this.world.itemList.push(this.selectedItem);
-      console.log("see item", this.selectedItem);
-      this.name = "";
-      this.nameLock = false;
-      this.selectedIndex = 0;
-      this.selectedAction = {empty:true};
 
-      //this.itemMap['template'] = {};
-      //console.log("----?", this.rworld);
+      let index = Object.keys(this.map).length;
+      this.map[index] = this.selectedItem;
+      this.selectedAction = {empty:true};
+      this.selectedIndex = 0;
+
+      console.log("see this", this.map[index]);
     },
     selectItem: function(item){
       this.selectedItem = item;
       this.selectedIndex = 0;
       this.selectedAction = {empty:true};
-    },
-    convergeToItemList(){
-      console.log("SELCETED ITEM", this.selectedItem);
-      if(!this.name) return;
-      this.$root.world.itemMap[this.name] = this.selectedItem;
-      console.log("update", this.$root.world);
-      this.selectedName = this.name;
-
-      this.$forceUpdate();
     },
     addToScriptList(script){
       console.log('add new script', script);
@@ -159,7 +143,6 @@ export default {
     convergeScriptList(scriptList){
       this.refreshList(scriptList);
       this.selectedItem.scriptList = scriptList;
-      this.convergeToItemList();
       return this.selectedItem.scriptList;
     },
     refreshList(scriptList){

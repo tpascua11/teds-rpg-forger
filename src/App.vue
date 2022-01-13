@@ -52,6 +52,7 @@ export default {
 		this.world = JSON.parse(storedWorld);
 		 */
 		this.$root.world = this.world;
+		this.$root.group = this.group;
 
 	},
 	computed:{
@@ -154,6 +155,11 @@ p{
 	font-weight: bold;
   text-decoration: underline;
 }
+.script-remove{
+	font-size: 15px;
+	font-weight: bold;
+	font-color: red;
+}
 .cool-scroll{
   overflow: scroll;
 }
@@ -248,6 +254,9 @@ p{
 .right{
 	text-align: right;
 }
+.left{
+	text-align: left;
+}
 
 .bolded{
   font-weight: bold;
@@ -302,5 +311,12 @@ p{
 .margin1{
 	margin: 5px;
 }
+.margin2{
+	margin: 10px;
+}
+.margin3{
+	margin: 15px;
+}
+
 
 </style>

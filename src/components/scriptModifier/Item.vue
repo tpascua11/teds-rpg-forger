@@ -1,5 +1,5 @@
 <template>
-  <section v-if="(value.eventName == 'itemModifier')">
+  <section v-if="(value.eventName == 'item_modifier')">
     <div class="script-select-title border-down">
         <i class="ra ra-ship-emblem ra-1x"></i>
         Item
@@ -8,10 +8,13 @@
     <div>
       <div class="pure-u-3-3">
         Item List
-        <v-select
-          v-model="value.name" :from="flagList"
-          class="adaptable-width" placeholder="Add Flag"
-          @create="createFlag($event)">
+        <v-select v-model="value.id" :options="flagList" label="id" @input="setName">
+          <template #selected-option="{}">
+            {{flagKey[value.id].name}}
+          </template>
+          <template #option="{id}">
+            {{flagKey[id].name}}
+          </template>
         </v-select>
       </div>
       <br>
@@ -36,8 +39,8 @@ export default {
   name: 'Basic',
   data: function(){
     return {
-      template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.world.itemMap),
+      flagList: Object.keys(this.$root.world.group.item.list),
+      flagKey : this.$root.world.group.item.list,
     }
   },
   props: ['value'],
@@ -47,6 +50,9 @@ export default {
     toggleFlag(){
       this.value.flag = !this.value.flag;
     },
+		setName(){
+			this.value.name = this.flagKey[this.value.id].name;
+		},
     createFlag({value}){
       console.log("test", this.$root.world.itemMap);
       //this.$root.world.flapMap[value] = this.value.flag;

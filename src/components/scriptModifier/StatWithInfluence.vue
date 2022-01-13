@@ -1,5 +1,5 @@
 <template>
-	<section v-if="(value.eventName == 'statModifierWithInfluence')" class="">
+	<section v-if="(value.eventName == 'stat_modifier_formula_1')" class="">
 		<div class="row script-select-title">
 			<i class="ra ra-player-lift ra-1x">
 			</i>
@@ -8,19 +8,26 @@
 		<br>
 		<div class="row">
 			Modifier Stat
-			<v-select
-				v-model="value.stat" :from="flagList"
-				class="adaptable-width" placeholder="Add Flag"
-				@create="createFlag($event)">
+			<v-select v-model="value.modified_stat_id" :options="flagList" label="id" @input="setNameMod">
+				<template #selected-option="{}">
+					{{flagKey[value.modified_stat_id].name}}
+				</template>
+				<template #option="{id}">
+					{{flagKey[id].name}}
+				</template>
 			</v-select>
+
 		</div>
 		<br>
 		<div>
 			Influence By
-			<v-select
-				v-model="value.influence_stat" :from="flagList"
-				class="adaptable-width" placeholder="Add Flag"
-				@create="createFlag($event)">
+			<v-select v-model="value.influence_stat_id" :options="flagList" label="id" @input="setNameInf">
+				<template #selected-option="{}">
+					{{flagKey[value.influence_stat_id].name}}
+				</template>
+				<template #option="{id}">
+					{{flagKey[id].name}}
+				</template>
 			</v-select>
 		</div>
 		<div>
@@ -98,8 +105,11 @@ export default {
 	name: 'Basic',
 	data: function(){
 		return {
+      flagList: Object.keys(this.$root.world.group.stat.list),
+			flagKey : this.$root.world.group.stat.list,
+
 			template: {name: '', flag: true},
-			flagList: Object.keys(this.$root.world.statMap),
+			//flagList: Object.keys(this.$root.world.statMap),
 			testStat: 10,
 			t2: {
 				value: 0,
@@ -122,6 +132,12 @@ export default {
 		test(){},
 		toggleFlag(){
 			this.value.flag = !this.value.flag;
+		},
+		setNameMod(){
+			this.value.modified_stat_name  = this.flagKey[this.value.modified_stat_id].name;
+		},
+		setNameInf(){
+			this.value.influence_stat_name = this.flagKey[this.value.influence_stat_id].name;
 		},
 		createFlag({value}){
 			console.log("test", this.$root.world.statMap);

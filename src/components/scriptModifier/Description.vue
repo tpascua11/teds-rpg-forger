@@ -1,5 +1,5 @@
 <template>
-  <section v-if="value.eventName == 'addDescription'" class="good-height-r ofs">
+  <section v-if="value.eventName == 'add_description'" class="good-height-r ofs">
       <div class="pure-u-3-3 action-title border-down">
         <i class="ra ra-book ra-1x"></i> Description
       </div>

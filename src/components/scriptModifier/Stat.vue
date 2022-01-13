@@ -1,16 +1,14 @@
 <template>
-  <section v-if="(value.eventName == 'statModifier')">
-    <div class="script-select-title border-down">
-			<i class="ra ra-player-lift ra-1x"></i> Stat
+  <section v-if="(value.eventName == 'stat_modifier')">
+		<div class="script-select-title border-down">
+			<div class="pure-u-3-3">
+				<i class="ra ra-player-lift ra-1x"></i> Stat
+			</div>
 		</div>
 		<br>
-		<div class="pure-u-3-3">
+		<div class="pure-u-3-3" style="font-size: 20px;">
 			Stat List
-			<v-select
-				v-model="value.name" :from="flagList"
-				class="adaptable-width" placeholder="Add Flag"
-				@create="createFlag($event)">
-			</v-select>
+      <SelectNameAndID v-model="value" :list="flagKey"/>
 		</div>
     <br>
     <div class="pure-u-3-3">
@@ -32,31 +30,21 @@
 export default {
   name: 'Basic',
   data: function(){
-    return {
-      template: {name: '', flag: true},
-			flagList: Object.keys(this.$root.world.statMap),
-			t2: {
-				value: 0,
-				statMin: 10,
-				statDivideInfluence: 1,
-				multiplier: 1,
-				minValue: 0,
-				maxValue: 20,
-				/*
-					let totalValue = value + ( (stat - statMin) / statDivideInfluence ) * multiplier;
-					if(totalValue < minValue) Heal = minValue;
-					if(totalValue > maxValue) Heal = maxValue;
-				 */
-			},
+		return {
+      flagList: Object.keys(this.$root.world.group.stat.list),
+      flagKey : this.$root.world.group.stat.list,
     }
   },
   props: ['value'],
   mounted(){},
   methods:{
-    test(){},
+    test(){console.log("TEST INPUT EVENT");},
     toggleFlag(){
       this.value.flag = !this.value.flag;
-    },
+		},
+		setName(){
+			this.value.name = this.flagKey[this.value.id].name;
+		},
     createFlag({value}){
       console.log("test", this.$root.world.statMap);
       //this.$root.world.flapMap[value] = this.value.flag;
@@ -75,10 +63,6 @@ export default {
 </script>
 
 <style scoped>
-.v-select {
-  font-size: 13px;
-  width: 100%;
-}
 
   textarea {
     box-sizing:border-box;

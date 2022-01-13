@@ -11,7 +11,7 @@
       </div>
 
       <div id="item-list" class="cool-scroll" style="height: 300px;">
-        <div v-for="(value, index) in list" :key="index"
+        <div v-for="(value, index) in map" :key="index"
           class="border-down row clickable"
           v-bind:style="[ value == selectedItem ? styleObject : {}]"
           v-on:click="method.selectItem(value)"
@@ -52,7 +52,8 @@ export default {
   },
   props: {
     name: String,
-    list: Array,
+    list: Object,
+    map: Object,
     selectedItem: Object,
     selectedName: String,
     method: Object,

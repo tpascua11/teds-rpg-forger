@@ -1,36 +1,43 @@
 <template>
-  <section v-if="(value.eventName == 'set_script_current_index_to')" class="">
-    <div class="script-select-title">
-      <i class="ra  ra-broadhead-arrow ra-1x"></i>
-      Move Index
-    </div>
-    <br>
-    Set Index At
-    <input style="width: 96%" class="" type="number" v-model="value.index" placeholder="...">
-    <br>
-    <p>
-      Move back and foward by index position.
-      Best used with if statement conditions.
-    </p>
-  </section>
+  <div>
+    <v-select v-model="value.id" :options="keyList" label="id" @input="setName">
+      <template #selected-option="{}">
+        {{list[value.id].name}}
+      </template>
+      <template #option="{id}">
+        {{list[id].name}}
+      </template>
+    </v-select>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Basic',
+  name: 'Select_Name_and_ID',
   data: function(){
     return {
+      template: {name: '', flag: true},
     }
   },
-  props: ['value'],
-  mounted(){},
+  props: ['value', 'list'],
+  mounted(){
+  },
   methods:{
     test(){},
     toggleFlag(){
       this.value.flag = !this.value.flag;
     },
+		setName(){
+      //this.value.name = this.list[this.value.id].name;
+		},
+    createFlag(){
+    }
   },
   computed: {
+    keyList: function(){
+      if(!this.list) return [];
+      return Object.keys(this.list);
+    },
     classObject: function () {
       return { active: this.isActive && !this.error, 'text-danger': this.error && this.error.type === 'fatal'}
     }

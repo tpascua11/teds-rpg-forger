@@ -1,7 +1,7 @@
 <template>
   <section
-    v-if="    (value.eventName == 'toggleScriptFlag')
-           || (value.eventName == 'scriptFlag')"
+    v-if="    (value.eventName == 'toggle_script_flag')
+           || (value.eventName == 'script_flag')"
     class="">
     <div class="script-select-title">
       <i class="ra  ra-spikeball ra-1x"></i>

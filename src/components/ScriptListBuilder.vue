@@ -199,12 +199,12 @@ export default {
       //console.log("ACTION DESELECTED!");
       this.selectedAction = {empty:true};
     },
-    saveScript(){
+		saveScript(){
       console.log("Script Overwritten!");
 			this.validScriptList();
 			console.log("secret...");
       this.$parent.convergeScriptList(this.selectedScriptList);
-      this.$forceUpdate();
+			this.$forceUpdate();
     },
     checkMove(/*{draggedContext}*/){
       //if(draggedContext)

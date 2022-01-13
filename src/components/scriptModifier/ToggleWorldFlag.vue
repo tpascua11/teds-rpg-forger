@@ -1,7 +1,7 @@
 <template>
   <section
-    v-if="    (value.eventName == 'toggleWorldFlag')
-           || (value.eventName == 'toggleFlag')"
+    v-if="    (value.eventName == 'toggle_world_flag')
+           || (value.eventName == 'toggle_flag')"
     class="">
     <div class="row script-select-title">
 				<i class="ra ra-round-shield ra-1x"></i>
@@ -10,11 +10,16 @@
     <br>
     <div class="row">
       Flag Lst
-        <v-select
-          v-model="value.name" :from="flagList"
-          class="adaptable-width" placeholder="Add Flag"
-          @create="createFlag($event)">
-        </v-select>
+      <v-select v-model="value.id" :options="flagList" label="id" @input="setName">
+        <template #selected-option="{}">
+          {{flagKey[value.id].name}}
+        </template>
+        <template #option="{id}">
+          {{flagKey[id].name}}
+        </template>
+      </v-select>
+
+
     </div>
     <br>
     <div class="">
@@ -47,7 +52,9 @@ export default {
   data: function(){
     return {
       template: {name: '', flag: true},
-      flagList: Object.keys(this.$root.world.flagMap),
+      //flagList: Object.keys(this.$root.world.flagMap),
+      flagList: Object.keys(this.$root.world.group.flag.list),
+      flagKey : this.$root.world.group.flag.list,
     }
   },
   props: ['value'],
@@ -57,6 +64,9 @@ export default {
     toggleFlag(){
       this.value.flag = !this.value.flag;
     },
+		setName(){
+			this.value.name = this.flagKey[this.value.id].name;
+		},
     createFlag({value}){
       console.log("test", this.$root.world.flagMap);
       //this.$root.world.flapMap[value] = this.value.flag;

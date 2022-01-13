@@ -1,5 +1,5 @@
 <template>
-	<section v-if="(value.eventName == 'timePass')" class="">
+	<section v-if="(value.eventName == 'time_pass')" class="">
     <div class="script-select-title">
 			<i class="ra ra-player-lift ra-1x"></i> Time
 		</div>
