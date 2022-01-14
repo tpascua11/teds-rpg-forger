@@ -266,6 +266,10 @@ p{
 	width: 100%;
 }
 
+.foly-width{
+	width: 80%;
+}
+
 .quater-width{
 	width: 25%;
 }

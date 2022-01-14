@@ -14,6 +14,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
 import SelectNameAndID from '@/components/inputTemplate/selectNameAndID.vue'
+import SelectSpecific  from '@/components/inputTemplate/selectSpecific.vue'
 
 Vue.prototype.theWorld = {};
 
@@ -29,8 +30,30 @@ Vue.use(draggable);
 
 Vue.component("v-select", vSelect);
 Vue.component("SelectNameAndID", SelectNameAndID);
+Vue.component("SelectSpecific", SelectSpecific);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.mixin({
+  methods: {
+    objectListToList: function (list) {
+      let newList = [];
+      console.log("This List", list);
+      if(!list) return;
+
+      Object.keys(list).forEach(function(row){
+        let newRow = {id: row};
+        Object.assign(newRow, list[row]);
+        newList.push(newRow);
+      }, this);
+
+      return newList;
+    },
+    globalHelper: function () {
+      alert("Hello world")
+    },
+  },
+});
 
 new Vue({
   router,

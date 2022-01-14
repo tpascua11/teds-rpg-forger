@@ -9,7 +9,9 @@
     </div>
     <br>
     <div class="row">
-      Flag Lst
+      Flag List
+      <SelectNameAndID v-model="value" :list="flagKey"/>
+      <!--
       <v-select v-model="value.id" :options="flagList" label="id" @input="setName">
         <template #selected-option="{}">
           {{flagKey[value.id].name}}
@@ -18,8 +20,7 @@
           {{flagKey[id].name}}
         </template>
       </v-select>
-
-
+      -->
     </div>
     <br>
     <div class="">

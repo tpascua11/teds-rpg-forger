@@ -52,7 +52,7 @@ const routes = [
 
   {
     path: '/testing',
-    name: 'Global',
+    name: 'Testing',
     component: () => import ('../views/TestingZone.vue'),
     prop: {
       world: Object

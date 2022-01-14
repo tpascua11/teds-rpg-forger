@@ -7,8 +7,108 @@
       :styles="'border: 2px solid black'"
       :scrollable="true"
     >
-    <section class="modal-total-height">
-      <div class="row this-title">
+			<section class="modal-total-height margin3">
+
+				<div class="pure-u-24-24 list-title">
+					Stat Chance Condition
+				</div>
+				<div class="pure-u-24-24">
+					<p> Percentage + ( (Stat - Minimal Stat) / (Stat Per Increase) ) * Multiplier </p>
+				</div>
+
+				<section>
+					<div class="" v-for="(item1, index) in value.conditionList" :key="index">
+						<div style="height: 32px;" class="">
+							<div class="pure-u-7-24 list-title">
+								Case {{index+1}}
+							</div>
+							<div class="pure-u-14-24">
+							</div>
+							<div class="pure-u-3-24 right">
+								<button v-on:click="cutConfirm(value.conditionList, index)"
+									class="pure-button full-width button-white"
+									style="height: 25px;">
+									<div class="b-font"> Clear </div>
+								</button>
+							</div>
+						</div>
+						<section class="" v-for="(item2, index2) in item1.hasChanceStat" :key="index2">
+							<div class="pure-u-7-24">
+								Stat
+									<v-select v-model="item2.id" :options="flagList" label="id" @input="updateNow" :clearable="false">
+										<template #selected-option="{}">
+											<div class="v-font">
+												{{list[item2.id].name}}
+											</div>
+										</template>
+										<template #option="{id}">
+											<div class="v-font">
+												{{list[id].name}}
+											</div>
+										</template>
+									</v-select>
+
+
+							</div>
+							<div class="pure-u-1-24"></div>
+							<div class="pure-u-9-24">
+								<div>
+									<div class="pure-u-8-24"> Start Stat    <input class="foly-width" type="number" v-model="item2.stat_base" 			 		placeholder="default value..."> </div>
+									<div class="pure-u-8-24"> Stat/Inc.     <input class="foly-width" type="number" v-model="item2.stat_per_increase" 	placeholder="default value..."> </div>
+									<div class="pure-u-8-24"> Multiplier    <input class="foly-width" type="number" v-model="item2.multiplier" 				placeholder="default value..."> </div>
+								</div>
+								<br>
+								<div>
+									<div class="pure-u-8-24"> Start %       <input class="foly-width" type="number" v-model="item2.start_percentage" 	placeholder="default value..."> </div>
+									<div class="pure-u-8-24"> Max%          <input class="foly-width" type="number" v-model="item2.max" 							placeholder="default value..."> </div>
+									<div class="pure-u-8-24"> Min %         <input class="foly-width" type="number" v-model="item2.min" 							placeholder="default value..."> </div>
+								</div>
+							</div>
+							<div class="pure-u-1-24"></div>
+							<div class="pure-u-6-24">
+								<div> Test Stat <input class="shorten-input" type="number" v-model="testStat" placeholder="default value..."> </div>
+								<div>
+									<p> Formula </p>
+									<p>
+										{{item2.start_percentage}} + (({{testStat}} - {{item2.stat_base}})/ {{item2.stat_per_increase}}) x {{item2.multiplier}}
+									</p>
+								</div>
+								<div class="col-2">
+									Chance: {{checkChance(item2)}}
+								</div>
+								<!-- -->
+							</div>
+
+						</section>
+
+
+						<section class="">
+							<div class="pure-u-8-24">
+								<button v-on:click="additionalAnd(index)"
+									class="pure-button full-width button-white"
+									:disabled="false"
+									style="height: 30px;">
+									<div class="left b-font-2"> Add </div>
+								</button>
+							</div>
+							<div class="pure-u-11-24"></div>
+						</section>
+
+
+					</div>
+				</section>
+
+				<div class="">
+					<div class="pure-u-6-24">
+						<button v-on:click="additionalOr()" class="pure-button full-width">
+							Or...
+						</button>
+					</div>
+				</div>
+
+
+			<section v-if="false">
+			<div class="row this-title">
         Stat Chance Condition
       </div>
       <div class="row">
@@ -42,7 +142,19 @@
             <div class="closer row">
               <div class="col-1"> </div>
               <div class="col-3">
-                Stat <v-select @input="updateNow" v-model="item2.name" :from="flagList" class="adaptable-width" placeholder="Add Flag"> </v-select>
+								Stat
+									<v-select v-model="item2.id" :options="flagList" label="id" @input="updateNow" :clearable="false">
+										<template #selected-option="{}">
+											<div class="v-font">
+												{{list[item2.id].name}}
+											</div>
+										</template>
+										<template #option="{id}">
+											<div class="v-font">
+												{{list[id].name}}
+											</div>
+										</template>
+									</v-select>
               </div>
               <div class="col-1"> </div>
               <div class="col-2"> Start Stat    <input class="shorten-input" type="number" v-model="item2.stat_base" 			 		placeholder="default value..."> </div>
@@ -87,6 +199,7 @@
           <section class="smallxtext"> Or... </section>
         </button>
       </div>
+		</section>
     </section>
   </modal>
   </section>
@@ -113,8 +226,11 @@ export default {
         }]}
       ],
       template: {operator: ">"},
-      flagList: Object.keys(this.$root.world.statMap),
-      testStat: 10,
+			testStat: 10,
+
+			flagList: Object.keys(this.$root.world.group.stat.list),
+			list: this.$root.world.group.stat.list,
+      keyList : Object.keys(this.$root.world.group.stat.list),
     }
   },
   props: ['value'],
@@ -164,7 +280,13 @@ export default {
       this.$modal.hide('flagStatModal');
     },
     updateNow(){
-    }
+		},
+		checkChance(item2){
+			let result = Number(item2.start_percentage) + (((Number(this.testStat) - Number(item2.stat_base))/item2.stat_per_increase) * item2.multiplier);
+			if(result < item2.min) return (item2.min + "%");
+			if(result > item2.max) return (item2.max+ "%");
+			return (result + "%");
+		}
   },
   computed: {
   }
@@ -191,9 +313,11 @@ export default {
   font-weight: bold;
 }
 .list-title{
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 17px;
+	font-weight: bold;
+	position:relative;
 }
+
 .smallxtext{
   font-size: 16px;
   position:relative;
@@ -238,6 +362,11 @@ export default {
 .shorten-input{
   width: 90%;
   height: 35px;
+}
+
+.button-white{
+	background-color: white;
+	border: 1px;
 }
 
 

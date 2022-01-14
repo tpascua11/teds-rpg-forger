@@ -15,11 +15,16 @@
 			<div v-for="(item1, index) in value.conditionList" :key="index" class="">
 				<section class="">
 					<div style="height: 32px;" class="">
-						<div class="pure-u-7-24 list-title">
+						<div class="pure-u-3-24 list-title">
 							Case {{index+1}}
 						</div>
-						<div class="pure-u-14-24">
+
+						<div class="pure-u-11-24 left">
 						</div>
+
+						<div class="pure-u-7-24">
+						</div>
+
 						<div class="pure-u-3-24 right">
 							<button v-on:click="cutConfirm(value.conditionList, index)"
 								class="pure-button full-width button-white"
@@ -31,13 +36,16 @@
 
 					<div class="">
 						<section class="" v-for="(item2, index2) in item1.hasStat" :key="index2">
+							<div>
 								<div class="pure-u-2-24">
-									<button v-on:click="type(item2)" class="pure-button full-width" style="height: 32px; font-size: 14px;">
+									<button v-on:click="type(item2)" class="pure-button full-width" style="height: 34px; font-size: 14px; width: 95%;">
 										{{item2.type}}
 									</button>
 								</div>
 								<div class="pure-u-10-24">
-									<v-select v-model="item2.id" :options="flagList" label="id" @input="updateNow" :clearable="false">
+									<SelectNameAndID v-model="value.conditionList[index].hasStat[index2]" :list="list"/>
+										<!--
+									<v-select v-model="item2.name" :options="flagList" label="id" @input="updateNow" :clearable="false">
 										<template #selected-option="{}">
 											<div class="v-font">
 												{{list[item2.id].name}}
@@ -49,6 +57,7 @@
 											</div>
 										</template>
 									</v-select>
+										-->
 								</div>
 
 								<div class="pure-u-3-24">
@@ -75,31 +84,30 @@
 								<div class="pure-u-1-24"></div>
 								<div class="pure-u-1-24"></div>
 								<div class="pure-u-3-24">
-									<button v-on:click="cut(item1.hasStat, index2)" class="pure-button full-width" style="height: 30px;">
+									<button v-on:click="cut(item1.hasStat, index2)" class="pure-button full-width" style="height: 34px;">
 										X
 									</button>
 								</div>
-
+							</div>
+							<br v-if="index2 != item1.hasStat.length-1" class="br-thin">
 							</section>
-							<section v-if="true" class="">
+							<section class="">
 								<div class="pure-u-8-24">
 									<button v-on:click="additionalAnd(index)"
 										class="pure-button full-width button-white"
 										style="height: 30px;">
-										<div class="left b-font-2"> + </div>
+										<div class="left b-font-2"> Add  </div>
 									</button>
 								</div>
 								<div class="pure-u-11-24"></div>
 							</section>
 						</div>
-						<br>
-
 				</section>
 			</div>
 			<div class="">
 				<div class="pure-u-6-24">
 					<button v-on:click="additionalOr()" class="pure-button full-width">
-						Or... 
+						Or...
 					</button>
 				</div>
 			</div>
@@ -136,13 +144,13 @@ export default {
 			if(!this.value.conditionList[index].hasStat){
 				this.$set(this.value.conditionList[index], 'hasStat', []);
 			}
-			this.value.conditionList[index].hasStat.push({operator: ">"});
+			this.value.conditionList[index].hasStat.push({operator: ">", type: "#"});
 		},
     additionalOr(){
-      this.value.conditionList.push({hasStat: [{operator: ">"}], type: "#"});
+      this.value.conditionList.push({hasStat: [{operator: ">", type: "#"}]});
     },
     additionalList(){
-      this.value.conditionList.push({operator: ">"});
+      this.value.conditionList.push({operator: ">", type: "#"});
     },
     cut(list, index){
       list.splice(index, 1);
@@ -161,6 +169,8 @@ export default {
       this.$modal.hide('flagStatModal');
     },
     updateNow(){
+		},
+    updateID(){
     }
   },
   computed: {
@@ -220,12 +230,13 @@ export default {
 	border: 1px;
 }
 .b-font-2{
-	font-size: 20px;
+	font-size: 15px;
 }
 
-
-
-
+.br-thin{
+   display: block;
+   margin: 2.5px;
+}
 
 
 </style>

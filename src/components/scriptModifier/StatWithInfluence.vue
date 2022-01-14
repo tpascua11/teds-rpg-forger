@@ -8,6 +8,13 @@
 		<br>
 		<div class="row">
 			Modifier Stat
+			<SelectSpecific v-model="value" :list="flagKey"
+				:option_to_value="[
+				['id','modified_stat_id'],
+				['name', 'modified_stat_name']
+				]"
+			/>
+			<!--
 			<v-select v-model="value.modified_stat_id" :options="flagList" label="id" @input="setNameMod">
 				<template #selected-option="{}">
 					{{flagKey[value.modified_stat_id].name}}
@@ -16,11 +23,20 @@
 					{{flagKey[id].name}}
 				</template>
 			</v-select>
+			-->
 
 		</div>
 		<br>
 		<div>
 			Influence By
+
+			<SelectSpecific v-model="value" :list="flagKey"
+				:option_to_value="[
+				['id','influence_stat_id'],
+				['name', 'influence_stat_name']
+				]"
+			/>
+			<!--
 			<v-select v-model="value.influence_stat_id" :options="flagList" label="id" @input="setNameInf">
 				<template #selected-option="{}">
 					{{flagKey[value.influence_stat_id].name}}
@@ -29,6 +45,7 @@
 					{{flagKey[id].name}}
 				</template>
 			</v-select>
+			-->
 		</div>
 		<div>
 			<p class="supersmall"> Value + ( (Stat - Minimal Stat) / (Stat Per Increase) ) * Multiplier </p>
