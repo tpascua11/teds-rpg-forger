@@ -13,7 +13,8 @@
 			</div>
 			<br>
 			<div v-for="(item1, index) in value.conditionList" :key="index" class="">
-				<section class="">
+				<section class="border-top">
+					<br>
 					<div style="height: 32px;" class="">
 						<div class="pure-u-3-24 list-title">
 							Case {{index+1}}
@@ -42,7 +43,7 @@
 										{{item2.type}}
 									</button>
 								</div>
-								<div class="pure-u-10-24">
+								<div class="pure-u-9-24">
 									<SelectNameAndID v-model="value.conditionList[index].hasStat[index2]" :list="list"/>
 										<!--
 									<v-select v-model="item2.name" :options="flagList" label="id" @input="updateNow" :clearable="false">
@@ -82,28 +83,31 @@
 									<input class="full-width" type="number" v-model="item2.value" placeholder="num.." style="font-size: 13px; height: 27px;">
 								</div>
 								<div class="pure-u-1-24"></div>
-								<div class="pure-u-1-24"></div>
-								<div class="pure-u-3-24">
+								<div class="pure-u-3-24"></div>
+								<div class="pure-u-1-24">
 									<button v-on:click="cut(item1.hasStat, index2)" class="pure-button full-width" style="height: 34px;">
-										X
+										<div style="position: relative; right: 5px;"> X </div>
 									</button>
 								</div>
 							</div>
 							<br v-if="index2 != item1.hasStat.length-1" class="br-thin">
 							</section>
 							<section class="">
+								<br>
 								<div class="pure-u-8-24">
 									<button v-on:click="additionalAnd(index)"
-										class="pure-button full-width button-white"
+										class="pure-button full-width"
 										style="height: 30px;">
-										<div class="left b-font-2"> Add  </div>
+										<div class="left b-font-2"> + New Stat Condition </div>
 									</button>
 								</div>
 								<div class="pure-u-11-24"></div>
 							</section>
+							<br>
 						</div>
-				</section>
+					</section>
 			</div>
+			<br><br>
 			<div class="">
 				<div class="pure-u-6-24">
 					<button v-on:click="additionalOr()" class="pure-button full-width">

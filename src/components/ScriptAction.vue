@@ -1,34 +1,31 @@
 <template>
-  <div>
+  <div class="dt-border-x2">
   <!-- Main -->
   <section class="">
     <div v-if="false" class="row"> {{value}} </div>
     <!-- Script: Menu 1 -->
     <div v-if="value.empty">
-      <div class="pure-u-1-1" style="height: 22px;">
-        <div class="this-title ">
-          <i class="ra  ra-flat-hammer "></i>
+      <div class="pure-u-1-1 " style="height: 22px;">
+        <div class="action-title margin2">
+          <i class="ra   ra-focused-lightning  "></i>
           Add Script
         </div>
-      </div>
-      <div>
-        <hr>
-      </div>
-      <div class="">
+			</div>
+      <div class="class-u-1-1 margin2">
         <div class="pure-u-1-2">
-          <button class="action-button" v-on:click="newDescription()"       > Description </button>
-          <button class="action-button" v-on:click="newStat()"              > Stat </button>
-          <button class="action-button" v-on:click="newStatWithInfluence()" > Stat Influence</button>
-          <button class="action-button" v-on:click="newItem()"              > Item </button>
-          <button class="action-button" v-on:click="newTime()"              > Time </button>
-          <button class="action-button" v-on:click="newMove()"              > Move </button>
-          <button class="action-button" v-on:click="toggleWorldFlag()"      > Toggle Flag </button>
+					<button class="pure-button action-button" v-on:click="newDescription()"       >  <h4> Description    </h4> </button>
+          <button class="pure-button action-button" v-on:click="newStat()"              >  <h4> Stat           </h4> </button>
+          <button class="pure-button action-button" v-on:click="newStatWithInfluence()" >  <h4> Stat Influence </h4> </button>
+          <button class="pure-button action-button" v-on:click="newItem()"              >  <h4> Item           </h4> </button>
+          <button class="pure-button action-button" v-on:click="newTime()"              >  <h4> Time           </h4> </button>
+          <button class="pure-button action-button" v-on:click="newMove()"              >  <h4> Move           </h4> </button>
+          <button class="pure-button action-button" v-on:click="toggleWorldFlag()"      >  <h4> Toggle Flag    </h4> </button>
+          <button class="pure-button action-button" v-on:click="toggleScriptFlag()"     >  <h4> Script Flag    </h4> </button>
+          <button class="pure-button action-button" v-on:click="newMoveIndex()"         >  <h4> Set Index At   </h4> </button>
+          <button class="pure-button action-button" v-on:click="newChoiceList()"        >  <h4> Choice List    </h4> </button>
           <!-- TODO: Fix Area First
           <button class="action-button" v-on:click="toggleAreaFlag()"       >  Area Flag </button>
           -->
-          <button class="action-button" v-on:click="toggleScriptFlag()"     > Script Flag </button>
-          <button class="action-button" v-on:click="newMoveIndex()"         > Set Index At </button>
-          <button class="action-button" v-on:click="newChoiceList()"        > Choice List </button>
         </div>
         <div class="pure-u-1-2">
           <!--
@@ -41,49 +38,46 @@
           <button v-on:click="test()" class="btn-danger-outline btn-small btn-block smallfit">  If Time </button>
           <section class="default-title-sm2"> Tools </section>
           -->
-          <button class="action-button" v-on:click="addIf()"      >  IF      </button>
-          <button class="action-button" v-on:click="addElse()"    >  ELSE    </button>
-          <button class="action-button" v-on:click="addElseIf()"  >  ELSE IF </button>
-          <button class="action-button" v-on:click="addEnd()"     >  END     </button>
+					<button class="pure-button action-button-p" v-on:click="addIf()"      >  <h4> IF      </h4> </button>
+          <button class="pure-button action-button-p" v-on:click="addElse()"    >  <h4> ELSE    </h4> </button>
+          <button class="pure-button action-button-p" v-on:click="addElseIf()"  >  <h4> ELSE IF </h4> </button>
+          <button class="pure-button action-button-p" v-on:click="addEnd()"     >  <h4> END     </h4> </button>
         </div>
       </div>
     </div>
     <!-- Script: If Condition -->
-    <div v-if="value.ifCondition || value.elseIfCondition">
-      <div>
-        <button v-on:click="showModal('FlagStat')" class="btn-danger-outline btn-small btn-block smallfit">
-          Stat Flags
-        </button>
-        <button v-on:click="showModal('FlagChanceOnStat')" class="btn-danger-outline btn-small btn-block smallfit">
-          Chance Flags
-        </button>
-        <button v-on:click="showModal('ItemFlag')" class="btn-danger-outline btn-small btn-block smallfit">
-          Item Flags
-        </button>
-        <button v-on:click="showModal('WorldFlag')" class="btn-danger-outline btn-small btn-block smallfit">
-          World Flags
-        </button>
-        <button v-on:click="showModal('AreaFlag')" class="btn-danger-outline btn-small btn-block smallfit">
-          Area Flags
-        </button>
-        <button v-on:click="showModal('ScriptFlag')" class="btn-danger-outline btn-small btn-block smallfit">
-          Script Flags
-        </button>
-        <button v-on:click="showModal('TimeFlag')" class="btn-danger-outline btn-small btn-block smallfit">
-          Time Flags
-        </button>
+		<div v-if="value.ifCondition || value.elseIfCondition">
+			<div class="pure-u-1-1 " style="height: 22px;">
+				<div class="action-title margin2">
+					<i class="ra   ra-divert   "></i>
+					Condition Modifiers
+				</div>
+			</div>
+			<div>
+				<br>
+			</div>
 
-        <button v-on:click="addIf()" class="btn-danger-outline btn-small btn-block smallfit">    	IF      </button>
-        <button v-on:click="addElse()" class="btn-danger-outline btn-small btn-block smallfit">  	ELSE    </button>
-        <button v-on:click="addElseIf()" class="btn-danger-outline btn-small btn-block smallfit"> ELSE IF </button>
-        <button v-on:click="addEnd()" class="btn-danger-outline btn-small btn-block smallfit">  	END     </button>
+      <div class="pure-u-1-2">
+				<button v-on:click="showModal('FlagStat')"  			 	class="pure-button action-button-p "> <h4> Stat Flags 	</h4>	</button>
+        <button v-on:click="showModal('FlagChanceOnStat')" 	class="pure-button action-button-p "> <h4> Chance Flags </h4>	</button>
+        <button v-on:click="showModal('ItemFlag')"  				class="pure-button action-button-p "> <h4> Item Flags 	</h4>	</button>
+        <button v-on:click="showModal('WorldFlag')" 				class="pure-button action-button-p "> <h4> World Flags 	</h4>	</button>
+        <button v-on:click="showModal('AreaFlag')" 					class="pure-button action-button-p "> <h4> Area Flags 	</h4>	</button>
+        <button v-on:click="showModal('ScriptFlag')" 				class="pure-button action-button-p "> <h4> Script Flags </h4>	</button>
+				<button v-on:click="showModal('TimeFlag')" 					class="pure-button action-button-p "> <h4> Time Flags 	</h4>	</button>
+			</div>
+      <div class="pure-u-1-2">
+        <button v-on:click="addIf()" 												class="pure-button action-button-p "> <h4>    	IF      </h4>	</button>
+        <button v-on:click="addElse()" 											class="pure-button action-button-p "> <h4>  	ELSE    	</h4>	</button>
+        <button v-on:click="addElseIf()" 										class="pure-button action-button-p "> <h4> ELSE IF 			</h4>	</button>
+        <button v-on:click="addEnd()" 											class="pure-button action-button-p "> <h4>  	END     	</h4>	</button>
         <br><br>
         </div>
       </div>
     </section>
     <!-- Back -->
     <!-- Script Imports Additions -->
-    <section>
+    <section class="margin2">
       <Description v-model="value"/>
       <ToggleWorldFlag v-model="value"/>
       <ToggleScriptFlag v-model="value"/>
@@ -232,7 +226,7 @@ export default {
       this.$parent.addToScriptList(template);
     },
     simpleAreaFlag(){
-      let template = {ifCondition: "AREA", conditionList: [{areaIsList: [], areaNotList: []}]};
+      let template = {ifCondition: "AREA", conditionList: [{area_is_list: [], area_not_list: []}]};
       this.$parent.addToScriptList(template);
     },
     simpleScriptFlag(){
@@ -278,6 +272,8 @@ textarea {
   height: 100%;
 }
 
+
+
 .smallfit{
   height: 23px;
   display: table-cell;
@@ -292,6 +288,24 @@ textarea {
 
 .action-button{
   width: 100%;
+  border: 1px solid black;
+  background-color: white;
+  height: 25px;;
+}
+.action-button-p{
+  width: 100%;
+  border: 1px solid black;
+	background-color: white;
+	color: darkorange;
+  height: 25px;;
+}
+
+.action-button-text{
+}
+
+#ac{
+  position: relative;
+  bottom: 5px;
 }
 
 
@@ -307,6 +321,15 @@ textarea {
   border-left-style: solid;
    */
   border-width: 1px;
+}
+
+h4{
+	font-size:15px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	position: relative;
+	top: -4px;
+
 }
 
 

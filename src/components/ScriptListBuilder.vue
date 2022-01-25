@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="true" class="default-thin-border">
+		<div v-if="true" class="">
 			<div>
 				<div class="script-row" v-if="error" style="font-size: 20px; background-color: pink;">
 					{{error}}

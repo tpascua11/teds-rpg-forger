@@ -124,6 +124,9 @@ p{
 .dt-border{
 	border: 1px solid black;
 }
+.dt-border-x2{
+	border: 2px solid black;
+}
 
 .double-border{
 	border: 2px solid black;
@@ -291,22 +294,33 @@ p{
 .border-down{
 	border-color: black;
 	border-bottom-style: solid;
-  /*
-  border-right-style: solid;
-  border-left-style: solid;
-   */
   border-width: 1px;
+}
+.border-down-x2{
+	border-color: black;
+	border-bottom-style: solid;
+  border-width: 2px;
+}
+.border-down-x3{
+	border-color: black;
+	border-bottom-style: solid;
+  border-width: 3px;
 }
 .border-top{
 	border-color: black;
 	border-top-style: solid;
-  /*
-  border-right-style: solid;
-  border-left-style: solid;
-   */
   border-width: 1px;
 }
-
+.border-top-x2{
+	border-color: black;
+	border-top-style: solid;
+  border-width: 2px;
+}
+.border-top-x3{
+	border-color: black;
+	border-top-style: solid;
+  border-width: 3px;
+}
 .action-title{
 	font-size: 18px;
 	font-weight: bold;

@@ -13,22 +13,23 @@
       />
     </div>
 
-    <div class="pure-u-1-24" >
+    <div class="pure-u-1-24">
     </div>
 
     <div class="pure-u-12-24" v-if="selectedIndex < 0">
       <h3> Select or Add New Item... </h3>
     </div>
-    <div class="pure-u-12-24" v-if="selectedIndex >= 0">
-      <div class="dt-border">
+    <div class="pure-u-12-24 dt-border-x2" v-if="selectedIndex >= 0">
+      <div class="border-down-x3">
         <div class="">
           <div class="pure-u-1-24" >
-            <i class="ra  ra-barrier  ra-2x"
-               style="position: relative; top: 5px; left: 5px;"></i> 
+            <i class="ra  ra-quill-ink   ra-2x"
+              style="position: relative; top: 5px; left: 5px;">
+            </i>
           </div>
           <div class="pure-u-23-24"
-            style="height: 50px; position:relative; top: 5px;
-            positon: relative; left: 12px;">
+               style="height: 50px; position:relative; top: 5px;
+                      positon: relative; left: 12px;">
             <div>
               <div class="" style="height: 25px; overflow: hidden; ">
                 <input
@@ -55,12 +56,12 @@
     </div>
 
     <div class="pure-u-1-24"></div>
-    <div class="pure-u-5-24 dt-border" v-if="selectedIndex >= 0">
-      <section class="margin1">
+    <div class="pure-u-5-24 margin2" v-if="selectedIndex >= 0">
+      <section class="">
       <div class="">
-        <ScriptAction v-model="selectedAction" v-bind:index="selectedIndex"/> 
+        <ScriptAction v-model="selectedAction" v-bind:index="selectedIndex"/>
       </div>
-      <div v-if="!selectedAction.empty">
+      <div class="margin2" v-if="!selectedAction.empty">
         <div class="pure-u-3-5">
           <button class="button-warning pure-button full-width"
             v-on:click="deselectAction()"       > Back </button>

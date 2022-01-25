@@ -1,58 +1,70 @@
 <template>
   <section class="">
     <modal name="WorldFlag"
-      :width="675"
+      :width="525"
       :height="'auto'"
       :shiftY="0.2"
       :styles="'border: 2px solid black'"
       :scrollable="true"
     >
-      <section class="modal-total-height">
-        <div class="row modal-body-height">
-          <section style="height: 100px; default-title-sm2">
-            <div class="row" style="position: relative; left: 20px;">
+      <section class="modal-total-height margin3">
+            <div class="this-title">
               World Flag
             </div>
-          </section>
           <section>
-            <div v-for="(item, index) in value.conditionList" class="closer" :key="index">
-              <div class="col-12 col thin">
-                <table class="table" style="table-layout: fixed;">
-                  <tbody v-if="!item.isList">
-                    <tr>
-                      <button v-on:click="addThisSet(index)" class="btn-outline btn-danger btn-small smallx btn-block">
-                        <section class="smallxtext"> New World If/Not List </section>
-                      </button>
-                    </tr>
-                  </tbody>
-                  <tbody v-if="item.isList">
-                    <tr>
-                      <td width="4%"> {{index}} </td>
-
-                      <td class="if-color"  width="5%">  IS </td>
-                      <td class="if-color"  width="37%"> <v-select v-model="item.isList"  :from="trueList(item)" class=" " placeholder="Add Flag"> </v-select> </td>
-
-                      <td class="not-color" width="8%">  NOT </td>
-                      <td class="not-color" width="37%"> <v-select v-model="item.notList" :from="trueList(item)" class=" " placeholder="Add Flag"> </v-select> </td>
-
-                      <td width="7%">
-                        <button v-on:click="removeAtIndex(index)" class="btn-outline btn-danger btn-small smallx btn-block">
-                          <section class="smallxtext"> X </section>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div v-for="(item, index) in value.conditionList" class="" :key="index">
               <br>
+              <div v-if="!item.isList">
+                <button v-on:click="addThisSet(index)" class="pure-button">
+                  <section class="smallxtext"> New World If/Not List </section>
+                </button>
+              </div>
+              <div v-if="item.isList">
+                <div>
+                  <div class="pure-u-4-24 list-title"> Case {{index}}</div>
+                  <div class="pure-u-12-24"></div>
+                  <div class="pure-u-8-24 right">
+                    <button v-on:click="removeAtIndex(index)"
+                      class="pure-button full-width button-white"
+                      style="height: 25px;">
+                      <div class="b-font right"> Clear </div>
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <div class="pure-u-2-24"></div>
+                  <div class="pure-u-2-24 position-co"> IS </div>
+                  <div class="pure-u-20-24">
+                    <v-select v-model="item.isList"  :options="trueList(item)" :multiple="true" class=" " placeholder="Add Flag"> 
+                      <template #selected-option-container="{ option}">
+                        <div style="height: 30px; font-size: 15px;"
+                          class="vs__selected">{{ option.label }}
+                        </div>
+                      </template>
+                    </v-select>
+                  </div>
+                </div>
+                <br class="br-thin">
+                <div>
+                  <div class="pure-u-2-24"></div>
+                  <div class="pure-u-2-24 position-co"> NOT </div>
+                  <div class="pure-u-20-24">
+                    <v-select v-model="item.notList" :options="trueList(item)" :multiple="true" class=" " placeholder="Add Flag"> 
+                      <template #selected-option-container="{ option}">
+                        <div style="height: 30px; font-size: 15px;"
+                          class="vs__selected">{{ option.label }}
+                        </div>
+                      </template>
+                    </v-select>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
-        </div>
-        <div class="row modal-bottom-height">
-          <button v-on:click="addNewList" class="btn-warning btn-small smallfit btn-block">
+          <br><br>
+          <button v-on:click="addNewList" class="pure-button full-width">
             Add New List
           </button>
-        </div>
       </section>
     </modal>
   </section>
@@ -60,7 +72,7 @@
 
 <script>
 export default {
-  name: 'ToggleAreaFlag',
+  name: 'ToggleWorldFlag',
   data: function(){
     return {
       selectedName: '',
@@ -119,113 +131,70 @@ export default {
 </script>
 
 <style scoped>
-table, th, td {
-  border: 1px solid black;
+.this-title{
+  font-size: 20px;
+  text-decoration: underline;
+  font-weight: bold;
 }
-.smallx{
-  height: 10px;
-  position:relative;
-  top: 5px;
+.v-font{
+  font-weight: bold;
+  font-size: 13px;
+  height: 22px;
+  width: 100%;
 }
-.smallxtext{
-  font-size: 15px;
+.list-title{
+  font-size: 17px;
+  font-weight: bold;
   position:relative;
-  top: -5px;
 }
 .v-select {
   font-size: 12px;
-  width: 100%;
-  z-index: 10px;
-}
-.small{
-  font-size: 15px;
   font-weight: bold;
+  width: 100%;
 }
 .referenceList{
   /* width: 200px; */
   width: 100%;
   height: 40px;
 }
-.smallInput{
-  width: 100%;
-}
-.sq{
-  height: 50px;
-  width: 50px;
-}
-.flagname{
-  font-size: 17px;
-  position:relative;
-  top: -10px;
-  left: -10px;
-}
-
-.fit1{
-  margin-top: -50px;
-}
-.fit2{
-  margin-top: -40px;
-}
-.creator{
-  border: 1px solid black;
-  min-width: 250px;
-}
-.big{
-  width: 200px;
-}
-.title2{
-  font-size: 12px;
-  font-weight: bold;
-}
-.small{
-  height: 10px;
-}
-.mini{
-  height: 30px;
-  width: 100%;
-}
-.mini-down{
-  position:relative;
-  font-size:14px;
-  top: -17px;
-  right: 5px;
-  font-weight: bold;
-}
-.closer{
-  position:relative;
-  margin-top: -50px;
-}
-.topcloser{
-  font-size: 15px;
-  height: 20px;
-  position:relative;
-  background-color: lightblue;
-}
-
-.thin{
-  position:relative;
-  top: -40px;
-}
-
 .modal-total-height{
   max-height: 750px;
-}
-.modal-body-height{
-  max-height: 650px;
   overflow: scroll;
 }
-.modal-bottom-height{
-  height: 100px;
+.b-font{
+  color: darkred;
+  position: relative;
+  top: -5px;
+}
+.button-green{
+  background-color: lightgreen;
 }
 
-.if-color{
-  background-color: lightblue;
+.button-red {
+  background-color: #ff6666;
 }
-.not-color{
+.button-pink {
   background-color: pink;
-  border: 2px solid pink;
+}
+.button-white{
+  background-color: white;
+  border: 1px;
+}
+.b-font-2{
+  font-size: 15px;
 }
 
+.br-thin{
+  display: block;
+  margin: 2px;
+}
 
+.position-co{
+  position: relative;
+  top: 6px;
+  right: 4px;
+  text-align: right;
+  font-weight: bold;
+}
 
 </style>

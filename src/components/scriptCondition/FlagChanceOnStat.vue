@@ -17,7 +17,8 @@
 				</div>
 
 				<section>
-					<div class="" v-for="(item1, index) in value.conditionList" :key="index">
+					<div class="border-top" v-for="(item1, index) in value.conditionList" :key="index">
+						<br>
 						<div style="height: 32px;" class="">
 							<div class="pure-u-7-24 list-title">
 								Case {{index+1}}
@@ -85,15 +86,16 @@
 						<section class="">
 							<div class="pure-u-8-24">
 								<button v-on:click="additionalAnd(index)"
-									class="pure-button full-width button-white"
+									class="pure-button full-width"
 									:disabled="false"
 									style="height: 30px;">
-									<div class="left b-font-2"> Add </div>
+									<div class="left b-font-2"> + Chance Condition</div>
 								</button>
 							</div>
 							<div class="pure-u-11-24"></div>
 						</section>
 
+						<br>
 
 					</div>
 				</section>
@@ -313,7 +315,7 @@ export default {
   font-weight: bold;
 }
 .list-title{
-  font-size: 17px;
+  font-size: 18px;
 	font-weight: bold;
 	position:relative;
 }
