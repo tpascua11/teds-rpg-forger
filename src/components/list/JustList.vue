@@ -1,82 +1,85 @@
 <template>
-  <div class="container dt-border-x2">
+  <div class="container">
     <section class="">
-      <div class="border-down-x3" style="height: 30px;">
+
+      <div v-if="title" class="border-down-x3" style="height: 30px;">
         <div class="pure-u-4-24">
           <i class="ra  ra-book   ra-lg"
             style="position: relative; top: 5px; left: 2px;
-            font-size: 24px;"></i>
+                   font-size: 24px;"></i>
           </div>
-        <div class="pure-u-16-24 this-title left">
-          {{name}}
+          <div class="pure-u-16-24 this-title left">
+            {{title}}
         </div>
       </div>
 
-      <div id="item-list" class="cool-scroll" style="height: 325px;">
-        <div v-for="(value, index) in map" :key="index"
+      <div id="the-list" class="cool-scroll" v-bind:style="{height: box_height}">
+        <div v-for="(row, index) in map" :key="index"
           class="border-down row clickable"
-          v-bind:style="[ value == selectedItem ? styleObject : {}]"
-          v-on:click="method.selectItem(value)"
+          v-bind:style="[ row == value ? styleObject : {}]"
+          v-on:click="selectRow(row)"
         >
           <div class="pure-u-3-24 index-position left"> {{index}}.  </div>
           <div class="pure-u-1-24 text-position "> </div>
           <div class="pure-u-20-24 text-position" v-bind:class="classObject">
-            {{value.name}}
+            {{row.name}}
           </div>
         </div>
       </div>
 
-      <div class="border-top-x2">
-        <button v-on:click="method.addNewItem(); scrollToEnd();" class="pure-button full-width">
-          Add Item
-        </button>
-      </div>
+      <button v-on:click="addNewRow();" class="pure-button full-width">
+        Create
+      </button>
+
     </section>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'ITEM_List',
+  components: {},
+  props: ['value', 'title', 'map', 'set_height', 'area', 'template'],
   data: function(){
     return {
-      itemMap: this.$root.world.itemMap,
+      hi: {},
       isActive: true,
       error: null,
       styleObject: {
-        //'text-decoration': 'underline',
         'font-weight': 'bold',
-        //'color': 'red',
         'background-color': 'pink',
-        //fontSize: '13px'
-      }
+      },
+      selectedItem: {},
+      refTitle: this.title,
     }
   },
-  props: {
-    name: String,
-    list: Object,
-    map: Object,
-    selectedItem: Object,
-    selectedName: String,
-    method: Object,
-  },
   mounted(){
-
   },
   methods:{
-    selectNewArea(newArea){
-      console.log(newArea);
-      //this.selectedItem.name = newArea.name;
-      this.$parent.selectNewArea(newArea);
+    nameFormat: function(name){
+      let newStr = name.replace(/_/g, " ");
+      let nameX = newStr.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+      return nameX;
     },
-    isSelectedWorld(area){
-      return this.selectedItem == area;
+    selectRow: function(row){
+      this.$emit('input', row);
+      this.$emit("selected");
     },
-    addNewItem: function(){
-      this.itemMap['template'] = {};
-      this.selectedItem = {};
+    addNewRow: function(){
+      console.log("TEST REF MAP", this.refMap);
+      let index = Object.keys(this.refMap).length + 1;
+      index;
+      let newEntity
 
+      console.log("template", this.template);
+      if(this.template) newEntity = this.template;
+      else newEntity = {id: index};
+
+      console.log("NEW ENTITY", newEntity);
+      this.refMap[index] = newEntity;
       this.$forceUpdate();
+      this.$emit('created');
     },
     scrollToEnd: function() {
       var container = this.$el.querySelector("#item-list");
@@ -84,17 +87,24 @@ export default {
     },
   },
   computed: {
+    refMap: function(){
+      return this.map;
+    },
     classObject: function () {
       return {
         active: this.isActive && !this.error,
         'text-danger': this.error && this.error.type === 'fatal'
       }
     },
-    rworld: function(){
-      return this.$root.world;
+    list: function(){
+      //return this.value[this.mapName];
+      //console.log("test source", this.source);
+      if(this.source) return this.$root.world[this.source][this.mapName];
+      else return this.$root.world[this.mapName];
     },
-    ritemMap: function(){
-      return this.$root.world.itemMap;
+    box_height: function(){
+      if(this.set_height) return this.set_height.toString();
+      else return '300px';
     }
   }
 }
@@ -139,7 +149,6 @@ export default {
   font-family: "Avenir";
    */
 }
-
 
 .this-title{
   font-size: 22px;

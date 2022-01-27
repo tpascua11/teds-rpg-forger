@@ -16,10 +16,10 @@
     <div class="pure-u-1-24">
     </div>
 
-    <div class="pure-u-12-24" v-if="selectedIndex < 0">
+    <div class="pure-u-12-24" v-if="selectedItem.empty">
       <h3> Select or Add New Item... </h3>
     </div>
-    <div class="pure-u-12-24 dt-border-x2" v-if="selectedIndex >= 0">
+    <div class="pure-u-12-24 dt-border-x2" v-if="!selectedItem.empty">
       <div class="border-down-x3">
         <div class="">
           <div class="pure-u-1-24" >
@@ -30,7 +30,7 @@
           <div class="pure-u-23-24"
                style="height: 50px; position:relative; top: 5px;
                       positon: relative; left: 12px;">
-            <div>
+           <div>
               <div class="" style="height: 25px; overflow: hidden; ">
                 <input
                   class="borderless-gray" placeholder="name..."
@@ -47,19 +47,18 @@
       </div>
       <div class="" v-if="true">
         <ScriptListBuilder
-          v-bind:scriptList="selectedItem.scriptList"
-          v-bind:name="selectedName"
-          v-bind:script="selectedItem"
-          v-bind:selectedAction="selectedAction"
+          v-bind:entity="selectedItem"
+          v-bind:scriptList="selectedItem.script_list"
+          v-model="selectedAction"
         />
       </div>
     </div>
 
     <div class="pure-u-1-24"></div>
-    <div class="pure-u-5-24 margin2" v-if="selectedIndex >= 0">
+    <div class="pure-u-5-24 margin2" v-if="!selectedItem.empty">
       <section class="">
       <div class="">
-        <ScriptAction v-model="selectedAction" v-bind:index="selectedIndex"/>
+        <ScriptAction v-model="selectedAction"/>
       </div>
       <div class="margin2" v-if="!selectedAction.empty">
         <div class="pure-u-3-5">
@@ -90,9 +89,8 @@ export default {
       map: this.$root.world.group.item.list,
 
       selectedAction: {empty: true},
-      selectedIndex: -1,
       selectedInteraction: {},
-      selectedItem: {scriptList: []},
+      selectedItem: {scriptList: [], empty: true},
       selectedName: "",
 
 
@@ -120,31 +118,32 @@ export default {
       this.selectedItem = {
         limit: 10,
         description: "",
+        script_list: [],
         scriptList: []
       };
 
       let index = Object.keys(this.map).length;
       this.map[index] = this.selectedItem;
-      this.selectedAction = {empty:true};
-      this.selectedIndex = 0;
+      //this.selectedAction = {empty:true};
 
       console.log("see this", this.map[index]);
     },
     selectItem: function(item){
       this.selectedItem = item;
-      this.selectedIndex = 0;
-      this.selectedAction = {empty:true};
+      //this.selectedAction = {empty:true};
     },
     addToScriptList(script){
       console.log('add new script', script);
-      this.selectedItem.scriptList.push(script);
-      console.log("the selected script list",
-        this.selectedItem.scriptList.length);
+      this.selectedItem.script_list.push(script);
+      console.log("the selected script list", this.selectedItem.script_list.length);
     },
     convergeScriptList(scriptList){
+      scriptList;
+      /*
       this.refreshList(scriptList);
       this.selectedItem.scriptList = scriptList;
       return this.selectedItem.scriptList;
+       */
     },
     refreshList(scriptList){
       scriptList.forEach(function(script){
@@ -156,8 +155,10 @@ export default {
       this.selectedAction = {empty:true};
     },
     removeAction(){
+      /*
       this.selectedItem.scriptList.splice(this.selectedIndex, 1);
       this.selectedAction = {empty:true};
+       */
     }
   },
   mounted(){

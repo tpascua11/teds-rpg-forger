@@ -1,12 +1,13 @@
 export class World {
   constructor() {
     this.name = "cool";
-		this.areaList = [{"name":"Home","description":"","connectedAreaList":[],"interactionList":[{"name":"Wolf!","scriptList":[{"eventName":"addDescription","description":"Bark!"},{"eventName":"restore","stat":"health","number":"20"},{"eventName":"addDescription","description":"The Wolf Licks Your Face!"}],"tags":[],"conditionList":[]}]}];
-		this.areaMap = {
-			'area1': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
-			'area2': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
-			'area3': {name: 'cool', interactionList:[], connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
-		};
+
+    this.area_list = {
+			1 : {name: 'area1', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+			2 : {name: 'area2', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
+			3 : {name: 'area3', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+    };
+
 		//this.areaList = [];
     this.worldItemList = [];
 		this.statusEffectList = [];
@@ -66,17 +67,21 @@ export class World {
           3: {name: 'currency'},
         }
       },
-      item: {template: {name: '', amount: 0, amount_max: 10000, scriptLst: []},
+      item: {
+        template: {name: '', amount: 0, amount_max: 10000, script_list: []},
         list: {
-          0: {name: 'Gold'   , description: "currency", amount_max: 9001, scriptList:[]},
-          1: {name: 'Silver' , description: "currency", amount_max: 9001, scriptList:[]},
-          2: {name: 'Copper' , description: "currency", amount_max: 9001, scriptList:[]},
-          3: {name: 'Spice'  , description: "currency", amount_max: 9001, scriptList:[]},
+          0: {name: 'Gold'   , description: "currency", amount_max: 9001, script_list:[]},
+          1: {name: 'Silver' , description: "currency", amount_max: 9001, script_list:[]},
+          2: {name: 'Copper' , description: "currency", amount_max: 9001, script_list:[]},
+          3: {name: 'Spice'  , description: "currency", amount_max: 9001, script_list:[]},
         }
       },
-      area: {template: {name: '', },
+      area: {
+        template: {name: '', script_list: [], condition_list: []},
         list: {
-          0: {name: 'DEBUG_ROOM'},
+          0 : {name: 'area1', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+          1 : {name: 'area2', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
+          3 : {name: 'area3', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
         }
       },
       flag: {template: {name: '', },
@@ -86,8 +91,10 @@ export class World {
           2: {name: 'Flag Example 3', state: false},
           3: {name: 'Flag Example 4', state: false},
           4: {name: 'Flag Example 5', state: false},
+
         }
       },
+
       complex_condition: {template: {}, list: {}},
       common_event: {template: {}, list: {}},
       global_event: {template: {}, list: {}},

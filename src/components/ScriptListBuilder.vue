@@ -1,18 +1,18 @@
 <template>
 	<div>
-		<div v-if="true" class="">
+		<div v-if="refScript.script_list" class="">
 			<div>
 				<div class="script-row" v-if="error" style="font-size: 20px; background-color: pink;">
 					{{error}}
 				</div>
 
 				<div style="height: 75vh; overflow:auto;">
-					<draggable v-model="selectedScriptList" tag="div" :move="checkMove" @end="saveScript">
-						<div class="script-row" v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
+					<draggable v-model="refScript.script_list" tag="div" @update="dragUpdate">
+						<div class="script-row" v-for="(item, index) in refScript.script_list" :key="index" v-bind:style="[ item.isMoved ? moved : {}]">
 							<div class="pure-u-1-24 script-row-index center"> {{index}}: </div>
 							<div class="pure-u-23-24" v-bind:style=[indexPush(index)]>
 								<div class="script-row-text" v-on:click="selectAction(item, index)"
-									v-bind:style="[ selectedAction == item ? selected : {},]">
+									v-bind:style="[ value == item ? selected : {},]">
 									{{item}}
 								</div>
 							</div>
@@ -22,70 +22,12 @@
 			</div>
 
 		</div>
-
-
-  <section v-if="false" class="basedHeight">
-    <div class="row">
-			{{error}}
-    </div>
-    <div class="row">
-      <div class="col-8 col tablescroll script-match-height-left">
-				<table class="table" style="width: 100%; table-layout: fixed; overflow: scroll;">
-          <thead>
-            <tr>
-              <th style="width: 5%;"> ID </th>
-              <th scope="col" style="width: 80%;"> - Script List - </th>
-              <th scope="col" colspan="2" style="width: 15%;"> Edit </th>
-            </tr>
-          </thead>
-          <draggable v-model="selectedScriptList" tag="tbody" :move="checkMove" @end="saveScript">
-						<tr v-for="(item, index) in selectedScriptList" :key="index" v-bind:style="[ item.isMoved ? moved : {}]"
-						>
-
-              <td v-on:click="targetIndex(index);" v-bind:style="[ atIndex == index ? targeted : {}]">
-                {{index}}
-              </td>
-              <td v-on:click="selectAction(item)" style="cursor: move;" v-bind:style="[ selectedAction == item ? selected : {},]">
-                <div v-bind:style=[indexPush(index)]>
-                  {{item}}
-                </div>
-              </td>
-              <td>
-                <button v-on:click="removeAction(index)" class="btn-danger btn-small btn-block smalltext">
-                  X
-                </button>
-              </td>
-              <td>
-                <button v-on:click="selectAction(item)" class="btn-secondary btn-small btn-block smalltext">
-                  EDIT
-                </button>
-              </td>
-            </tr>
-          </draggable>
-          <tr>
-            <td colspan=3 v-on:click="targetIndex(-1)" v-bind:style="[ atIndex == -1 ? targeted : {}]" style="height: 25px;" >
-              <hr>
-            </td>
-					</tr>
-        </table>
-			</div>
-			<div class="col-4 col script-match-height tablescroll default-thin-border script-list-height">
-				<section v-if="false"> <Script v-bind:method="{addToScriptList, hardModifyScript}" v-bind:editedAction="selectedAction" /> </section>
-				<ScriptAction v-model="selectedAction" />
-				<div class="row">
-					<button v-on:click="deselectAction()" class="btn-warning btn-small btn-block action-script-back">  Scripts </button>
-				</div>
-			</div>
-    </div>
-	</section>
 	</div>
 </template>
 
 <script>
 //import ActionBuilder from '@/components/ActionBuilder.vue'
 import draggable from 'vuedraggable'
-import Script from '@/components/Script.vue'
-import ScriptAction from '@/components/ScriptAction.vue'
 
 export default {
   name: 'InteractionBuilder',
@@ -102,15 +44,7 @@ export default {
       targeted: { 'background-color': 'lightblue' },
       action: {},
       selectedActionName: '',
-			//selectedAction: {empty: true},
-      targetedAction: {},
       atIndex: -1,
-      person: {
-        firstName: 'Bo',
-        lastName: 'Andersen',
-        age: 27
-      },
-			selectedScriptList: [1,2,3],
 			testList: [{name: 'red'}, {name: 'blue'}, {name: 'gold'}],
       ifConditionIndexList : [],
       endConditionIndexList: [],
@@ -122,100 +56,70 @@ export default {
   components: {
     //ActionBuilder,
     draggable,
-    Script,
-    ScriptAction,
-  },
-  props: {
-		name: String,
-		script: Object,
-    currentInteraction: Object,
-    method: Object,
-		scriptList: Array,
-		properties: Object,
-		selectedAction: Object,
-  },
-  watch: {
+	},
+	props: ['value', 'scriptList', 'entity'],
+	watch: {
+		scriptList: function(){
+			this.validScriptList();
+			//console.log("huray?");
+		}
+		/*
     scriptList: function(newv, oldv){
       //console.log("oldv", JSON.stringify(oldv));
       //console.log("newv", JSON.stringify(newv));
       if(oldv != newv){
-        this.selectedScriptList = newv;
-        this.saveScript();
+        this.refScript.script_list = newv;
+				this.saveScript();
       }
-    }
+		}
+		 */
   },
-  mounted(){
-    console.log("TRUE TEST!", this.scriptList);
-    this.selectedScriptList = this.scriptList;
-    this.saveScript();
+	mounted(){},
+  computed: {
+		refScript: function(){
+			return this.entity;
+		},
+		refScriptList: function(){
+			return this.entity.script_list;
+		},
+		classObject: function () { return {
+			active: this.isActive && !this.error,
+			'text-danger': this.error && this.error.type === 'fatal'}
+		},
   },
   methods:{
-    selectNewAction(action){
-      console.log(action);
-    },
-    insertNewAction(action){
-      console.log(action);
-    },
     removeAction(index){
-      //console.log(index);
-      this.scriptList.splice(index, 1);
+      console.log(index);
+			//this.scriptList.splice(index, 1);
       this.validScriptList();
       this.deselectAction();
     },
     targetIndex(index){
       this.atIndex = index;
     },
-    selectAction(script, index){
-			console.log("CHECK", script);
-			this.$parent.selectedAction = script;
-			this.$parent.selectedIndex = index;
-    },
-    convertSelectedAction(script){
-      this.selectedAction = script;
-      //console.log("see the new selected action", this.selectedAction);
-    },
-    addToScriptList(script){
-      //this.method.addToScriptList(script);
-
-      if(this.atIndex < 0) this.selectedScriptList.push(script);
-      else this.selectedScriptList.splice(this.atIndex, 0, script);
-      //this.selectAction(script);
-
+    selectAction(row, index){
+			console.log("CHECK", index);
       this.validScriptList();
-      this.saveScript();
-    },
-    editScript(script){
-      //console.log(script);
-      this.selectedAction = script;
-      //this.method.addToScriptList(script);
-      //this.selectedScriptList.push(script);
-    },
-    hardModifyScript(script){
-      //console.log("HARD MODIFY!");
-      Object.assign(this.selectedAction, script);
-      this.saveScript();
+			this.$emit('input', row);
     },
     deselectAction(){
-      //console.log("ACTION DESELECTED!");
-      this.selectedAction = {empty:true};
+			this.value = {empty: true};
     },
-		saveScript(){
-      console.log("Script Overwritten!");
+		saveScript(e){
+      console.log("Script Overwritten!", e);
 			this.validScriptList();
 			console.log("secret...");
-      this.$parent.convergeScriptList(this.selectedScriptList);
 			this.$forceUpdate();
-    },
-    checkMove(/*{draggedContext}*/){
+		},
+		checkMove(/*{draggedContext}*/){
+			this.validScriptList();
       //if(draggedContext)
       //console.log("movement at", draggedContext.element);
       //draggedContext.element.isMoved = true;
-    },
-    test(){
-      console.log("----------------------------------------------");
-    },
-
-    validScriptList(){
+		},
+		dragUpdate(){
+		},
+		validScriptList(){
       console.log("CHECK VALIDATION!");
       let ifConditionList = [];
       let endConditionList = [];
@@ -225,9 +129,10 @@ export default {
 
       let error = "";
 			let enclosedList = []; let startIf = [];
-			this.checkScriptFlags(this.selectedScriptList);
+			this.checkScriptFlags(this.refScriptList);
 
-			this.selectedScriptList.forEach(function(script, index){
+			if(!this.refScriptList) return;
+			this.refScriptList.forEach(function(script, index){
         if(script.ifCondition) { ifConditionList.push(index); startIf.push(index)}
         if(script.elseCondition) elseConditionList.push(index);
         if(script.elseIfCondition) elseIfConditionList.push(index);
@@ -287,12 +192,10 @@ export default {
 		},
 
 		checkScriptFlags(list){
-			console.log("----------------------------------");
-			console.log("----------------------------------");
-			console.log("LIST", list);
+			//console.log("----------------------------------");
+			//console.log("LIST", list);
 			let flagList = [];
 			if(list) list.forEach(function(script){
-				console.log("script", script);
 				if(script.conditionList){
 					script.conditionList.forEach(function(condition){
 						if(condition.isScriptList){
@@ -301,19 +204,13 @@ export default {
 					});
 				}
 				if(script.eventName == "toggleScriptList"){
-					console.log("SHOUD HAPPEN!!");
-					console.log("SHOUD HAPPEN!!");
-					console.log("SHOUD HAPPEN!!");
-					console.log("SHOUD HAPPEN!!");
+					//console.log("SHOUD HAPPEN!!");
 					flagList.push(name);
 				}
 			});
-			console.log("SCRIPT FLAGS", flagList);
+			//console.log("SCRIPT FLAGS", flagList);
 		},
 
-    syncCondition(){
-
-    },
     indexPush(atIndex){
       //console.log(index);
       let push = 0;
@@ -358,23 +255,13 @@ export default {
       });
        */
 
+			if(push < 0) push = 0;
       return {
         'position': 'relative',
         'left': push*20 + 'px'
       }
     }
   },
-  computed: {
-    classObject: function () {
-      return {
-        active: this.isActive && !this.error,
-        'text-danger': this.error && this.error.type === 'fatal'
-      }
-    },
-    parentScriptList: function(){
-      return true;
-    }
-  }
 }
 </script>
 
@@ -389,27 +276,6 @@ export default {
   border: 0;
   background-color: #E8E8E8;
 }
-.smallX{
-  font-size: 25px;
-}
-.smalltext{
-  font-size: 15px;
-  height: 25px;
-  padding:0.1em
-}
-.scriptSave{
-  font-size: 20px;
-  height: 30px;
-  padding:0.1em
-}
-.rightside{
-  /*background-color: lightgrey;*/
-}
-.leftside{
-  margin-top: -20px;
-  /*background-color: grey;*/
-}
-
 .basedHeight{
 	height:77vh;
 }
@@ -442,11 +308,6 @@ export default {
 .test2{
   position:relative;
   top: -20px;
-}
-table {
-  /* border: 1px solid black; */
-  /*  border: none; */
-  border: 1px solid black;
 }
 tr {
   padding: 50px;
@@ -496,16 +357,6 @@ p {
 
 	position:relative;
 	top:5px;
-}
-
-.border-down{
-	border-color: black;
-	border-bottom-style: solid;
-  /*
-  border-right-style: solid;
-  border-left-style: solid;
-   */
-  border-width: 1px;
 }
 
 .script-row{

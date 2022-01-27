@@ -57,7 +57,8 @@ export default {
     method: Object,
   },
   mounted(){
-			console.log("SEE THE AreaList", this.areaList);
+    console.log("SEE THE AreaList", this.areaList);
+
   },
   methods:{
     selectNewArea(newArea){
