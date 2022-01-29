@@ -6,76 +6,76 @@
     <div class="pure-u-3-24">
       <div class="dt-border-x2">
         <JustList
-          v-model="selectedArea"
+          v-model="selectedEntity"
           v-bind:map="areaMap"
           v-bind:title="'Area List'"
           v-bind:set_height="'150px'"
           v-bind:template="area.template"
-          @selected="refreshInteractionList"
+          @selected="refreshArea"
           @created="refreshInteractionList"
         />
       </div>
       <br>
       <div class="dt-border-x2">
         <JustList
-          v-model="selectedInteraction"
+          v-model="selectedEntity"
           v-bind:map="selectedArea.interaction_list"
           v-bind:title="'Interactions'"
           v-bind:template="interactionTemplate"
           v-bind:set_height="'350px'"
+          @selected="showInteractionInterface"
         />
       </div>
     </div>
 
     <div class="pure-u-1-24"></div>
 
-    <div class="pure-u-12-24" v-if="!selectedInteraction">
-      Select Interaction...
-    </div>
-    <div class="pure-u-12-24" v-if="selectedInteraction">
-      <div class="border-down-x3">
-        <div class="pure-u-1-24" >
-          <i class="ra  ra-quill-ink ra-2x"
-            style="position: relative; top: 5px; left: 5px;">
-          </i>
-        </div>
-        <div class="pure-u-23-24"
-             style="height: 50px; position:relative; top: 5px;
-                    positon: relative; left: 12px;">
-          <div class="" style="height: 25px; overflow: hidden; ">
-            <input
-              class="borderless-gray" placeholder="name..."
-              v-model="selectedInteraction.name"
-              type="text" style="font-weight: 900; font-size: 25px; height:
-              25px; width: 95%; text-decoration: underline; "
-            />
+    <div class="pure-u-12-24">
+      <div>
+        <div class="border-down-x3">
+          <div class="pure-u-1-24" >
+            <i class="ra  ra-quill-ink ra-2x"
+              style="position: relative; top: 5px; left: 5px;">
+            </i>
           </div>
-          <div class="pure-u-20-24" style="font-weight: 900;">
-            Type: Interaction
+          <div class="pure-u-23-24"
+               style="height: 50px; position:relative; top: 5px;
+                      positon: relative; left: 12px;">
+            <div class="" style="height: 25px; overflow: hidden; ">
+              <input
+                class="borderless-gray" placeholder="name..."
+                v-model="selectedEntity.name"
+                type="text" style="font-weight: 900; font-size: 25px; height:
+                25px; width: 95%; text-decoration: underline; "
+              />
+            </div>
+            <div class="pure-u-20-24" style="font-weight: 900;">
+              Type: {{showInterface}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="" v-if="true">
-        <ScriptListBuilder
-          v-bind:scriptList="selectedInteraction.script_list"
-          v-bind:entity="selectedInteraction"
-          v-bind:selectedAction="selectedAction"
-          v-model="selectedAction"
-        />
+        <div class="">
+          <ScriptListBuilder
+            v-bind:scriptList="selectedEntity.script_list"
+            v-bind:entity="selectedEntity"
+            v-bind:selectedAction="selectedAction"
+            v-model="selectedAction"
+          />
+        </div>
       </div>
     </div>
 
     <div class="pure-u-1-24"></div>
 
-    <div class="pure-u-5-24 margin2" v-if="!selectedInteraction.empty">
+    <div class="pure-u-5-24 margin2" v-if="true">
       <section class="">
         <div class="">
         <ScriptAction v-model="selectedAction"
-                      v-bind:scriptList="selectedInteraction.script_list"
+                      v-bind:scriptList="selectedEntity.script_list"
                       v-bind:entity="selectedAction"
         />
       </div>
-      <div class="margin2" v-if="!selectedAction.empty">
+      <div class="margin2" v-if="selectedAction.eventName != '' ">
         <div class="pure-u-3-5">
           <button class="button-warning pure-button full-width"
             v-on:click="deselectAction()"       > Back </button>
@@ -110,8 +110,9 @@ export default {
       key: -1,
       selectedArea: {interaction_list: {1: {test: 1}}},
       selectedInteraction: {script_list: []},
+      selectedEntity: {},
 
-      selectedAction: {empty: true},
+      selectedAction: {eventName: ""},
       selectedIndex: -1,
 
       selected: '',
@@ -119,7 +120,6 @@ export default {
       selectedAreaName: '',
       selectedName: "Test",
       selectedAreaInteractionList: [],
-      selectedItem: {empty: true},
 
       targetConditionList: [],
 
@@ -142,16 +142,20 @@ export default {
     //world: Object,
   },
   methods:{
+    refreshArea(){
+      this.selectedArea = this.selectedEntity;
+      this.showInterface = 'AREA';
+    },
     refreshInteractionList(){
       console.log("check before", this.selectedInteraction);
       this.selectedInteraction = {empty: true};
       console.log("check after", this.selectedInteraction);
     },
     showAreaInterface(){
-      this.showInteraface = 'AREA';
+      this.showInterface = 'AREA';
     },
     showInteractionInterface(){
-      this.showInteraface = 'INTERACTION';
+      this.showInterface = 'INTERACTION';
     },
     selectItem(){
       return 'empty';
@@ -251,11 +255,6 @@ export default {
     addToScriptList(){},
     checkMove(){console.log("CHECKING!");},
 
-    convergeScriptList(scriptList){
-      this.refreshList(scriptList);
-      this.selectedInteraction.scriptList = scriptList;
-      return this.selectedItem.scriptList;
-    },
     refreshList(scriptList){
       if(!scriptList) return;
       scriptList.forEach(function(script){

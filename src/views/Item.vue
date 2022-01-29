@@ -58,7 +58,11 @@
     <div class="pure-u-5-24 margin2" v-if="!selectedItem.empty">
       <section class="">
       <div class="">
-        <ScriptAction v-model="selectedAction"/>
+        <ScriptAction
+          v-model="selectedAction"
+          v-bind:scriptList="selectedItem.script_list"
+          v-bind:entity="selectedAction"
+        />
       </div>
       <div class="margin2" v-if="!selectedAction.empty">
         <div class="pure-u-3-5">

@@ -16,7 +16,7 @@
       <div id="the-list" class="cool-scroll" v-bind:style="{height: box_height}">
         <div v-for="(row, index) in map" :key="index"
           class="border-down row clickable"
-          v-bind:style="[ row == value ? styleObject : {}]"
+          v-bind:style="[ row == selected ? styleObject : {}]"
           v-on:click="selectRow(row)"
         >
           <div class="pure-u-3-24 index-position left"> {{index}}.  </div>
@@ -52,6 +52,7 @@ export default {
       },
       selectedItem: {},
       refTitle: this.title,
+      selected: {},
     }
   },
   mounted(){
@@ -63,6 +64,7 @@ export default {
       return nameX;
     },
     selectRow: function(row){
+      this.selected = row;
       this.$emit('input', row);
       this.$emit("selected");
     },
