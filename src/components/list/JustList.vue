@@ -73,7 +73,7 @@ export default {
       let newEntity
 
       console.log("template", this.template);
-      if(this.template) newEntity = this.template;
+      if(this.template) newEntity = JSON.parse(JSON.stringify(this.template));
       else newEntity = {id: index};
 
       console.log("NEW ENTITY", newEntity);
@@ -125,11 +125,11 @@ export default {
   border-width: 1px;
 }
 .row{
-  height: 20px;
+  min-height: 20px;
   font-size: 15px;
   position:relative;
   text-align: left;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .row:hover{
   background-color: #99cfe0;

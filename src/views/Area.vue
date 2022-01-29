@@ -21,6 +21,7 @@
           v-model="selectedInteraction"
           v-bind:map="selectedArea.interaction_list"
           v-bind:title="'Interactions'"
+          v-bind:template="interactionTemplate"
           v-bind:set_height="'350px'"
         />
       </div>
@@ -28,7 +29,7 @@
 
     <div class="pure-u-1-24"></div>
 
-    <div class="pure-u-12-24" v-if="selectedInteraction.empty">
+    <div class="pure-u-12-24" v-if="!selectedInteraction">
       Select Interaction...
     </div>
     <div class="pure-u-12-24" v-if="selectedInteraction">
@@ -54,14 +55,39 @@
           </div>
         </div>
       </div>
-      <div class="" v-if="false">
+      <div class="" v-if="true">
         <ScriptListBuilder
           v-bind:scriptList="selectedInteraction.script_list"
-          v-bind:script="selectedItem"
+          v-bind:entity="selectedInteraction"
           v-bind:selectedAction="selectedAction"
+          v-model="selectedAction"
         />
       </div>
     </div>
+
+    <div class="pure-u-1-24"></div>
+
+    <div class="pure-u-5-24 margin2" v-if="!selectedInteraction.empty">
+      <section class="">
+        <div class="">
+        <ScriptAction v-model="selectedAction"
+                      v-bind:scriptList="selectedInteraction.script_list"
+                      v-bind:entity="selectedAction"
+        />
+      </div>
+      <div class="margin2" v-if="!selectedAction.empty">
+        <div class="pure-u-3-5">
+          <button class="button-warning pure-button full-width"
+            v-on:click="deselectAction()"       > Back </button>
+        </div>
+        <div class="pure-u-2-5">
+          <button class="button-error pure-button full-width"
+              v-on:click="removeAction()"       > Remove </button>
+        </div>
+      </div>
+      </section>
+    </div>
+
   </div>
 </template>
 
@@ -69,12 +95,14 @@
 
 import JustList from '@/components/list/JustList.vue'
 import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
+import ScriptAction from '@/components/ScriptAction.vue'
 
 export default {
   name: 'Area',
   components: {
     JustList,
     ScriptListBuilder,
+    ScriptAction,
   },
   data: function() {
     return {
@@ -107,6 +135,7 @@ export default {
       },
       map: {},
       name: 'empty',
+      showInterface: '',
     };
   },
   props: {
@@ -117,6 +146,12 @@ export default {
       console.log("check before", this.selectedInteraction);
       this.selectedInteraction = {empty: true};
       console.log("check after", this.selectedInteraction);
+    },
+    showAreaInterface(){
+      this.showInteraface = 'AREA';
+    },
+    showInteractionInterface(){
+      this.showInteraface = 'INTERACTION';
     },
     selectItem(){
       return 'empty';
@@ -248,7 +283,12 @@ export default {
     selectCondition(item){
       console.log("select condition", item);
       this.selectedCondition = item;
-    }
+    },
+    deselectAction(){
+      //console.log("ACTION DESELECTED!");
+      this.selectedAction = {empty:true};
+    },
+
   },
   computed: {
     interactionBox:{
@@ -274,6 +314,9 @@ export default {
     },
     areaList (){
       return this.$root.world.areaList;
+    },
+    interactionTemplate (){
+      return this.$root.world.template.interaction;
     },
     /*
     areaMapKeys(){

@@ -58,6 +58,10 @@ export class World {
 
     this.selectedArea = {flagMap: []};
 
+    this.template = {
+      interaction: {eventName: "", script_list: []}
+    };
+
     this.group = {
       stat: {template: {name: '', amount: 0},
         list: {
@@ -77,11 +81,11 @@ export class World {
         }
       },
       area: {
-        template: {name: '', script_list: [], condition_list: []},
+        template: {name: '', script_list: [], condition_list: [], interaction_list: {}},
         list: {
-          0 : {name: 'area1', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
-          1 : {name: 'area2', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
-          3 : {name: 'area3', interaction_list:{1: {test: 'hello'}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+          0 : {name: 'area1', interaction_list:{1: {script_list: []}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
+          1 : {name: 'area2', interaction_list:{1: {script_list: []}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': false}},
+          3 : {name: 'area3', interaction_list:{1: {script_list: []}}, connectedAreaList: [], triggerEventList:[], onVisitEventList:[], flagMap: {'d1': true} },
         }
       },
       flag: {template: {name: '', },
@@ -94,7 +98,6 @@ export class World {
 
         }
       },
-
       complex_condition: {template: {}, list: {}},
       common_event: {template: {}, list: {}},
       global_event: {template: {}, list: {}},

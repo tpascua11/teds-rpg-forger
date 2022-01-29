@@ -59,30 +59,15 @@ export default {
 	},
 	props: ['value', 'scriptList', 'entity'],
 	watch: {
-		scriptList: function(){
+		scriptList: function(/* new, old*/){
 			this.validScriptList();
-			//console.log("huray?");
 		}
-		/*
-    scriptList: function(newv, oldv){
-      //console.log("oldv", JSON.stringify(oldv));
-      //console.log("newv", JSON.stringify(newv));
-      if(oldv != newv){
-        this.refScript.script_list = newv;
-				this.saveScript();
-      }
-		}
-		 */
   },
 	mounted(){},
   computed: {
-		refScript: function(){
-			return this.entity;
-		},
-		refScriptList: function(){
-			return this.entity.script_list;
-		},
-		classObject: function () { return {
+		refScript    : function(){ return this.entity; },
+		refScriptList: function(){ return this.entity.script_list; },
+		classObject  : function () { return {
 			active: this.isActive && !this.error,
 			'text-danger': this.error && this.error.type === 'fatal'}
 		},
@@ -99,6 +84,7 @@ export default {
     },
     selectAction(row, index){
 			console.log("CHECK", index);
+			console.log("SELECTING ACTION", row);
       this.validScriptList();
 			this.$emit('input', row);
     },
@@ -117,8 +103,7 @@ export default {
       //console.log("movement at", draggedContext.element);
       //draggedContext.element.isMoved = true;
 		},
-		dragUpdate(){
-		},
+		dragUpdate(){},
 		validScriptList(){
       console.log("CHECK VALIDATION!");
       let ifConditionList = [];

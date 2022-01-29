@@ -4,7 +4,7 @@
   <section class="">
     <div v-if="false" class="row"> {{value}} </div>
     <!-- Script: Menu 1 -->
-    <div v-if="value.empty">
+    <div v-if="!value.eventName">
       <div class="pure-u-1-1 " style="height: 22px;">
         <div class="action-title margin2">
           <i class="ra   ra-focused-lightning  "></i>
@@ -128,7 +128,8 @@ import TimeFlag    from '@/components/scriptCondition/TimeFlag.vue'
 import FlagChanceOnStat from '@/components/scriptCondition/FlagChanceOnStat.vue'
 
 export default {
-  name: 'AreaList',
+	name: 'AreaList',
+  props: ['value', 'scriptList'],
   data: function(){
     return {
       dog: "good",
@@ -160,7 +161,6 @@ export default {
     ItemFlag,
     TimeFlag,
   },
-  props: ['value'],
   mounted(){
   },
   methods:{
@@ -170,32 +170,33 @@ export default {
     remove(){ this.$parent.removeAction(); },
 
     newDescription(){
-      let template = {eventName: "add_description"};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "add_description"};
+			this.refScriptList.push(template);
+			//this.$parent.addToScriptList(template);
     },
     toggleWorldFlag(){
       let template = {eventName: "toggle_flag", flag: true, name: ''};
-      this.$parent.addToScriptList(template);
+			this.refScriptList.push(template);
     },
     toggleAreaFlag(){
-      let template = {eventName: "toggle_area_flag", flag: true, name: ''};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "toggle_area_flag", flag: true, name: ''};
+			this.refScriptList.push(template);
     },
     toggleScriptFlag(){
-      let template = {eventName: "toggle_script_flag", flag: true, name: ''};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "toggle_script_flag", flag: true, name: ''};
+			this.refScriptList.push(template);
     },
     newMoveIndex(){
-      let template = {eventName: "set_script_current_index_to",  name: ''};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "set_script_current_index_to",  name: ''};
+			this.refScriptList.push(template);
     },
     newItem(){
-      let template = {eventName: "item_modifier",  name: '', amount: 0};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "item_modifier",  name: '', amount: 0};
+			this.refScriptList.push(template);
     },
     newStat(){
-      let template = {eventName: "stat_modifier",  name: '', number: 0};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "stat_modifier",  name: '', number: 0};
+			this.refScriptList.push(template);
     },
     newStatWithInfluence(){
       let template = {
@@ -204,47 +205,47 @@ export default {
         default_value: 0, min_stat: 10, stat_per_influence: 1, multiplier: 1,
         min_total: 0, max_total: 100,
       };
-      this.$parent.addToScriptList(template);
+			this.refScriptList.push(template);
     },
     newTime(){
-      let template = {eventName: "time_pass", time: {years: 0, months: 0, days: 0, hours: 0, minutes: 0 }};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "time_pass", time: {years: 0, months: 0, days: 0, hours: 0, minutes: 0 }};
+			this.refScriptList.push(template);
     },
     newMove(){
-      let template = {eventName: "move_to_area",  name: ''};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "move_to_area",  name: ''};
+			this.refScriptList.push(template);
     },
     newChoiceList(){
-      let template = {eventName: "choice_list",  choiceList: []};
-      this.$parent.addToScriptList(template);
+			let template = {eventName: "choice_list",  choiceList: []};
+			this.refScriptList.push(template);
     },
     //-----------------------------------------------------------------
     // Conditions
     //-----------------------------------------------------------------
     simpleFlag(){
       let template = {ifCondition: "WORLD", conditionList: [{isList: [], notList: []}]};
-      this.$parent.addToScriptList(template);
+			this.refScriptList.push(template);
     },
     simpleAreaFlag(){
-      let template = {ifCondition: "AREA", conditionList: [{area_is_list: [], area_not_list: []}]};
-      this.$parent.addToScriptList(template);
+			let template = {ifCondition: "AREA", conditionList: [{area_is_list: [], area_not_list: []}]};
+			this.refScriptList.push(template);
     },
     simpleScriptFlag(){
-      let template = {ifCondition: "SCRIPT", conditionList: [{scriptIsList: []}]};
-      this.$parent.addToScriptList(template);
+			let template = {ifCondition: "SCRIPT", conditionList: [{scriptIsList: []}]};
+			this.refScriptList.push(template);
     },
-    addIf(){
-      this.$parent.addToScriptList({ifCondition: "ADVANCED", conditionList: []});
-      this.$parent.addToScriptList({endCondition: "ADVANCED"});
+		addIf(){
+      this.refScriptList.push({ifCondition: "ADVANCED", conditionList: []});
+      this.refScriptList.push({endCondition: "ADVANCED"});
     },
     addElse(){
-      this.$parent.addToScriptList({elseCondition: "ADVANCED"});
+      this.refScriptList.push({elseCondition: "ADVANCED"});
     },
     addElseIf(){
-      this.$parent.addToScriptList({elseIfCondition: "ADVANCED", conditionList: []});
+      this.refScriptList.push({elseIfCondition: "ADVANCED", conditionList: []});
     },
     addEnd(){
-      this.$parent.addToScriptList({endCondition: "ADVANCED"});
+      this.refScriptList.push({endCondition: "ADVANCED"});
     },
     //-----------------------------------------------------------------
 
@@ -257,7 +258,11 @@ export default {
 
     //-----------------------------------------------------------------
   },
-  computed: {
+	computed: {
+		refScriptList: function(){
+			console.log("TEST", this.scriptList);
+			return this.scriptList;
+		},
     classObject: function () {
       return { active: this.isActive && !this.error, 'text-danger': this.error && this.error.type === 'fatal'}
     }
