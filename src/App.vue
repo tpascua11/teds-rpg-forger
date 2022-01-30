@@ -9,10 +9,13 @@
 					<router-link to="/betterArea"  	class="routerFont" > Area  	 </router-link> |
 					<router-link to="/item"  				class="routerFont" > Items 	 </router-link> |
 					<router-link to="/world" 				class="routerFont" > World 	 </router-link> |
+					<router-link to="/character" 		class="routerFont" > Character </router-link> |
+					<!--
 					<router-link to="/stat" 				class="routerFont" > Stats 	 </router-link> |
 					<router-link to="/common" 			class="routerFont" > Common  </router-link> |
 					<router-link to="/global" 			class="routerFont" > Global  </router-link> |
 					<router-link to="/testing" 			class="routerFont" > Testing </router-link> |
+					-->
 				</div>
 			</nav>
 			<div id="nav">
@@ -336,5 +339,34 @@ p{
 	margin: 15px;
 }
 
+.sm-button{
+	height: 20px;
+	padding-top: 50px;
+}
+.sm-text{
+	line-height: 8px;
+}
+
+.d-font-x1{
+	font-size: 15px;
+}
+.d-font-x1-b{
+	font-size: 15px;
+	font-weight: bold;
+}
+.d-font-x2{
+	font-size: 18px;
+}
+.d-font-x2-b{
+	font-size: 18px;
+	font-weight: bold;
+}
+.d-font-x3{
+	font-size: 21px;
+}
+.d-font-x3-b{
+	font-size: 21px;
+	font-weight: bold;
+}
 
 </style>

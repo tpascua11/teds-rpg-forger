@@ -1,6 +1,67 @@
 <template>
-  <div class="World">
-    <div class="container container-md paper">
+  <div>
+  <div class="pure-u-1-24" ></div>
+  <div class="pure-u-23-24" >
+    <section>
+      <div class="pure-u-1-24" >
+      </div>
+      <div class="pure-u-1-24">
+        World Name:
+      </div>
+      <div class="pure-u-6-24" >
+        <input  class=""
+          type="string"
+          v-model="world.name"
+          placeholder="Name...">
+      </div>
+      <div class="pure-u-6-24" >
+        <label class="text-reader">
+          <input type="file" @change="loadTextFromFile"
+            class="nice-small-fit">
+          </label>
+      </div>
+    </section>
+    <br>
+
+    <section>
+      <div class="pure-u-1-24" ></div>
+      <div class="pure-u-1-24" >
+        File Name:
+      </div>
+      <div class="pure-u-6-24" >
+        <input class="" type="string" v-model="name" placeholder="Item...">
+      </div>
+    </section>
+    <br>
+
+    <section>
+      <div class="pure-u-1-24" ></div>
+      <div class="pure-u-1-24" >
+      </div>
+      <div class="pure-u-6-24" >
+          <button class="btn-success nice-small-fit" v-on:click="saveName">
+            <vue-blob-json-csv
+              file-type="json"
+              :file-name="name"
+              :data=[referenceWorld]
+            >
+              Download World As JSON
+            </vue-blob-json-csv>
+          </button>
+      </div>
+    </section>
+    <br>
+
+    <section>
+      <div class="pure-u-1-24" ></div>
+      <div class="pure-u-6-24" >
+        <div class="simpleScrollable">
+          {{fileInfo}}
+        </div>
+      </div>
+    </section>
+
+    <div class="container container-md paper" v-if="false">
       <div class="row">
         <div class="col-md-6">
           <h4> World: {{world.name}} </h4>
@@ -62,6 +123,8 @@
       {{fileInfo}}
     </div>
   </div>
+
+</div>
 
   </div>
 </template>

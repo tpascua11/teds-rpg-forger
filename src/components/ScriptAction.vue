@@ -1,11 +1,13 @@
 <template>
 	<div class="dt-border-x2">
-		<div>
+		<div v-if="typeof refScriptList !== 'undefined'">
 			<!-- Main -->
-			<section class="" v-if="(typeof refScriptList !== 'undefined')">
+			<section class="">
 				<div v-if="false" class="row"> {{value}} </div>
 				<!-- Script: Menu 1 -->
-				<div v-if="!value.eventName">
+				<div v-if="!value.eventName &&
+					!(value.ifCondition || value.elseIfCondition)
+					">
 					<div class="pure-u-1-1 " style="height: 22px;">
 						<div class="action-title margin2">
 							<i class="ra   ra-focused-lightning  "></i>

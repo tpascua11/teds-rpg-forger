@@ -70,6 +70,15 @@ const routes = [
   },
 
   {
+    path: '/character',
+    name: 'Character',
+    component: () => import ('../views/Character.vue'),
+    prop: {
+      world: Object
+    }
+  },
+
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

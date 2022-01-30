@@ -80,8 +80,13 @@ export default {
 
       console.log("NEW ENTITY", newEntity);
       this.refMap[index] = newEntity;
-      this.$forceUpdate();
+
+      this.selected = newEntity;
+      this.$emit('input', newEntity);
+      this.$emit("selected");
       this.$emit('created');
+
+      this.$forceUpdate();
     },
     scrollToEnd: function() {
       var container = this.$el.querySelector("#item-list");

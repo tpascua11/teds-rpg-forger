@@ -1,14 +1,14 @@
 <template>
   <div>
-    <v-select v-model="value.id" :options="listWithKeys" label="name"
+    <v-select v-model="value.id" :options="listWithSuperKeys" label="name"
       :reduce="stat => (stat.id)" @input="setName($event);"
       :clearable="false"
     >
       <template #selected-option="{}">
-        {{value.name}}
+        <div>{{value.name}}</div>
       </template>
       <template #option="{id}">
-        {{list[id].name}}
+        <div v-if="value[id]">{{list[id].name}}</div>
       </template>
     </v-select>
   </div>
@@ -59,7 +59,10 @@ export default {
     },
     classObject: function () {
       return { active: this.isActive && !this.error, 'text-danger': this.error && this.error.type === 'fatal'}
-    }
+    },
+    listWithSuperKeys: function(){
+      return this.objectListToList(this.list);
+    },
   }
 }
 
