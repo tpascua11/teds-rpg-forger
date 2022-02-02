@@ -9,28 +9,13 @@
             <div class="pure-u-6-24 this-title">
               {{nameCap(title)}}
 						</div>
-            <div class="pure-u-6-24 left">
-              max
-            </div>
-            <div class="pure-u-1-24"></div>
-            <div class="pure-u-6-24 left">
-              current
-						</div>
 					</div>
 
 					<div class="">
 						<section class="" v-for="(item, index) in value" :key="index">
 							<div style="height: 35px;">
                 <div class="pure-u-6-24">
-                  {{nameCap(list[index].name)}}
-                </div>
-								<div class="pure-u-6-24" style="position: relative; bottom: 4px;">
-									<input class="full-width writer" type="number"
-                    v-model="item.max" placeholder="num.."  @change="match(item)">
-                </div>
-                <div class="pure-u-1-24"></div>
-                <div class="pure-u-6-24" style="position: relative; bottom: 4px;">
-									<input class="foly-width writer" type="number" v-model="item.current" placeholder="num..">
+                  {{list[index].name}}
                 </div>
                 <div class="pure-u-1-24"></div>
                 <div class="pure-u-1-24">
@@ -43,11 +28,13 @@
 								</div>
 							</div>
             </section>
+            <br>
           </div>
         </section>
         <section>
           <section class="">
-              <p> Notes: Updating Max Increases Current</p>
+            <br>
+            <div class="pure-u-8-24"></div>
             </section>
         </section>
       </div>
@@ -101,7 +88,7 @@ export default {
       if(stat == {}) return;
       if(!stat.id) return;
 
-      this.$set(this.value, stat.id, {name: stat.name, max: 100, current: 100});
+      this.$set(this.value, stat.id, {name: stat.name});
       this.test = {};
     },
 		type(item){
@@ -111,7 +98,7 @@ export default {
 		},
     cutConfirm(index){
       delete this.value[index];
-      //TODO: Any other ways to refresh list?
+      //TODO: Any other ways to refresh list
       this.$set(this.value, 'editedr', true);
       delete this.value['editedr'];
 
@@ -119,9 +106,6 @@ export default {
     },
     closeModal(){
       this.$modal.hide('flagStatModal');
-    },
-    match(stat){
-      stat.current = stat.max;
     },
     updateNow(){
 		},

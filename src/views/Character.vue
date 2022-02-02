@@ -4,6 +4,17 @@
     </div>
 
     <div class="pure-u-3-24" style="right: 10">
+      <JustList
+        v-model="selectedEntity"
+        v-bind:map="thisMapList"
+        v-bind:title="'Character'"
+        v-bind:set_height="'150px'"
+        v-bind:template="thisMap.template"
+        @selected="refreshArea"
+        @created="refreshInteractionList"
+      />
+      <!--
+    -->
    </div>
 
     <div class="pure-u-1-24">
@@ -13,18 +24,11 @@
       <div>
         <div class="row border-down-x3 margin1" style="min-height: 40px;">
           <div class="d-font-x2-b">
-            <!--
-                  <i class="ra  ra-quill-ink"
-                    style="position: relative; left: 5px;">
-                  </i>
-                  -->
             {{showInterface}}
           </div>
           <div class="pure-u-24-24" style=" position:relative; top: 3px;">
               <div class="" style="overflow: hidden; ">
                 <label>
-                  <!--
-                  -->
                   <input
                     class="borderless-gray" placeholder="name..."
                     v-model="selectedEntity.name"
@@ -38,7 +42,9 @@
         <div class="dt-border-x2 margin1">
             <div class="pure-u-24-24" style="font-weight: 900;">
               <span>
-                <button class="pure-button sm-button" v-on:click="selectAttribute">
+                <button class="pure-button sm-button" v-on:click="selectAttribute"
+                        v-bind:style="[showOption == 'ATTRIBUTE' ? targeted : {}]"
+                >
                   <div class="sm-text">
                     Attributes
                   </div>
@@ -48,6 +54,9 @@
                 <span v-if="row.type == 'script_list' "> - </span>
                 <button v-if="row.type == 'script_list'"
                   class="pure-button sm-button"
+                  v-bind:style="[
+                  (showOption == 'SCRIPT_LIST') && (listName == index) ? targeted : {}
+                  ]"
                   v-on:click="selectScriptListName(index)"
                 >
                   <div class="sm-text">
@@ -58,7 +67,52 @@
             </div>
         </div>
         <div class="" v-if="showOption == 'ATTRIBUTE'">
-          <StatList v-model="template" v-bind:reference="'stat'"/>
+          <div v-if="false">
+            <StatList v-bind:title="'Stats'" v-model="template.stat" v-bind:reference="'stat'"/>
+            <hr>
+            <ListMultiSelect v-model="template.drop_inventory" v-bind:reference="'item'"/>
+            <hr>
+            <ListAmount v-model="template.drop_inventory" v-bind:reference="'item'"/>
+          </div>
+          <div v-for="(row , index) in template" :key="index">
+            <div v-if="templateInfo[index]">
+              <div v-if="templateInfo[index].type == 'list_current_and_max'">
+                <StatList v-bind:title="index" v-model="template[index]" v-bind:reference="'stat'"/>
+                <hr>
+              </div>
+              <div v-else-if="templateInfo[index].type == 'list_multi_select'">
+                <ListMultiSelect v-bind:title="index" v-model="template[index]" v-bind:reference="'item'"/>
+                <hr>
+              </div>
+              <div v-else-if="templateInfo[index].type == 'list_with_amount'">
+                <ListAmount v-bind:title="index" v-model="template[index]" v-bind:reference="'item'"/>
+                <hr>
+              </div>
+              <div v-else-if="(templateInfo[index].type == 'script_list')
+                              || index == 'name' ">
+              </div>
+              <div v-else>
+                <label>
+                  {{index}} <input class="borderless-gray" placeholder="name..."
+                    v-model="template[index]" type="text" style=" height: 25px; width: 50%;" />
+                </label>
+                <hr>
+              </div>
+            </div>
+          </div>
+
+          <!-- TODO: !!!
+          <div v-for="(row , index) in template" :key="index">
+            <div v-if="templateInfo[index].type == 'list_max_and_current'>
+              <StatList v-bind:title="index" v-model="value[index]"
+                        v-bind:reference="'templateInfo[index].type'"/>
+            </div
+            ...
+          </div>
+          <div v-for="(row , index) in template" :key="index">
+            ... Just for basic one input like string, numbers
+          </div
+          -->
         </div>
         <div v-else class="">
           <ScriptList
@@ -74,7 +128,7 @@
     <div class="pure-u-1-24"></div>
     <div class="pure-u-5-24 margin2">
       <section class="">
-      <div class="">
+      <div class="" v-if="showOption == 'SCRIPT_LIST'">
         <ScriptAction
           v-model="selectedAction"
           v-bind:scriptList="template[listName]"
@@ -102,12 +156,21 @@ import ScriptList from '@/components/ScriptList.vue'
 import ScriptAction from '@/components/ScriptAction.vue'
 import StatList from '@/components/attribute/ListCurrentAndMax.vue'
 
+import ListMultiSelect from '@/components/attribute/ListMultiSelect.vue'
+
+import ListAmount from '@/components/attribute/ListWithAmount.vue'
+import JustList from '@/components/list/JustList.vue'
+
 export default {
   name: 'Character',
   components: {
     ScriptList,
     ScriptAction,
     StatList,
+    ListMultiSelect,
+    ListAmount,
+    JustList
+
   },
   data: function() {
     return {
@@ -124,31 +187,22 @@ export default {
       listName: "",
 
       //selectedScriptList
+      targeted: { 'background-color': 'lightblue' },
       showOption: 'ATTRIBUTE',
       template: {
         name           : "",
         stat           : {},
-        drop_inventory : [],
-        on_death       : [
-          {test: 'cool'},
-          {test: 'happy'},
-          {test: 'sad'},
-          {test: 'hot'},
-          {test: 'fire'},
-          {test: 'cool'},
-          {test: 'cool'},
-        ],
-        on_creation    : [
-          {test: '1 tower'},
-          {test: '2 fire'},
-          {test: '3 sad'},
-        ],
-        conditionList: [],
+        drop_inventory : {},
+        inventory : {},
+        on_death       : [ {test: 'cool'},],
+        on_creation    : [ {test: '1 tower'}, {test: '2 fire'}, ],
+        //conditionList: [],
       },
       templateInfo: {
         name           : {type: 'string'},
-        stat           : {type: 'current_and_max_list', ref: 'stat'},
-        drop_inventory : {type: 'percentage_list', ref: 'item'},
+        stat           : {type: 'list_current_and_max', ref: 'stat'},
+        inventory      : {type: 'list_multi_select', ref: 'item'},
+        drop_inventory : {type: 'list_with_amount', ref: 'item'},
         on_death       : {type: 'script_list'},
         on_creation    : {type: 'script_list'}
       }
@@ -164,7 +218,10 @@ export default {
     },
     itemMap: function(){
       return this.$root.world.itemMap;
-    }
+    },
+    thisMap: function(){ return this.$root.world.group.character},
+    thisMapList: function(){ return this.$root.world.group.character.list},
+    //areaMap: this.$root.world.group.area.list,
   },
   methods:{
     addNewItem: function(){
@@ -196,6 +253,16 @@ export default {
     deselectAction(){
       //console.log("ACTION DESELECTED!");
       this.selectedAction = {empty:true};
+    },
+
+    refreshArea(){
+      //this.selectedArea = this.selectedEntity;
+      //this.showInterface = 'AREA';
+    },
+    refreshInteractionList(){
+      //console.log("check before", this.selectedInteraction);
+      //this.selectedInteraction = {empty: true};
+      //console.log("check after", this.selectedInteraction);
     },
 
 

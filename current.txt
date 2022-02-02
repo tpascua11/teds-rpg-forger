@@ -1,0 +1,12 @@
+- Character View
+  [ ] Dynamic Edits V
+  [ ] List Multi Select from Reference List from Group
+    ( ) 1 value (amount)
+    ( ) 2 value (current, max)
+    ( ) just reference
+  [ ] Basic Input string/numbers
+    ( ) Basic Input String and Numbers
+
+ [ ] List of Characters Table
+
+

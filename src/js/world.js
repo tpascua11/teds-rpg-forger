@@ -98,6 +98,18 @@ export class World {
 
         }
       },
+      character: {
+        templateInfo: {
+          name           : {type: 'string'},
+          stat           : {type: 'list_current_and_max', ref: 'stat'},
+          inventory      : {type: 'list_multi_select',    ref: 'item'},
+          drop_inventory : {type: 'list_with_amount',     ref: 'item'},
+          on_death       : {type: 'script_list'},
+          on_creation    : {type: 'script_list'}
+        },
+        template: {},
+        list: {},
+      },
       complex_condition: {template: {}, list: {}},
       common_event: {template: {}, list: {}},
       global_event: {template: {}, list: {}},

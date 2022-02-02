@@ -49,6 +49,13 @@ Vue.mixin({
 
       return newList;
     },
+    nameCap: function (name){
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    },
+    nameVarCap: function (name){
+      let fix = Object.keys({name})[0];
+      return fix.charAt(0).toUpperCase() + fix.slice(1);
+    },
     globalHelper: function () {
       alert("Hello world")
     },
