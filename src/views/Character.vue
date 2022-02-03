@@ -8,23 +8,35 @@
         v-model="selectedEntity"
         v-bind:map="thisMapList"
         v-bind:title="'Character'"
-        v-bind:set_height="'150px'"
+        v-bind:set_height="'450px'"
         v-bind:template="thisMap.template"
+        v-bind:templateInfo="thisMap.templateInfo"
         @selected="refreshArea"
         @created="refreshInteractionList"
+        v-bind:refresh="refresh"
       />
-      <!--
-    -->
    </div>
 
     <div class="pure-u-1-24">
     </div>
 
     <div class="pure-u-12-24 dt-border-x2">
-      <div>
+      <div v-if="!selectedEntity.empty">
         <div class="row border-down-x3 margin1" style="min-height: 40px;">
           <div class="d-font-x2-b">
-            {{showInterface}}
+            <div class="pure-u-16-24">
+              {{showInterface}}
+            </div>
+            <div class="pure-u-8-24 right">
+              <button class="pure-button b-yellow sm-button"
+                v-on:click="copyEntity();">
+                <div class="sm-text"> Copy </div>
+              </button>
+              -
+              <button class="pure-button b-red sm-button" v-on:click="test();">
+                <div class="sm-text"> X </div>
+              </button>
+            </div>
           </div>
           <div class="pure-u-24-24" style=" position:relative; top: 3px;">
               <div class="" style="overflow: hidden; ">
@@ -32,8 +44,7 @@
                   <input
                     class="borderless-gray" placeholder="name..."
                     v-model="selectedEntity.name"
-                    type="text" style="font-weight: 900; font-size: 25px; height:
-                    25px; width: 100%;"
+                    type="text" style="font-weight: 900; font-size: 25px; height: 25px; width: 100%;"
                   />
                 </label>
               </div>
@@ -49,76 +60,74 @@
                     Attributes
                   </div>
                 </button>
+                -
+                <button class="pure-button sm-button" v-on:click="selectCondition"
+                        v-bind:style="[showOption == 'CONDITION' ? targeted : {}]"
+                >
+                  <div class="sm-text">
+                    Conditions
+                  </div>
+                </button>
               </span>
               <span v-for="(row,index) in templateInfo" :key="index">
                 <span v-if="row.type == 'script_list' "> - </span>
-                <button v-if="row.type == 'script_list'"
-                  class="pure-button sm-button"
-                  v-bind:style="[
-                  (showOption == 'SCRIPT_LIST') && (listName == index) ? targeted : {}
-                  ]"
+                <button v-if="row.type == 'script_list'" class="pure-button sm-button"
+                  v-bind:style="[(showOption == 'SCRIPT_LIST') && (listName == index) ? targeted : {} ]"
                   v-on:click="selectScriptListName(index)"
                 >
-                  <div class="sm-text">
-                    {{index}} Event
-                  </div>
+                  <div class="sm-text"> {{index}} Event </div>
                 </button>
               </span>
             </div>
         </div>
         <div class="" v-if="showOption == 'ATTRIBUTE'">
-          <div v-if="false">
-            <StatList v-bind:title="'Stats'" v-model="template.stat" v-bind:reference="'stat'"/>
-            <hr>
-            <ListMultiSelect v-model="template.drop_inventory" v-bind:reference="'item'"/>
-            <hr>
-            <ListAmount v-model="template.drop_inventory" v-bind:reference="'item'"/>
-          </div>
-          <div v-for="(row , index) in template" :key="index">
+          <div v-for="(row , index) in selectedEntity" :key="index">
             <div v-if="templateInfo[index]">
               <div v-if="templateInfo[index].type == 'list_current_and_max'">
-                <StatList v-bind:title="index" v-model="template[index]" v-bind:reference="'stat'"/>
+                <div v-if="false">
+                  <StatList v-bind:title="index" v-model="selectedEntity[index]" v-bind:reference="'stat'"/>
+                </div>
+                <hr>
+              </div>
+              <div v-else-if="templateInfo[index].type == 'list_custom'">
+                <ListCustom
+                  v-bind:title="index"
+                  v-model="selectedEntity[index]"
+                  v-bind:reference="templateInfo[index]"/>
                 <hr>
               </div>
               <div v-else-if="templateInfo[index].type == 'list_multi_select'">
-                <ListMultiSelect v-bind:title="index" v-model="template[index]" v-bind:reference="'item'"/>
+                <ListMultiSelect v-bind:title="index" v-model="selectedEntity[index]" v-bind:reference="'item'"/>
                 <hr>
               </div>
               <div v-else-if="templateInfo[index].type == 'list_with_amount'">
-                <ListAmount v-bind:title="index" v-model="template[index]" v-bind:reference="'item'"/>
+                <ListAmount v-bind:title="index" v-model="selectedEntity[index]" v-bind:reference="'item'"/>
                 <hr>
               </div>
-              <div v-else-if="(templateInfo[index].type == 'script_list')
-                              || index == 'name' ">
-              </div>
+              <div v-else-if="(templateInfo[index].type == 'script_list') || (templateInfo[index].type == 'condition_list') || index == 'name'"> </div>
               <div v-else>
                 <label>
                   {{index}} <input class="borderless-gray" placeholder="name..."
-                    v-model="template[index]" type="text" style=" height: 25px; width: 50%;" />
+                    v-model="selectedEntity[index]" type="text" style=" height: 25px; width: 50%;" />
                 </label>
                 <hr>
               </div>
             </div>
           </div>
-
-          <!-- TODO: !!!
-          <div v-for="(row , index) in template" :key="index">
-            <div v-if="templateInfo[index].type == 'list_max_and_current'>
-              <StatList v-bind:title="index" v-model="value[index]"
-                        v-bind:reference="'templateInfo[index].type'"/>
-            </div
-            ...
-          </div>
-          <div v-for="(row , index) in template" :key="index">
-            ... Just for basic one input like string, numbers
-          </div
-          -->
         </div>
-        <div v-else class="">
+        <div v-else-if="showOption == 'CONDITION'" class="">
+          <Condition
+            v-model="selectedEntity"
+            v-bind:scriptList="selectedEntity[listName]"
+            v-bind:entity="selectedAction"
+          />
+        </div>
+        <div v-else-if="showOption == 'SCRIPT_LIST'" class="">
           <ScriptList
-            v-bind:scriptList="template[listName]"
-            v-bind:entity="template"
+            v-bind:scriptList="selectedEntity[listName]"
+            v-bind:entity="selectedEntity"
             v-bind:listName="listName"
+            v-bind:show="showOption"
             v-model="selectedAction"
           />
         </div>
@@ -128,23 +137,13 @@
     <div class="pure-u-1-24"></div>
     <div class="pure-u-5-24 margin2">
       <section class="">
-      <div class="" v-if="showOption == 'SCRIPT_LIST'">
-        <ScriptAction
-          v-model="selectedAction"
-          v-bind:scriptList="template[listName]"
-          v-bind:entity="selectedAction"
-        />
-      </div>
-      <div class="margin2" v-if="!selectedAction.empty">
-        <div class="pure-u-3-5">
-          <button class="button-warning pure-button full-width"
-            v-on:click="deselectAction()"       > Back </button>
+        <div class="" v-if="showOption == 'SCRIPT_LIST'">
+          <ScriptAction
+            v-model="selectedAction"
+            v-bind:scriptList="selectedEntity[listName]"
+            v-bind:entity="selectedAction"
+          />
         </div>
-        <div class="pure-u-2-5">
-          <button class="button-error pure-button full-width"
-              v-on:click="removeAction()"       > Remove </button>
-        </div>
-      </div>
       </section>
     </div>
   </div>
@@ -154,11 +153,13 @@
 
 import ScriptList from '@/components/ScriptList.vue'
 import ScriptAction from '@/components/ScriptAction.vue'
+import Condition from '@/components/Condition.vue'
 import StatList from '@/components/attribute/ListCurrentAndMax.vue'
 
 import ListMultiSelect from '@/components/attribute/ListMultiSelect.vue'
 
 import ListAmount from '@/components/attribute/ListWithAmount.vue'
+import ListCustom from '@/components/attribute/ListCustom.vue'
 import JustList from '@/components/list/JustList.vue'
 
 export default {
@@ -169,8 +170,9 @@ export default {
     StatList,
     ListMultiSelect,
     ListAmount,
-    JustList
-
+    ListCustom,
+    JustList,
+    Condition,
   },
   data: function() {
     return {
@@ -179,53 +181,31 @@ export default {
 
       selectedAction: {empty: true},
       selectedInteraction: {},
-      selectedEntity: {scriptList: [], empty: true},
-      selectedName: "",
+      selectedEntity: {empty: true},
       showInterface: "Character",
 
       selectedScriptList: [],
       listName: "",
 
-      //selectedScriptList
       targeted: { 'background-color': 'lightblue' },
       showOption: 'ATTRIBUTE',
-      template: {
-        name           : "",
-        stat           : {},
-        drop_inventory : {},
-        inventory : {},
-        on_death       : [ {test: 'cool'},],
-        on_creation    : [ {test: '1 tower'}, {test: '2 fire'}, ],
-        //conditionList: [],
-      },
-      templateInfo: {
-        name           : {type: 'string'},
-        stat           : {type: 'list_current_and_max', ref: 'stat'},
-        inventory      : {type: 'list_multi_select', ref: 'item'},
-        drop_inventory : {type: 'list_with_amount', ref: 'item'},
-        on_death       : {type: 'script_list'},
-        on_creation    : {type: 'script_list'}
-      }
-
+      refresh: 0,
     };
   },
   props: {
     world: Object,
   },
   computed: {
-    rworld: function(){
-      return this.$root.world;
-    },
-    itemMap: function(){
-      return this.$root.world.itemMap;
-    },
     thisMap: function(){ return this.$root.world.group.character},
     thisMapList: function(){ return this.$root.world.group.character.list},
+    templateInfo: function(){
+      if(!this.$root.world.group['character'].templateInfo) return {};
+      return this.$root.world.group['character'].templateInfo;
+    }
     //areaMap: this.$root.world.group.area.list,
   },
   methods:{
     addNewItem: function(){
-      this.selectedName = "-----------";
       this.selectedEntity= {
         limit: 10,
         description: "",
@@ -250,12 +230,28 @@ export default {
       this.showOption = 'SCRIPT_LIST';
       console.log("new list name", this.listName);
     },
+    selectCondition: function(){
+      this.showOption = 'CONDITION';
+    },
     deselectAction(){
       //console.log("ACTION DESELECTED!");
       this.selectedAction = {empty:true};
     },
-
+    copyEntity(){
+      //this.thisMapList.push(JSON.stringify(this.selectedEntity));
+      console.log("COPY");
+      let index = Object.keys(this.thisMapList).length + 1;
+      index;
+      let newEntity = JSON.parse(JSON.stringify(this.selectedEntity));
+      this.thisMapList[index] = newEntity;
+      this.selectedEntity = this.thisMapList[index];
+      this.refresh+=1;
+      this.$forceUpdate();
+    },
+    removeEntity(){
+    },
     refreshArea(){
+      this.showOption = 'ATTRIBUTE';
       //this.selectedArea = this.selectedEntity;
       //this.showInterface = 'AREA';
     },
@@ -355,7 +351,13 @@ input:focus {
   position: relative;
   bottom: 9px;
   left: 5px;
+}
 
+.b-yellow{
+  background-color: #F0E68C;
+}
+.b-red{
+  background-color: #FF7F7F;
 }
 
 

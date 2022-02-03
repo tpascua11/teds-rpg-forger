@@ -60,15 +60,17 @@ export default {
     /*
     scriptList: function(newv, oldv){
       //oldv; newv;
-      this.validScriptList();
-    }
+      //this.validScriptList();
+    },
      */
     listName: function(){
       console.log("LIST CHANGE!");
       this.validScriptList();
-    }
+    },
   },
-	mounted(){},
+  mounted(){
+      this.validScriptList();
+  },
   computed: {
 		refScript    : function(){ return this.entity; },
 		refScriptList: function(){ return this.entity[this.listName]; },

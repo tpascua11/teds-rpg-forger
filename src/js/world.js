@@ -63,13 +63,16 @@ export class World {
     };
 
     this.group = {
-      stat: {template: {name: '', amount: 0},
+      stat: {
+        template: {name: '', amount: 0},
         list: {
           0: {name: 'health'},
           1: {name: 'mana'},
           2: {name: 'stamina'},
           3: {name: 'currency'},
+          4: {name: 'this has a really really long name'},
         }
+
       },
       item: {
         template: {name: '', amount: 0, amount_max: 10000, script_list: []},
@@ -101,13 +104,35 @@ export class World {
       character: {
         templateInfo: {
           name           : {type: 'string'},
-          stat           : {type: 'list_current_and_max', ref: 'stat'},
+          stat           : {
+            type: 'list_custom',
+            ref: 'stat',
+            restrict: [0],
+            value_option: {'max': '#', 'current': '#', /*'description': 's'*/},
+            sync: [['max', 'current']],
+            rule_set: [
+              {rule: 'FORCE_MATCH', set: ['max', 'current']},
+              {rule: 'FORCE_LOWER', set: ['current', 'max']},
+            ],
+            default_set: {0: {max: 100, current: 100}}
+          },
+          lockarmor      : {type: 'list_custom',    ref: 'item'},
           inventory      : {type: 'list_multi_select',    ref: 'item'},
           drop_inventory : {type: 'list_with_amount',     ref: 'item'},
           on_death       : {type: 'script_list'},
-          on_creation    : {type: 'script_list'}
+          on_creation    : {type: 'script_list'},
+          condition_list : {type: 'condition_list'}
         },
-        template: {},
+        template: {
+          name           : "",
+          stat           : {0: {max: 100, current: 100, /*description: 'cool' */}},
+          lockarmor      : {},
+          inventory      : {},
+          drop_inventory : {},
+          on_death       : [],
+          on_creation    : [],
+          condition_list : [],
+        },
         list: {},
       },
       complex_condition: {template: {}, list: {}},

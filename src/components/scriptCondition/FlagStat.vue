@@ -12,7 +12,7 @@
         Stat Condition
 			</div>
 			<br>
-			<div v-for="(item1, index) in value.conditionList" :key="index" class="">
+			<div v-for="(item1, index) in value.condition_list" :key="index" class="">
 				<section class="border-top">
 					<br>
 					<div style="height: 32px;" class="">
@@ -27,7 +27,7 @@
 						</div>
 
 						<div class="pure-u-3-24 right">
-							<button v-on:click="cutConfirm(value.conditionList, index)"
+							<button v-on:click="cutConfirm(value.condition_list, index)"
 								class="pure-button full-width button-white"
 								style="height: 25px;">
 								<div class="b-font"> Clear </div>
@@ -44,7 +44,7 @@
 									</button>
 								</div>
 								<div class="pure-u-9-24">
-									<SelectNameAndID v-model="value.conditionList[index].hasStat[index2]" :list="list"/>
+									<SelectNameAndID v-model="value.condition_list[index].hasStat[index2]" :list="list"/>
 										<!--
 									<v-select v-model="item2.name" :options="flagList" label="id" @input="updateNow" :clearable="false">
 										<template #selected-option="{}">
@@ -145,16 +145,16 @@ export default {
   methods:{
 		additionalAnd(index){
 			console.log("CHECK!");
-			if(!this.value.conditionList[index].hasStat){
-				this.$set(this.value.conditionList[index], 'hasStat', []);
+			if(!this.value.condition_list[index].hasStat){
+				this.$set(this.value.condition_list[index], 'hasStat', []);
 			}
-			this.value.conditionList[index].hasStat.push({operator: ">", type: "#"});
+			this.value.condition_list[index].hasStat.push({operator: ">", type: "#"});
 		},
     additionalOr(){
-      this.value.conditionList.push({hasStat: [{operator: ">", type: "#"}]});
+      this.value.condition_list.push({hasStat: [{operator: ">", type: "#"}]});
     },
     additionalList(){
-      this.value.conditionList.push({operator: ">", type: "#"});
+      this.value.condition_list.push({operator: ">", type: "#"});
     },
     cut(list, index){
       list.splice(index, 1);

@@ -7,7 +7,7 @@
           </div>
 					<div style="height: 32px;" class="">
             <div class="pure-u-6-24 this-title">
-              {{nameCap(reference)}}
+              {{nameCap(title)}}
 						</div>
             <div class="pure-u-6-24 left">
               amount

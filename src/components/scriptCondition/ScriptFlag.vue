@@ -15,7 +15,7 @@
             </div>
           </section>
           <section>
-            <div v-for="(item, index) in value.conditionList" class="closer" :key="index">
+            <div v-for="(item, index) in value.condition_list" class="closer" :key="index">
               <div class="col-12 col thin">
                 <table class="table" style="table-layout: fixed;">
                   <tbody v-if="!item.isScriptList">
@@ -106,14 +106,14 @@ export default {
       return isScriptList.some( ai => notScriptList.includes(ai) );
     },
     addNewList(){
-      this.value.conditionList.push({isScriptList: [], notScriptList: []});
+      this.value.condition_list.push({isScriptList: [], notScriptList: []});
     },
     addThisSet(index){
-      this.$set(this.value.conditionList[index], 'isScriptList', []);
-      this.$set(this.value.conditionList[index], 'notScriptList', []);
+      this.$set(this.value.condition_list[index], 'isScriptList', []);
+      this.$set(this.value.condition_list[index], 'notScriptList', []);
     },
     removeAtIndex(index){
-      this.value.conditionList.splice(index, 1);
+      this.value.condition_list.splice(index, 1);
     },
     trueList(set){
       console.log("what is set", set);

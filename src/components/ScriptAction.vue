@@ -102,7 +102,19 @@
       <FlagChanceOnStat v-model="value"/>
       <ItemFlag v-model="value"/>
       <TimeFlag v-model="value"/>
-    </section>
+		</section>
+
+		<div class="margin2" v-if="!value.empty">
+			<div class="pure-u-3-5">
+				<button class="button-warning pure-button full-width"
+					v-on:click="deselect();"> Back </button>
+			</div>
+			<div class="pure-u-2-5">
+				<button class="button-error pure-button full-width"
+					v-on:click="remove();"> Remove </button>
+			</div>
+		</div>
+
 
 	</div>
 
@@ -172,9 +184,15 @@ export default {
   methods:{
     test(){ console.log("------");},
     newAction(){},
-    deselect(){ this.$parent.deselectAction(); },
-    remove(){ this.$parent.removeAction(); },
-
+		deselect(){
+      this.$emit('input', {empty: true});
+		},
+		remove(){
+			console.log("remove");
+			this.$emit('remove');
+			//this.$emit('input', {deleted: true});
+			//this.$parent.removeAction();
+		},
     newDescription(){
 			let template = {eventName: "add_description"};
 			this.refScriptList.push(template);
@@ -229,26 +247,26 @@ export default {
     // Conditions
     //-----------------------------------------------------------------
     simpleFlag(){
-      let template = {ifCondition: "WORLD", conditionList: [{isList: [], notList: []}]};
+      let template = {ifCondition: "WORLD", condition_list: [{isList: [], notList: []}]};
 			this.refScriptList.push(template);
     },
     simpleAreaFlag(){
-			let template = {ifCondition: "AREA", conditionList: [{area_is_list: [], area_not_list: []}]};
+			let template = {ifCondition: "AREA", condition_list: [{area_is_list: [], area_not_list: []}]};
 			this.refScriptList.push(template);
     },
     simpleScriptFlag(){
-			let template = {ifCondition: "SCRIPT", conditionList: [{scriptIsList: []}]};
+			let template = {ifCondition: "SCRIPT", condition_list: [{scriptIsList: []}]};
 			this.refScriptList.push(template);
     },
 		addIf(){
-      this.refScriptList.push({ifCondition: "ADVANCED", conditionList: []});
+      this.refScriptList.push({ifCondition: "ADVANCED", condition_list: []});
       this.refScriptList.push({endCondition: "ADVANCED"});
     },
     addElse(){
       this.refScriptList.push({elseCondition: "ADVANCED"});
     },
     addElseIf(){
-      this.refScriptList.push({elseIfCondition: "ADVANCED", conditionList: []});
+      this.refScriptList.push({elseIfCondition: "ADVANCED", condition_list: []});
     },
     addEnd(){
       this.refScriptList.push({endCondition: "ADVANCED"});
@@ -342,6 +360,14 @@ h4{
 	top: -4px;
 
 }
+
+.button-error {
+	background-color: #E9967A;
+}
+.button-warning {
+  background-color: #f2f28d;
+}
+
 
 
 </style>

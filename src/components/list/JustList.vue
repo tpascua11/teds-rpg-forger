@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <section class="">
-
       <div v-if="title" class="border-down-x3" style="height: 30px;">
         <div class="pure-u-4-24">
           <i class="ra  ra-book   ra-lg"
@@ -16,7 +15,7 @@
       <div id="the-list" class="cool-scroll" v-bind:style="{height: box_height}">
         <div v-for="(row, index) in map" :key="index"
           class="border-down row clickable"
-          v-bind:style="[ row == selected ? styleObject : {}]"
+          v-bind:style="[ row == value ? styleObject : {}]"
           v-on:click="selectRow(row)"
         >
           <div class="pure-u-3-24 index-position left"> {{index}}.  </div>
@@ -40,7 +39,13 @@
 export default {
   name: 'ITEM_List',
   components: {},
-  props: ['value', 'title', 'map', 'set_height', 'area', 'template'],
+  watch: {
+    refresh: function(){
+      console.log("?");
+      this.$forceUpdate();
+    }
+  },
+  props: ['value', 'title', 'map', 'set_height', 'area', 'template', 'templateInfo', 'refresh'],
   data: function(){
     return {
       hi: {},
@@ -75,7 +80,8 @@ export default {
       let newEntity
 
       console.log("template", this.template);
-      if(this.template) newEntity = JSON.parse(JSON.stringify(this.template));
+      if(this.templateInfo) newEntity = this.copyFromTemplateInfo();
+      else if(this.template) newEntity = JSON.parse(JSON.stringify(this.template));
       else newEntity = {id: index};
 
       console.log("NEW ENTITY", newEntity);
@@ -87,6 +93,23 @@ export default {
       this.$emit('created');
 
       this.$forceUpdate();
+    },
+    copyFromTemplateInfo: function(){
+      console.log("Can i see if this exist", JSON.stringify(this.templateInfo));
+      let newEntity = {};
+      Object.keys(this.templateInfo).forEach(key => {
+        if(!this.templateInfo[key]) return;
+        if(this.templateInfo[key].default_set){
+          newEntity[key] = this.templateInfo[key].default_set;
+        }
+        else if(this.templateInfo[key].type == 'string') newEntity[key] = '';
+        else if( this.templateInfo[key].type == 'number') newEntity[key] = 0;
+        else if( this.templateInfo[key].type == 'condition_list') newEntity[key] = [];
+        else if( this.templateInfo[key].type == 'script_list') newEntity[key] = [];
+        else newEntity[key] = {};
+      });
+      console.log("DUPLICATE FROM INFO", newEntity);
+      return newEntity;
     },
     scrollToEnd: function() {
       var container = this.$el.querySelector("#item-list");

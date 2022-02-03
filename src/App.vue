@@ -369,4 +369,15 @@ p{
 	font-weight: bold;
 }
 
+.button-error {
+	background-color: #E9967A;
+}
+.true-red{
+	background-color: #E9967A;
+}
+.button-warning {
+  background-color: #f2f28d;
+}
+
+
 </style>

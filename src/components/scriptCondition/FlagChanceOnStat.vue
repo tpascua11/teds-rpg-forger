@@ -17,7 +17,7 @@
 				</div>
 
 				<section>
-					<div class="border-top" v-for="(item1, index) in value.conditionList" :key="index">
+					<div class="border-top" v-for="(item1, index) in value.condition_list" :key="index">
 						<br>
 						<div style="height: 32px;" class="">
 							<div class="pure-u-7-24 list-title">
@@ -26,7 +26,7 @@
 							<div class="pure-u-14-24">
 							</div>
 							<div class="pure-u-3-24 right">
-								<button v-on:click="cutConfirm(value.conditionList, index)"
+								<button v-on:click="cutConfirm(value.condition_list, index)"
 									class="pure-button full-width button-white"
 									style="height: 25px;">
 									<div class="b-font"> Clear </div>
@@ -117,7 +117,7 @@
           Percentage + ( (Stat - Minimal Stat) / (Stat Per Increase) ) * Multiplier
       </div>
       <section class="modal-body-height">
-        <section class="default-thin-border" v-for="(item1, index) in value.conditionList" :key="index">
+        <section class="default-thin-border" v-for="(item1, index) in value.condition_list" :key="index">
           <div class="row">
             <div class="list-title col col-4">
               List {{index}}
@@ -129,7 +129,7 @@
               </button>
             </div>
             <div class="col col-3 smallc">
-              <button v-on:click="cutConfirm(value.conditionList, index)"
+              <button v-on:click="cutConfirm(value.condition_list, index)"
                 class="btn-danger btn-small smallt btn-block">
                 <section class="smalltin"> X </section>
               </button>
@@ -241,10 +241,10 @@ export default {
   methods:{
 		additionalAnd(index){
 			console.log("CHECK!");
-			if(!this.value.conditionList[index].hasChanceStat){
-				this.$set(this.value.conditionList[index], 'hasChanceStat', []);
+			if(!this.value.condition_list[index].hasChanceStat){
+				this.$set(this.value.condition_list[index], 'hasChanceStat', []);
 			}
-      this.value.conditionList[index].hasChanceStat.push(
+      this.value.condition_list[index].hasChanceStat.push(
         {
         stat_base: 10,
         stat_per_increase: 1,
@@ -256,7 +256,7 @@ export default {
       );
 		},
     additionalOr(){
-      this.value.conditionList.push({hasChanceStat: [
+      this.value.condition_list.push({hasChanceStat: [
         {
           stat_base: 10,
           stat_per_increase: 1,
@@ -268,7 +268,7 @@ export default {
       ]});
     },
     additionalList(){
-      this.value.conditionList.push({operator: ">"});
+      this.value.condition_list.push({operator: ">"});
     },
     cut(list, index){
       list.splice(index, 1);

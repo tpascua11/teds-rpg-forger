@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-select v-model="value.id" :options="listWithSuperKeys" label="name"
+    <v-select class="cool" v-model="value.id" :options="listWithSuperKeys" label="name"
       :reduce="stat => (stat.id)" @input="setName($event);"
       :clearable="false"
     >
@@ -75,5 +75,11 @@ textarea {
   height: 100%;
   width: 100%;
 }
+
+.cool{
+  height: 10px;
+  font-size:15px;
+}
+
 
 </style>

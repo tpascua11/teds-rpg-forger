@@ -12,7 +12,7 @@
         Flag Condition
       </div>
       <section class="modal-body-height">
-        <section class="default-thin-border" v-for="(item1, index) in value.conditionList" :key="index">
+        <section class="default-thin-border" v-for="(item1, index) in value.condition_list" :key="index">
           <div v-if="true" class="row">
             <div class="list-title col col-4">
               List {{index}}
@@ -106,21 +106,21 @@ export default {
   mounted(){},
   methods:{
 		additionalAnd(index){
-			console.log("CHECK! INDEX FIRE!!!", this.value.conditionList[index]);
-      if(!this.value.conditionList[index].time){
+			console.log("CHECK! INDEX FIRE!!!", this.value.condition_list[index]);
+      if(!this.value.condition_list[index].time){
         console.log("-???");
-				this.$set(this.value.conditionList[index], 'time', {after: {}, before: {}});
+				this.$set(this.value.condition_list[index], 'time', {after: {}, before: {}});
 			}
-			//this.value.conditionList[index].hasItem.push({operator: ">"});
+			//this.value.condition_list[index].hasItem.push({operator: ">"});
 		},
     additionalOr(){
-      this.value.conditionList.push({ });
+      this.value.condition_list.push({ });
     },
     additionalList(){
-      this.value.conditionList.push({operator: ">"});
+      this.value.condition_list.push({operator: ">"});
     },
     cut(index){
-      this.$delete(this.value.conditionList[index], 'time');
+      this.$delete(this.value.condition_list[index], 'time');
     },
     cutConfirm(list, index){
       console.log(list);

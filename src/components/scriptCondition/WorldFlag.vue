@@ -12,7 +12,7 @@
               World Flag
             </div>
           <section>
-            <div v-for="(item, index) in value.conditionList" class="" :key="index">
+            <div v-for="(item, index) in value.condition_list" class="" :key="index">
               <br>
               <div v-if="!item.isList">
                 <button v-on:click="addThisSet(index)" class="pure-button">
@@ -99,14 +99,14 @@ export default {
       return isList.some( ai => notList.includes(ai) );
     },
     addNewList(){
-      this.value.conditionList.push({isList: [], notList: []});
+      this.value.condition_list.push({isList: [], notList: []});
     },
     addThisSet(index){
-      this.$set(this.value.conditionList[index], 'isList', []);
-      this.$set(this.value.conditionList[index], 'notList', []);
+      this.$set(this.value.condition_list[index], 'isList', []);
+      this.$set(this.value.condition_list[index], 'notList', []);
     },
     removeAtIndex(index){
-      this.value.conditionList.splice(index, 1);
+      this.value.condition_list.splice(index, 1);
     },
     trueList(set){
       console.log("what is set", set);

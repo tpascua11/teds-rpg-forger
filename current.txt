@@ -1,12 +1,20 @@
 - Character View
-  [ ] Dynamic Edits V
-  [ ] List Multi Select from Reference List from Group
-    ( ) 1 value (amount)
-    ( ) 2 value (current, max)
-    ( ) just reference
-  [ ] Basic Input string/numbers
-    ( ) Basic Input String and Numbers
 
- [ ] List of Characters Table
+  [?] Basic Input string/numbers
+    (?) Basic Input String and Numbers
+  [X] Custom Varaibles to Reference List
+      value_option
+      strict
+      maybe default
+
+  [ ] Remake Items Tab
+  [ ] Remake Area Tab
+
+  [ ] Make Customable Entity
+
+  [ ] List has  nested possible entities
+      split into 2 like area tab.
+
+ [X] List of Characters Table
 
 
