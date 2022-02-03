@@ -176,8 +176,9 @@ export default {
   },
   data: function() {
     return {
-      name: "Item",
-      map: this.$root.world.group.item.list,
+      groupEntity: 'character',
+
+      name: "Character",
 
       selectedAction: {empty: true},
       selectedInteraction: {},
@@ -196,29 +197,18 @@ export default {
     world: Object,
   },
   computed: {
-    thisMap: function(){ return this.$root.world.group.character},
-    thisMapList: function(){ return this.$root.world.group.character.list},
+    thisMap: function(){
+      return this.$root.world.group[this.groupEntity]
+    },
+    thisMapList: function(){
+      return this.$root.world.group[this.groupEntity].list
+    },
     templateInfo: function(){
-      if(!this.$root.world.group['character'].templateInfo) return {};
-      return this.$root.world.group['character'].templateInfo;
+      if(!this.$root.world.group[this.groupEntity].templateInfo) return {};
+      return this.$root.world.group[this.groupEntity].templateInfo;
     }
-    //areaMap: this.$root.world.group.area.list,
   },
   methods:{
-    addNewItem: function(){
-      this.selectedEntity= {
-        limit: 10,
-        description: "",
-        script_list: [],
-        scriptList: []
-      };
-
-      let index = Object.keys(this.map).length;
-      this.map[index] = this.selectedEntity;
-      //this.selectedAction = {empty:true};
-
-      console.log("see this", this.map[index]);
-    },
     selectEntity: function(entity){
       this.selectedEntity = entity;
     },
@@ -234,11 +224,9 @@ export default {
       this.showOption = 'CONDITION';
     },
     deselectAction(){
-      //console.log("ACTION DESELECTED!");
       this.selectedAction = {empty:true};
     },
     copyEntity(){
-      //this.thisMapList.push(JSON.stringify(this.selectedEntity));
       console.log("COPY");
       let index = Object.keys(this.thisMapList).length + 1;
       index;
@@ -252,8 +240,6 @@ export default {
     },
     refreshArea(){
       this.showOption = 'ATTRIBUTE';
-      //this.selectedArea = this.selectedEntity;
-      //this.showInterface = 'AREA';
     },
     refreshInteractionList(){
       //console.log("check before", this.selectedInteraction);

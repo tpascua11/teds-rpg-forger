@@ -123,16 +123,6 @@ export class World {
           on_creation    : {type: 'script_list'},
           condition_list : {type: 'condition_list'}
         },
-        template: {
-          name           : "",
-          stat           : {0: {max: 100, current: 100, /*description: 'cool' */}},
-          lockarmor      : {},
-          inventory      : {},
-          drop_inventory : {},
-          on_death       : [],
-          on_creation    : [],
-          condition_list : [],
-        },
         list: {},
       },
       complex_condition: {template: {}, list: {}},
@@ -142,8 +132,3 @@ export class World {
 
   }
 }
-/*
-			{name: "Area 1", description: "Welcome to Area 1", connectedAreaList: ["Area 2"], interactionList: []},
-			{name: "Area 2", description: "Depise Area 2"    , connectedAreaList: ["Area 1", "Area 3"], interactionList: []},
-			{name: "Area 3", description: "In Area 3"        , connectedAreaList: ["Area 2"], interactionList: []},
-*/
