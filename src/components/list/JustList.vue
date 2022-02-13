@@ -100,9 +100,11 @@ export default {
       Object.keys(this.templateInfo).forEach(key => {
         if(!this.templateInfo[key]) return;
         if(this.templateInfo[key].default_set){
-          newEntity[key] = this.templateInfo[key].default_set;
+          newEntity[key] = JSON.parse(JSON.stringify(this.templateInfo[key].default_set));
         }
-        else if(this.templateInfo[key].type == 'string') newEntity[key] = '';
+        else if(this.templateInfo[key].type == 'string'){
+          newEntity[key] = '';
+        }
         else if( this.templateInfo[key].type == 'number') newEntity[key] = 0;
         else if( this.templateInfo[key].type == 'condition_list') newEntity[key] = [];
         else if( this.templateInfo[key].type == 'script_list') newEntity[key] = [];

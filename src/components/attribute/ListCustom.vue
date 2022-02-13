@@ -109,7 +109,12 @@ export default {
       if(stat == {}) return;
       if(!stat.id) return;
 
-      this.$set(this.value, stat.id, {name: stat.name, max: 100, current: 100});
+      if(this.reference.new_set){
+        this.$set(this.value, stat.id,
+          JSON.parse(JSON.stringify(this.reference.new_set))
+        );
+      }
+      else this.$set(this.value, stat.id, {name: stat.name});
       this.newStat = {};
     },
 		type(item){
@@ -129,6 +134,7 @@ export default {
       this.$modal.hide('flagStatModal');
     },
     match(index, stat){
+      /*
       console.log("SEE INDEX", index);
       this.reference.rule_set.forEach(row => {
         let start;
@@ -148,6 +154,8 @@ export default {
           }
         }
       });
+       */
+      index; stat;
     },
     updateNow(){
 		},

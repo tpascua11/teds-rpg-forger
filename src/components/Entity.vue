@@ -25,7 +25,7 @@
         <div class="row border-down-x3 margin1" style="min-height: 40px;">
           <div class="d-font-x2-b">
             <div class="pure-u-16-24">
-              {{showInterface}}
+              {{title}}
             </div>
             <div class="pure-u-8-24 right">
               <button class="pure-button b-yellow sm-button"
@@ -180,14 +180,12 @@ export default {
   },
   data: function() {
     return {
-      groupEntity: 'character',
-
+      //groupEntity: 'character',
       name: "Character",
 
       selectedAction: {empty: true},
       selectedInteraction: {},
       selectedEntity: {empty: true},
-      showInterface: "Character",
 
       selectedScriptList: [],
       listName: "",
@@ -199,6 +197,8 @@ export default {
   },
   props: {
     world: Object,
+    groupEntity: String,
+    title: String
   },
   computed: {
     thisMap: function(){
@@ -349,6 +349,5 @@ input:focus {
 .b-red{
   background-color: #FF7F7F;
 }
-
 
 </style>

@@ -38,6 +38,8 @@ export class World {
       {name: 'mana'},
       {name: 'stamina'},
       {name: 'currency'},
+      {name: 'grit'},
+      {name: 'gold'},
     ]
     this.statKeyMap = {
       0: {name: 'health'},
@@ -70,7 +72,7 @@ export class World {
           1: {name: 'mana'},
           2: {name: 'stamina'},
           3: {name: 'currency'},
-          4: {name: 'this has a really really long name'},
+          4: {name: 'experience'},
         }
 
       },
@@ -114,11 +116,19 @@ export class World {
               {rule: 'FORCE_MATCH', set: ['max', 'current']},
               {rule: 'FORCE_LOWER', set: ['current', 'max']},
             ],
-            default_set: {0: {max: 100, current: 100}}
+            default_set: {0: {max: 100, current: 100}},
+            //new_set{max: 100, current: 100}
           },
-          lockarmor      : {type: 'list_custom',    ref: 'item'},
-          inventory      : {type: 'list_multi_select',    ref: 'item'},
-          drop_inventory : {type: 'list_with_amount',     ref: 'item'},
+
+          inventory: {
+            type: 'list_custom',
+            ref: 'item',
+            value_option: {'amount': '#'},
+            new_set: {'amount': 1}
+          },
+
+
+
           on_death       : {type: 'script_list'},
           on_creation    : {type: 'script_list'},
           condition_list : {type: 'condition_list'}

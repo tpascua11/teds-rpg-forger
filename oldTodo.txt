@@ -1,0 +1,72 @@
+
+[X] Select A Row In Script List
+[X] Selected Row is editable
+[ ] Convert To $root style editing.
+[X] Make a if condition case in script list
+   (X) a new script list will be used inside the if condition
+   (X) Test add Description within if condition case.
+
+Priority NO FOCUS CLEAN UI
+
+[X] Change Location
+    (X) Make it work for the game
+
+[X] Condition Set Overhaul 2
+    (X) Use Stats Condition
+    (X) Use Item Condition
+    (X) Use Time Condition
+    (X) Complex Condition
+    (X) Overhaul Condition Modal Again! Smallify
+    (X) Use Complex Condition on Interaction
+
+[X] Area has its own Flags
+
+[ ]
+
+[T] Interaction has the improved conditions
+
+[T] Choice Condition tip: choice('choice 1', 'choice 2', 'choice 3')
+[T] While Condition  tip: (Go Back Index, if condition)
+[T] Else If
+[T] Interaction has its own Self Flags
+
+[T] World Events
+[T] Area On Visit or Time Event
+[T] Area Events
+
+[T] Random Chance If Condition
+  (T)) Modifier Based On Stats
+
+[X] Remove All Paper CSS. Use Pure CSS
+
+ 1/10/2021 (Added)
+ -------------------------------------------------------------------------------
+
+[-] All Maps will be converted to List Instead.
+    Easier Development due to just being a list and easily editable.
+    Just use index to get the name easily.
+[X] v-select replacement. Make sure it works on everything including conditions.
+
+[ ] Make easier conditions statments
+[ ] new placement of remove and return button of Action Script
+ -------------------------------------------------------------------------------
+ current:
+
+
+[ ] Clean World State Button
+[ ] Template World Button
+
+RPG SYSTEM (1 week)
+  [ ] Change it to Combat Actions
+  [ ] Stat View Modal
+  [ ] Current Stat Modifier (target stat.current)
+  [ ] Max Stat Modifier (target stat.max)
+  [ ] Basic Combat View
+
+Simple RPG game using your own editor...
+
+// Mobile App (1 week)
+See List Of Area
+Able to Travel Between Them
+See Area Descriptions
+
