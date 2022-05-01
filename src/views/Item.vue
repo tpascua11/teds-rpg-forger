@@ -1,169 +1,29 @@
 <template>
   <div class="container container-lg">
-    <div class="pure-u-1-24" >
-    </div>
-
-    <div class="pure-u-3-24" style="right: 10">
-      <ItemList
-        v-bind:name="name + ' List'"
-        v-bind:map="map"
-        v-bind:selectedItem="selectedItem"
-        v-bind:selectedName="selectedName"
-        v-bind:method="{addNewItem, selectItem}"
-      />
-    </div>
-
-    <div class="pure-u-1-24">
-    </div>
-
-    <div class="pure-u-12-24" v-if="selectedItem.empty">
-      <h3> Select or Add New Item... </h3>
-    </div>
-    <div class="pure-u-12-24 dt-border-x2" v-if="!selectedItem.empty">
-      <div class="border-down-x3">
-        <div class="">
-          <div class="pure-u-1-24" >
-            <i class="ra  ra-quill-ink   ra-2x"
-              style="position: relative; top: 5px; left: 5px;">
-            </i>
-          </div>
-          <div class="pure-u-23-24"
-               style="height: 50px; position:relative; top: 5px;
-                      positon: relative; left: 12px;">
-           <div>
-              <div class="" style="height: 25px; overflow: hidden; ">
-                <input
-                  class="borderless-gray" placeholder="name..."
-                  v-model="selectedItem.name"
-                  type="text" style="font-weight: 900; font-size: 25px; height:
-                  25px; width: 95%; text-decoration: underline; ">
-              </div>
-            </div>
-            <div class="pure-u-20-24" style="font-weight: 900;">
-              Type: Item
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="" v-if="true">
-        <ScriptListBuilder
-          v-bind:entity="selectedItem"
-          v-bind:scriptList="selectedItem.script_list"
-          v-model="selectedAction"
-        />
-      </div>
-    </div>
-
-    <div class="pure-u-1-24"></div>
-    <div class="pure-u-5-24 margin2" v-if="!selectedItem.empty">
-      <section class="">
-      <div class="">
-        <ScriptAction
-          v-model="selectedAction"
-          v-bind:scriptList="selectedItem.script_list"
-          v-bind:entity="selectedAction"
-        />
-      </div>
-      <div class="margin2" v-if="!selectedAction.empty">
-        <div class="pure-u-3-5">
-          <button class="button-warning pure-button full-width"
-            v-on:click="deselectAction()"       > Back </button>
-        </div>
-        <div class="pure-u-2-5">
-          <button class="button-error pure-button full-width"
-              v-on:click="removeAction()"       > Remove </button>
-        </div>
-      </div>
-      </section>
-    </div>
-  </div>
+    <Entity v-bind:groupEntity="'item'" 
+            v-bind:title="'Item'"/>
+ </div>
   </template>
 
 <script>
 
-import ItemList from '@/components/list/ItemList.vue'
-import ScriptListBuilder from '@/components/ScriptListBuilder.vue'
-import ScriptAction from '@/components/ScriptAction.vue'
+import Entity from '@/components/Entity.vue'
 
 export default {
   name: 'Items',
   data: function() {
     return {
-      name: "Item",
-      map: this.$root.world.group.item.list,
-
-      selectedAction: {empty: true},
-      selectedInteraction: {},
-      selectedItem: {scriptList: [], empty: true},
-      selectedName: "",
-
-
     };
   },
   components: {
-    ItemList,
-    ScriptListBuilder,
-    ScriptAction,
+    Entity
   },
   props: {
     world: Object,
   },
   computed: {
-    rworld: function(){
-      return this.$root.world;
-    },
-    itemMap: function(){
-      return this.$root.world.itemMap;
-    }
   },
   methods:{
-    addNewItem: function(){
-      this.selectedName = "-----------";
-      this.selectedItem = {
-        limit: 10,
-        description: "",
-        script_list: [],
-        scriptList: []
-      };
-
-      let index = Object.keys(this.map).length;
-      this.map[index] = this.selectedItem;
-      //this.selectedAction = {empty:true};
-
-      console.log("see this", this.map[index]);
-    },
-    selectItem: function(item){
-      this.selectedItem = item;
-      //this.selectedAction = {empty:true};
-    },
-    addToScriptList(script){
-      console.log('add new script', script);
-      this.selectedItem.script_list.push(script);
-      console.log("the selected script list", this.selectedItem.script_list.length);
-    },
-    convergeScriptList(scriptList){
-      scriptList;
-      /*
-      this.refreshList(scriptList);
-      this.selectedItem.scriptList = scriptList;
-      return this.selectedItem.scriptList;
-       */
-    },
-    refreshList(scriptList){
-      scriptList.forEach(function(script){
-        delete script.isMoved;
-      });
-    },
-    deselectAction(){
-      //console.log("ACTION DESELECTED!");
-      this.selectedAction = {empty:true};
-    },
-    removeAction(){
-      /*
-      this.selectedItem.scriptList.splice(this.selectedIndex, 1);
-      this.selectedAction = {empty:true};
-       */
-    }
   },
   mounted(){
   }

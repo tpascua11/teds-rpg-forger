@@ -7,7 +7,7 @@
       <JustList
         v-model="selectedEntity"
         v-bind:map="thisMapList"
-        v-bind:title="'Character'"
+        v-bind:title="title"
         v-bind:set_height="'450px'"
         v-bind:template="thisMap.template"
         v-bind:templateInfo="thisMap.templateInfo"
@@ -196,7 +196,6 @@ export default {
     };
   },
   props: {
-    world: Object,
     groupEntity: String,
     title: String
   },

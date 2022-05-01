@@ -76,15 +76,6 @@ export class World {
         }
 
       },
-      item: {
-        template: {name: '', amount: 0, amount_max: 10000, script_list: []},
-        list: {
-          0: {name: 'Gold'   , description: "currency", amount_max: 9001, script_list:[]},
-          1: {name: 'Silver' , description: "currency", amount_max: 9001, script_list:[]},
-          2: {name: 'Copper' , description: "currency", amount_max: 9001, script_list:[]},
-          3: {name: 'Spice'  , description: "currency", amount_max: 9001, script_list:[]},
-        }
-      },
       area: {
         template: {name: '', script_list: [], condition_list: [], interaction_list: {}},
         list: {
@@ -103,6 +94,10 @@ export class World {
 
         }
       },
+      complex_condition: {template: {}, list: {}},
+      common_event: {template: {}, list: {}},
+      global_event: {template: {}, list: {}},
+
       character: {
         templateInfo: {
           name           : {type: 'string'},
@@ -135,9 +130,25 @@ export class World {
         },
         list: {},
       },
-      complex_condition: {template: {}, list: {}},
-      common_event: {template: {}, list: {}},
-      global_event: {template: {}, list: {}},
+      item: {
+        templateInfo: {
+          name           : {type: 'string'},
+          description    : {type: 'string'},
+          on_use         : {type: 'script_list'},
+        },
+        list: {},
+      },
+      item2: {
+        template: {name: '', amount: 0, amount_max: 10000, script_list: []},
+        list: {
+          0: {name: 'Gold'   , description: "currency", amount_max: 9001, script_list:[]},
+          1: {name: 'Silver' , description: "currency", amount_max: 9001, script_list:[]},
+          2: {name: 'Copper' , description: "currency", amount_max: 9001, script_list:[]},
+          3: {name: 'Spice'  , description: "currency", amount_max: 9001, script_list:[]},
+        }
+      },
+
+
     }
 
   }
