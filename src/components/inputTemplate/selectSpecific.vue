@@ -40,8 +40,8 @@ export default {
       console.log("what is", this.option_to_value);
       if(this.option_to_value){
         this.option_to_value.forEach(row =>{
-          if(row[0] == 'id') this.value.[row[1]] = newID;
-          else this.value.[row[1]] = this.list[newID].[row[0]];
+          if(row[0] == 'id') this.value[row[1]] = newID;
+          else this.value[row[1]] = this.list[newID][row[0]];
         }, this);
       }
       this.indexer = newID;
