@@ -16,7 +16,7 @@ The old project can be used here --  [old-project](https://teds-rpg-forger.web.a
 
 Here is the concept of Entities - [second project](https://github.com/tpascua11/world-forger-old).
 
+<img width="1053" alt="Screen Shot 2024-01-20 at 3 48 03 AM" src="https://github.com/tpascua11/teds-rpg-forger/assets/8608458/63c3d1d6-6bab-45ad-a8fa-a66bf5e44f18">
 
-<img width="918" alt="Screen Shot 2024-01-20 at 2 57 02 AM" src="https://github.com/tpascua11/teds-rpg-forger/assets/8608458/788c3244-1f5f-44f1-974b-b3c206e3bc09">
 
 
